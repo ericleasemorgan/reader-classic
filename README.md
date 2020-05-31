@@ -1,6 +1,6 @@
-# Distant Reader
+# Distant Reader Classic
 
-The Distant Reader is a high performance computing (HPC) system which takes an almost arbitrary amount of unstructured data (text) as input and outputs a set of structured data for analysis -- "reading".
+The Distant Reader Classic is a high performance computing (HPC) system which takes an almost arbitrary amount of unstructured data (text) as input and outputs a set of structured data for analysis -- "reading".
 
 The Distant Reader takes one of five different types of input:
 
@@ -60,7 +60,7 @@ University of Notre Dame
 574/631-8604
 
 Created: June 28, 2018   
-Updated: April 16, 2020
+Updated: May 31, 2020
 
 
 
