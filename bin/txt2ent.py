@@ -5,14 +5,17 @@
 # Eric Lease Morgan <emorgan@nd.edu>
 # (c) University of Notre Dame and distributed under a GNU Public License
 
-# July 1, 2018 - first cut, or there abouts
+# July      1, 2018 - first cut, or there abouts
+# November 15, 2020 - installing on Azure
 
+
+# configure
+MODEL = 'en_core_web_sm'
 
 # require
 from nltk import *
 import os
 import re
-import scispacy
 import spacy
 import sys
 
@@ -23,7 +26,7 @@ if len( sys.argv ) != 2 :
 
 # initialize
 file = sys.argv[ 1 ]
-nlp  = spacy.load( 'en_core_web_sm', disable=['tagger'] )
+nlp  = spacy.load( MODEL, disable=['tagger'] )
 
 # limit ourselves to a few processors only
 #os.system( "taskset -pc 0-1 %d > /dev/null" % os.getpid() )

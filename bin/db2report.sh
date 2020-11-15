@@ -9,8 +9,8 @@
 
 
 # configure
-CARRELS='/export/reader/carrels'
-QUERIES='/export/reader/etc/queries.sql'
+CARRELS="$READERCLASSIC_HOME/carrels"
+QUERIES="$READERCLASSIC_HOME/etc/queries.sql"
 DB='/etc/reader.db'
 
 # sanity check

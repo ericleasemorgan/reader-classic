@@ -1,7 +1,11 @@
 #!/usr/bin/env python
 
+# pre-require and configure
+import os
+READERCLASSIC_HOME = os.environ[ 'READERCLASSIC_HOME' ]
+
 # configure
-TEMPLATE = '/export/reader/etc/tsv2htm-questions.htm'
+TEMPLATE = READERCLASSIC_HOME + '/etc/tsv2htm-questions.htm'
 
 # require
 import sys

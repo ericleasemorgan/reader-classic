@@ -1,11 +1,12 @@
 #!/usr/bin/env perl
 
 # configure
-use constant CARRELS  => '/export/reader/carrels';
-use constant DATABASE => 'etc/reader.db';
-use constant DRIVER   => 'SQLite';
-use constant QUERY    => 'SELECT id, title, summary FROM bib;';
-use constant TEMPLATE => '/export/reader/etc/template-search.htm';
+use constant READERCLASSIC_HOME => $ENV{ 'READERCLASSIC_HOME' };
+use constant CARRELS            => READERCLASSIC_HOME . '/carrels';
+use constant DATABASE           => 'etc/reader.db';
+use constant DRIVER             => 'SQLite';
+use constant QUERY              => 'SELECT id, title, summary FROM bib;';
+use constant TEMPLATE           => READERCLASSIC_HOME . '/etc/template-search.htm';
 
 # require
 use DBI;

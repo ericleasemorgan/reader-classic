@@ -12,6 +12,9 @@
 
 
 # configure
+MODEL = 'en_core_web_sm'
+
+# configure
 NGRAMS = 1
 TOPN   = 0.005
 
@@ -41,8 +44,8 @@ id = os.path.basename( os.path.splitext( file )[ 0 ] )
 
 # initialize model
 maximum = len( text ) + 1
-model   = spacy.load( 'en', max_length=maximum )
-doc     = model( text )
+nlp     = spacy.load( MODEL, max_length=maximum )
+doc     = nlp( text )
 
 # output a header
 print( "id\tkeyword" )

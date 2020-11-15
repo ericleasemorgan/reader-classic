@@ -9,9 +9,10 @@
 
 
 # configure
-use constant ETC     => 'etc';
-use constant CARRELS => '/export/reader/carrels';
-use constant READER  => 'reader';
+use constant READERCLASSIC_HOME => $ENV{ 'READERCLASSIC_HOME' };
+use constant ETC                => 'etc';
+use constant CARRELS            => READERCLASSIC_HOME . '/carrels';
+use constant READER             => 'reader';
 
 # require
 use Archive::Zip;

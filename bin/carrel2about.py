@@ -10,20 +10,25 @@
 # July      30, 2019 - hacking at PEARC '19
 # September  1, 2019 - began linking to cached files
 # September 14, 2019 - fixed unigrams & bigrams; Yoda says, "Really ugly, they are."
+# November  12, 2020 - migrated to a big compute node; in Lancaster
 
+
+# pre-require and configure
+import os
+READERCLASSIC_HOME = os.environ[ 'READERCLASSIC_HOME' ]
 
 # configure
-CLOUD      = '/export/reader/bin/cloud.py'
+CLOUD      = 'cloud.py'
 CLOUDCOUNT = 150
 CORPUS     = './etc/reader.txt'
 COUNT      = 50
 DATABASE   = './etc/reader.db'
 DIRECTORY  = './txt'
-NGRAMS     = '/export/reader/bin/ngrams.pl'
-PLOTFLESCH = '/export/reader/bin/plot-flesch.sh'
-PLOTSIZES  = '/export/reader/bin/plot-sizes.sh'
-TOPICMODEL = '/export/reader/bin/topic-model.py'
-TEMPLATE   = '/export/reader/etc/about.htm'
+NGRAMS     = 'ngrams.pl'
+PLOTFLESCH = 'plot-flesch.sh'
+PLOTSIZES  = 'plot-sizes.sh'
+TOPICMODEL = 'topic-model.py'
+TEMPLATE   = READERCLASSIC_HOME + '/etc/about.htm'
 
 # require
 from sqlalchemy import create_engine

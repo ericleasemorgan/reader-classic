@@ -10,7 +10,7 @@
 
 
 # configure
-ID2POS='/export/reader/bin/txt2pos.py'
+ID2POS='txt2pos.py'
 POS='pos'
 
 # sanity check
@@ -37,9 +37,6 @@ if [ -f "$OUTPUT" ]; then
 else
 	$ID2POS "$FILE" 1> "$OUTPUT"
 fi
-
-
-# MONITOR SQUEUE HERE
 
 # done
 exit

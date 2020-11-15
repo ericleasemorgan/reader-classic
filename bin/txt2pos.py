@@ -8,12 +8,16 @@
 # July 1, 2018 - first cut, or there abouts
 
 
+# configure
+MODEL = 'en_core_web_sm'
+
 # require
 from nltk import *
 import os
 import re
 import spacy
 import sys
+
 
 # sanity check
 if len( sys.argv ) != 2 :
@@ -22,7 +26,7 @@ if len( sys.argv ) != 2 :
 
 # initialize
 file = sys.argv[ 1 ]
-nlp  = spacy.load( 'en_core_web_sm' )
+nlp  = spacy.load( MODEL )
 
 # limit ourselves to a few processors only
 #os.system( "taskset -pc 0-1 %d > /dev/null" % os.getpid() )

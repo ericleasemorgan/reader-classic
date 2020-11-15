@@ -5,18 +5,18 @@
 # Eric Lease Morgan <emorgan@nd.edu>
 # (c) University of Notre Dame and distributed under a GNU Public License
 
-# July     8, 2018 - first cut; at the cabin
-# January 31, 2019 - removed the use of parallel
-# February 2, 2019 - started using Tika more intelligently; "Happy birthday, Mary!"
+# July      8, 2018 - first cut; at the cabin
+# January  31, 2019 - removed the use of parallel
+# February  2, 2019 - started using Tika more intelligently; "Happy birthday, Mary!"
+# November 15, 2020 - tweaking for operation on Azure; in Lancaster for a holiday
 
 
 # configure
-TIKA_HOME='/export/lib/tika'
+TIKA_HOME='/data-disk/lib/tika'
 CACHE='cache'
-CARRELS='/export/reader/carrels'
-FILE2TXT='/export/reader/bin/file2txt.sh'
+CARRELS="$READERCLASSIC_HOME/carrels"
+FILE2TXT='file2txt.sh'
 TXT='txt'
-PARALLEL='/export/bin/parallel'
 
 # sanity check
 if [[ -z "$1" ]]; then
@@ -43,17 +43,7 @@ export TIKA_STARTUP_MAX_RETRY
 mkdir -p "$OUTPUT"
 
 # find desirable file types, submit the work, wait, and done
-find $INPUT -type f | $PARALLEL $FILE2TXT {} $OUTPUT
-#find "$INPUT" -name '*.doc'  | $PARALLEL $FILE2TXT {} "$OUTPUT"
-#find "$INPUT" -name '*.docx' | $PARALLEL $FILE2TXT {} "$OUTPUT"
-#find "$INPUT" -name '*.htm'  | $PARALLEL $FILE2TXT {} "$OUTPUT"
-#find "$INPUT" -name '*.html' | $PARALLEL $FILE2TXT {} "$OUTPUT"
-#find "$INPUT" -name '*.pdf'  | $PARALLEL $FILE2TXT {} "$OUTPUT"
-#find "$INPUT" -name '*.ppt'  | $PARALLEL $FILE2TXT {} "$OUTPUT"
-#find "$INPUT" -name '*.pptx' | $PARALLEL $FILE2TXT {} "$OUTPUT"
-#find "$INPUT" -name '*.txt'  | $PARALLEL $FILE2TXT {} "$OUTPUT" 
-#find "$INPUT" -name '*.ukn'  | $PARALLEL $FILE2TXT {} "$OUTPUT"
-#find "$INPUT" -name '*.xml'  | $PARALLEL $FILE2TXT {} "$OUTPUT"
+find $INPUT -type f | parallel --will-cite $FILE2TXT {} $OUTPUT
 wait
 
 # clean up and done

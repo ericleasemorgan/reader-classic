@@ -9,7 +9,7 @@
 
 
 # configure
-FILE2TXT='/export/reader/bin/file2txt.py'
+FILE2TXT='file2txt.py'
 
 # sanity check
 if [[ -z "$1" || -z "$2" ]]; then

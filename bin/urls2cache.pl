@@ -5,7 +5,8 @@
 # Eric Lease Morgan <emorgan@nd.edu>
 # (c) University of Notre Dame and distributed under a GNU Public License
 
-# July 10, 2018 - first cut
+# July     10, 2018 - first cut
+# November 15, 2020 - tweaked (incorrectly) for Reader Classic on Azure
 
 
 # configure
@@ -15,7 +16,7 @@ use constant TIMEOUT => 10;
 # require
 use LWP::UserAgent;
 use strict;
-require '/export/reader/lib/reader.pl';
+require '/data-disk/reader-compute/reader-classic/lib/reader.pl';
 
 # read input
 my $url       = $ARGV[ 0 ];

@@ -1,20 +1,26 @@
 #!/usr/bin/env bash
 
+# make-pages.sh - given a study carrel, create sets of HTML pages (a narrative report)
+
+# Eric Lease Morgan <emorgan@nd.edu>
+# (c) University of Notre Dame; distributed under a GNU Public License
+
+# November 15, 2020 - create a long long time ago, but first notes; in Lancaster
+
 
 # configure
-CARREL2ABOUT='/export/reader/bin/carrel2about.py'
-CARREL2JSON='/export/reader/bin/carrel2json.py'
-CARREL2SEARCH='/export/reader/bin/carrel2search.pl'
-CARRELS='/export/reader/carrels'
-CORPUS2FILE='/export/reader/bin/corpus2file.sh'
-LISTQUESTIONS='/export/reader/bin/list-questions.sh'
-PARALLEL='/export/bin/parallel'
-TSV2COMPLEX='/export/reader/bin/tsv2htm-complex.py'
-TSV2ENTITIES='/export/reader/bin/tsv2htm-entities.py'
-TSV2HTM='/export/reader/bin/tsv2htm.py'
-TSV2QUESTIONS='/export/reader/bin/tsv2htm-questions.py'
-DB2BIBLIOGRAPHICS='/export/reader/bin/db2tsv-bibliographics.py'
-TSV2BIBLIOGRAPHICS='/export/reader/bin/tsv2htm-bibliographics.py'
+CARREL2ABOUT='carrel2about.py'
+CARREL2JSON='carrel2json.py'
+CARREL2SEARCH='carrel2search.pl'
+CARRELS="$READERCLASSIC_HOME/carrels"
+CORPUS2FILE='corpus2file.sh'
+LISTQUESTIONS='list-questions.sh'
+TSV2COMPLEX='tsv2htm-complex.py'
+TSV2ENTITIES='tsv2htm-entities.py'
+TSV2HTM='tsv2htm.py'
+TSV2QUESTIONS='tsv2htm-questions.py'
+DB2BIBLIOGRAPHICS='db2tsv-bibliographics.py'
+TSV2BIBLIOGRAPHICS='tsv2htm-bibliographics.py'
 TXT='txt/*.txt'
 
 # sanity check
@@ -72,14 +78,8 @@ $CARREL2SEARCH $CARREL > ./htm/search.htm
 
 # create data and page for topic modeling
 echo "==== make-pages.sh topic modeling corpus" >&2
-find txt/*.txt | $PARALLEL --will-cite $CORPUS2FILE {} > ./etc/model-data.txt
-cp /export/reader/etc/template-model.htm ./htm/topic-model.htm
-
-# create cool network diagram ("Thanks, Team JAMS!")
-#echo "==== make-pages.sh network diagram" >&2
-#$CARREL2JSON > ./etc/network-graph.json
-#cp /export/reader/etc/template-diagram.htm ./htm/network-diagram.htm
-
+find txt/*.txt | parallel --will-cite $CORPUS2FILE {} > ./etc/model-data.txt
+cp $READERCLASSIC_HOME/etc/template-model.htm ./htm/topic-model.htm
 
 # done
 wait

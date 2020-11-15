@@ -15,8 +15,8 @@
 
 
 # configure
-CARRELS='/export/reader/carrels'
-INITIALIZEDB='/export/reader/bin/initialize-database.sh'
+CARRELS="$READERCLASSIC_HOME/carrels"
+INITIALIZEDB='initialize-database.sh'
 
 # sanity check
 if [[ -z "$1" ]]; then
@@ -46,14 +46,14 @@ mkdir -p "./urls"
 mkdir -p "./wrd"
 
 # fill file system
-cp ../../css/*             "./css"
-cp ../../etc/LICENSE       "./"
-cp ../../etc/MANIFEST.htm  "./"
-cp ../../etc/queries.sql   "./etc"
-cp ../../etc/reader.sql    "./etc"
-cp ../../etc/README        "./"
-cp ../../etc/stopwords.txt "./etc"
-cp ../../js/*              "./js"
+cp $READERCLASSIC_HOME/css/*             "./css"
+cp "$READERCLASSIC_HOME/etc/LICENSE"        "./"
+cp "$READERCLASSIC_HOME/etc/MANIFEST.htm"  "./"
+cp "$READERCLASSIC_HOME/etc/queries.sql"   "./etc"
+cp "$READERCLASSIC_HOME/etc/reader.sql"    "./etc"
+cp "$READERCLASSIC_HOME/etc/README"        "./"
+cp "$READERCLASSIC_HOME/etc/stopwords.txt" "./etc"
+cp $READERCLASSIC_HOME/js/*              "./js"
 
 echo "Initializing database" >&2
 $INITIALIZEDB "$CARRELS/$NAME"
