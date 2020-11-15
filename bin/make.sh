@@ -17,6 +17,7 @@ MAKEPAGES='make-pages.sh'
 MAP='map.sh'
 REDUCE='reduce.sh'
 REPORT='etc/report.txt'
+CARREL2ZIP='carrel2zip.pl'
 
 # sanity check
 if [[ -z "$1" ]]; then
@@ -58,6 +59,15 @@ cat "$CARRELS/$NAME/$REPORT"
 
 # create about file
 $MAKEPAGES $NAME
+
+# zip it up
+echo "Zipping study carrel" >&2
+rm -rf ./tmp
+echo "" >&2
+$CARREL2ZIP $NAME
+
+# make zip file accessible
+cp "./etc/reader.zip" "./study-carrel.zip"
 
 # done
 exit

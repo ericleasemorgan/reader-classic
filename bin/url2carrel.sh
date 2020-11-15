@@ -13,8 +13,6 @@
 # get the name of newly created directory
 NAME=$( pwd )
 NAME=$( basename $NAME )
-#echo "Created carrel: $NAME" >&2
-#echo "" >&2
 
 # configure
 CARRELS="$READERCLASSIC_HOME/carrels"
@@ -24,10 +22,7 @@ HTML2URLS='html2urls.pl'
 URL2CACHE='urls2cache.pl'
 CACHE='cache';
 MAKE='make.sh'
-CARREL2ZIP='carrel2zip.pl'
-PREFIX='http://cds.crc.nd.edu/reader/carrels'
 SUFFIX='etc'
-LOG="$CARRELS/$NAME/log"
 TIMEOUT=5
 DB='./etc/reader.db'
 
@@ -80,16 +75,6 @@ cat ./tmp/update-bibliographics.sql | sqlite3 $DB
 echo "Building study carrel named $NAME" >&2
 $MAKE $NAME
 echo "" >&2
-
-# zip it up
-echo "Zipping study carrel" >&2
-rm -rf ./tmp
-#cp "$LOG/$NAME.log" "$NAME/log" 
-$CARREL2ZIP $NAME
-echo "" >&2
-
-# make zip file accessible
-cp "./etc/reader.zip" "./study-carrel.zip"
 
 # done
 echo "Done" >&2
