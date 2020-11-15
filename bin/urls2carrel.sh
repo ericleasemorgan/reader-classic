@@ -9,6 +9,7 @@
 # July     14, 2018 - more investigation
 # July     16, 2018 - made things more module
 # November 17, 2019 - hacked to accepte command line input and rename input file
+# November 15, 2020 - migrating to Azure
 
 
 # sanity check
@@ -23,39 +24,28 @@ mv "$1" input-file.txt
 # configure input
 FILE=./input-file.txt
 
-# set up environment
-PERL_HOME='/export/perl/bin'
-JAVA_HOME='/export/java/bin'
-PYTHON_HOME='/export/python/bin'
-WORD2VEC_HOME='/export/word2vec/bin'
-PATH=$PYTHON_HOME:$WORD2VEC_HOME:$PERL_HOME:$JAVA_HOME:$PATH
-export PATH
-
 # get the name of newly created directory
 NAME=$( pwd )
 NAME=$( basename $NAME )
-echo "Created carrel: $NAME" >&2
-echo "" >&2
 
 # configure some more
-INITIALIZECARREL='/export/reader/bin/initialize-carrel.sh'
-URL2CACHE='/export/reader/bin/urls2cache.pl'
-CARRELS='/export/reader/carrels'
-CACHE='cache';
+CARRELS="$READERCLASSIC_HOME/carrels"
 TMP="$CARRELS/$NAME/tmp"
-MAKE='/export/reader/bin/make.sh'
-CARREL2ZIP='/export/reader/bin/carrel2zip.pl'
 LOG="$CARRELS/$NAME/log"
+CACHE='cache';
+MAKE='make.sh'
+CARREL2ZIP='carrel2zip.pl'
 DB='./etc/reader.db'
+URL2CACHE='urls2cache.pl'
+INITIALIZECARREL='initialize-carrel.sh'
 
 # create a study carrel
 echo "Creating study carrel named $NAME" >&2
-echo "" >&2
 $INITIALIZECARREL $NAME
 
 # process each line from cache and... cache again
 echo "Processing each URL in $TMP/$NAME.txt" >&2
-cat "./$FILE" | /export/bin/parallel $URL2CACHE {} "$CACHE"
+cat "./$FILE" | parallel --will-cite $URL2CACHE {} $CACHE
 
 # process each file in the cache
 for FILE in cache/* ; do
@@ -90,6 +80,6 @@ echo "" >&2
 # make zip file accessible
 cp "./etc/reader.zip" "./study-carrel.zip"
 
-
 # done
+echo "Done" >&2
 exit
