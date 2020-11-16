@@ -31,7 +31,6 @@ NAME=$( basename $NAME )
 # configure some more
 CARRELS="$READERCLASSIC_HOME/carrels"
 TMP="$CARRELS/$NAME/tmp"
-LOG="$CARRELS/$NAME/log"
 CACHE='cache';
 MAKE='make.sh'
 CARREL2ZIP='carrel2zip.pl'

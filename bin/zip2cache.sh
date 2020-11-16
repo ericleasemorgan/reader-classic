@@ -10,9 +10,8 @@
 
 
 # configure
-CARRELS='/export/reader/carrels'
-PARALLEL='/export/bin/parallel'
-METADATA2SQL='/export/reader/bin/metadata2sql.py'
+CARRELS="$READERCLASSIC_HOME/carrels"
+METADATA2SQL='metadata2sql.py'
 DB='./etc/reader.db'
 
 # sanity check
@@ -28,19 +27,19 @@ cd "$CARRELS/$NAME"
 # initialize temporary file system and unzip
 rm -rf ./tmp/input
 mkdir ./tmp/input
-unzip input.zip -d ./tmp/input -x '*MACOSX*' 1>&2 
+unzip input-file.zip -d ./tmp/input -x '*MACOSX*' 1>&2 
 
 # copy known file types to the cache; normalize file names here
-find tmp/input -name "*.pdf"  | $PARALLEL --will-cite mv {} cache
-find tmp/input -name "*.PDF"  | $PARALLEL --will-cite mv {} cache
-find tmp/input -name "*.xml"  | $PARALLEL --will-cite mv {} cache
-find tmp/input -name "*.htm"  | $PARALLEL --will-cite mv {} cache
-find tmp/input -name "*.html" | $PARALLEL --will-cite mv {} cache
-find tmp/input -name "*.txt"  | $PARALLEL --will-cite mv {} cache
-find tmp/input -name "*.doc"  | $PARALLEL --will-cite mv {} cache
-find tmp/input -name "*.docx" | $PARALLEL --will-cite mv {} cache
-find tmp/input -name "*.pptx" | $PARALLEL --will-cite mv {} cache
-find tmp/input -name "*.xlsx" | $PARALLEL --will-cite mv {} cache
+find tmp/input -name "*.pdf"  | parallel --will-cite mv {} cache
+find tmp/input -name "*.PDF"  | parallel --will-cite mv {} cache
+find tmp/input -name "*.xml"  | parallel --will-cite mv {} cache
+find tmp/input -name "*.htm"  | parallel --will-cite mv {} cache
+find tmp/input -name "*.html" | parallel --will-cite mv {} cache
+find tmp/input -name "*.txt"  | parallel --will-cite mv {} cache
+find tmp/input -name "*.doc"  | parallel --will-cite mv {} cache
+find tmp/input -name "*.docx" | parallel --will-cite mv {} cache
+find tmp/input -name "*.pptx" | parallel --will-cite mv {} cache
+find tmp/input -name "*.xlsx" | parallel --will-cite mv {} cache
 
 # configure possible metadata file
 DIRECTORIES=( $(find ./tmp/input -type d) )
