@@ -12,17 +12,14 @@
 # November 15, 2019 - hacking on vacation during a pandemic
 
 
-# configure
-FILE='./input-file.ukn'
-
 # sanity check
 if [[ -z $1 ]]; then
 	echo "Usage: $0 <file>" >&2
 	exit
 fi	
 
-# rename input to a "standard" name; a hack
-mv "$1" $FILE
+# initialize
+FILE=$1
 
 # get the name of newly created directory
 NAME=$( pwd )

@@ -20,7 +20,6 @@ GUTENBERGQUEUE2ZIP='gutenbergqueue2zip.pl'
 SEARCH='search.pl'
 URL2CARREL='url2carrel.sh'
 URLS2CARREL='urls2carrel.sh'
-ZIP2CARREL='zip2carrel.sh'
 
 # get the input
 if [[ -z $1 ]]; then
@@ -73,6 +72,33 @@ cat $TSV | while read TYPE SHORTNAME DATE TIME EMAIL CONTENT; do
 		echo "Making sane and doing the work ($URL2CARREL)" >&2
 		cd "$CARRELS/$SHORTNAME"
 		$URL2CARREL "$CONTENT" 1>standard-output.txt 2>standard-error.txt &
+	
+	# urls2carrel
+	elif [[ $TYPE = "urls2carrel" ]]; then
+	
+		# make sane and do the work
+		echo "Making sane and doing the work ($URLS2CARREL)" >&2
+		cd "$CARRELS/$SHORTNAME"
+		mv $BACKLOG/$CONTENT ./input-urls.txt
+		$URLS2CARREL ./input-urls.txt 1>standard-output.txt 2>standard-error.txt &
+	
+	# file2carrel
+	elif [[ $TYPE = "file2carrel" ]]; then
+	
+		# make sane and do the work
+		echo "Making sane and doing the work ($FILE2CARREL)" >&2
+		cd "$CARRELS/$SHORTNAME"
+		mv $BACKLOG/$CONTENT $CONTENT
+		$FILE2CARREL $CONTENT 1>standard-output.txt 2>standard-error.txt &
+	
+	# zip2carrel
+	elif [[ $TYPE = "zip2carrel" ]]; then
+	
+		# make sane and do the work
+		echo "Making sane and doing the work ($ZIP2CARREL)" >&2
+		cd "$CARRELS/$SHORTNAME"
+		mv $BACKLOG/$CONTENT ./input-file.zip
+		$ZIP2CARREL ./input-file.zip 1>standard-output.txt 2>standard-error.txt &
 	
 	# biorxiv
 	elif [[ $TYPE = "biorxiv" ]]; then
