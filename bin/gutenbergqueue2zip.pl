@@ -13,7 +13,7 @@ use constant SOLR               => 'http://10.0.1.11:8983/solr/reader-gutenberg'
 use constant TEXTS              => '/data-disk/reader-compute/reader-gutenberg/texts';
 use constant ROWS               => 999;
 use constant DIRECTORY          => 'input-file';
-use constant ROOT               => 'http://localhost:8080/gutenberg/texts';
+use constant ROOT               => 'http://distantreader.org/gutenberg/texts';
 use constant HEADER             => ( 'gid', 'author', 'title', 'file', 'local url', 'remote url' );
 use constant METADATA           => 'metadata.csv';
 

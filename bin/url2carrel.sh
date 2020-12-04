@@ -25,6 +25,7 @@ MAKE='make.sh'
 SUFFIX='etc'
 TIMEOUT=5
 DB='./etc/reader.db'
+CARREL2PATRONS='carrel2patrons.sh'
 
 # validate input
 if [[ -z $1 ]]; then
@@ -76,6 +77,8 @@ echo "Building study carrel named $NAME" >&2
 $MAKE $NAME
 echo "" >&2
 
+# move the carrel to patron's cache
+$CARREL2PATRONS $NAME
+
 # done
-echo "Done" >&2
 exit

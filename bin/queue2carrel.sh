@@ -20,6 +20,7 @@ GUTENBERGQUEUE2ZIP='gutenbergqueue2zip.pl'
 SEARCH='search.pl'
 URL2CARREL='url2carrel.sh'
 URLS2CARREL='urls2carrel.sh'
+ZIP2CARREL='zip2carrel.sh'
 
 # get the input
 if [[ -z $1 ]]; then

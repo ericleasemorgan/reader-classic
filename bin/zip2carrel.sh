@@ -33,6 +33,7 @@ TMP="$CARRELS/$NAME/tmp"
 CACHE='cache';
 ZIP2CACHE='zip2cache.sh'
 MAKE='make.sh'
+CARREL2PATRONS='carrel2patrons.sh'
 
 # create a study carrel
 echo "Creating study carrel named $NAME" >&2
@@ -47,6 +48,9 @@ $ZIP2CACHE $NAME
 echo "Building study carrel named $NAME" >&2
 $MAKE $NAME
 echo "" >&2
+
+# move the carrel to patron's cache
+$CARREL2PATRONS $NAME
 
 # done
 exit

@@ -37,6 +37,8 @@ CARREL2ZIP='carrel2zip.pl'
 DB='./etc/reader.db'
 URL2CACHE='urls2cache.pl'
 INITIALIZECARREL='initialize-carrel.sh'
+CARREL2PATRONS='carrel2patrons.sh'
+
 
 # create a study carrel
 echo "Creating study carrel named $NAME" >&2
@@ -67,8 +69,9 @@ cat ./tmp/update-bibliographics.sql | sqlite3 $DB
 # build the carrel; the magic happens here
 echo "Building study carrel named $NAME" >&2
 $MAKE $NAME
-echo "" >&2
+
+# move the carrel to patron's cache
+$CARREL2PATRONS $NAME
 
 # done
-echo "Done" >&2
 exit

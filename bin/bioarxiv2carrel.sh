@@ -28,6 +28,7 @@ NAME=$( basename $NAME )
 INITIALIZECARREL='initialize-carrel.sh'
 BIOARXIV2CACHE='bioarxiv2cache.sh'
 MAKE='make.sh'
+CARREL2PATRONS='carrel2patrons.sh'
 
 # create a study carrel
 echo "Creating study carrel named $NAME" >&2
@@ -41,6 +42,8 @@ $BIOARXIV2CACHE $FILE
 echo "Building study carrel named $NAME" >&2
 $MAKE $NAME
 
+# move the carrel to patron's cache
+$CARREL2PATRONS $NAME
+
 # done
-echo "Done with bioarxiv2carrel" >&2
 exit

@@ -28,6 +28,7 @@ NAME=$( basename $NAME )
 # configure some more
 CACHE='cache';
 INITIALIZECARREL='initialize-carrel.sh'
+CARREL2PATRONS='carrel2patrons.sh'
 MAKE='make.sh'
 DB='./etc/reader.db'
 
@@ -61,6 +62,9 @@ cat ./tmp/update-bibliographics.sql | sqlite3 $DB
 # build the carrel; the magic happens here
 echo "Building study carrel named $NAME" >&2
 $MAKE $NAME
+
+# move the carrel to patron's cache
+$CARREL2PATRONS $NAME
 
 # done
 exit
