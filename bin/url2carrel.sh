@@ -26,6 +26,7 @@ SUFFIX='etc'
 TIMEOUT=5
 DB='./etc/reader.db'
 CARREL2PATRONS='carrel2patrons.sh'
+EMAILPATRON='email-patron.sh'
 
 # validate input
 if [[ -z $1 ]]; then
@@ -37,6 +38,9 @@ fi
 
 # get the input
 URL=$1
+
+# send a status message
+$EMAILPATRON $NAME started
 
 # create a study carrel
 echo "Creating study carrel named $NAME" >&2
@@ -76,6 +80,9 @@ cat ./tmp/update-bibliographics.sql | sqlite3 $DB
 echo "Building study carrel named $NAME" >&2
 $MAKE $NAME
 echo "" >&2
+
+# send a status message
+$EMAILPATRON $NAME finished
 
 # move the carrel to patron's cache
 $CARREL2PATRONS $NAME

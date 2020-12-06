@@ -29,6 +29,10 @@ INITIALIZECARREL='initialize-carrel.sh'
 BIOARXIV2CACHE='bioarxiv2cache.sh'
 MAKE='make.sh'
 CARREL2PATRONS='carrel2patrons.sh'
+EMAILPATRON='email-patron.sh'
+
+# send a status message
+$EMAILPATRON $NAME started
 
 # create a study carrel
 echo "Creating study carrel named $NAME" >&2
@@ -41,6 +45,9 @@ $BIOARXIV2CACHE $FILE
 # build the carrel; the magic happens here
 echo "Building study carrel named $NAME" >&2
 $MAKE $NAME
+
+# send a status message
+$EMAILPATRON $NAME finished
 
 # move the carrel to patron's cache
 $CARREL2PATRONS $NAME

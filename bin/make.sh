@@ -18,6 +18,7 @@ MAP='map.sh'
 REDUCE='reduce.sh'
 REPORT='etc/report.txt'
 CARREL2ZIP='carrel2zip.pl'
+EMAILPATRON='email-patron.sh'
 
 # sanity check
 if [[ -z "$1" ]]; then
@@ -56,6 +57,9 @@ tr -s ' ' < ./tmp/corpus.003 > "$CORPUS"
 # output a report against the database
 $DB2REPORT $NAME > "$CARRELS/$NAME/$REPORT"
 cat "$CARRELS/$NAME/$REPORT"
+
+# send a status message
+$EMAILPATRON $NAME processing
 
 # create about file
 $MAKEPAGES $NAME
