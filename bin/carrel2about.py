@@ -28,7 +28,14 @@ NGRAMS     = 'ngrams.pl'
 PLOTFLESCH = 'plot-flesch.sh'
 PLOTSIZES  = 'plot-sizes.sh'
 TOPICMODEL = 'topic-model.py'
-TEMPLATE   = READERCLASSIC_HOME + '/etc/about.htm'
+PROVENANCE = './provenance.tsv'
+PATRONS    = '/data-disk/etc/reader-patrons.db'
+ZIP2CARREL = READERCLASSIC_HOME + '/etc/template-zip2carrel.htm'
+URL2CARREL = READERCLASSIC_HOME + '/etc/template-url2carrel.htm'
+URLS2CARREL = READERCLASSIC_HOME + '/etc/template-urls2carrel.htm'
+FILE2CARREL = READERCLASSIC_HOME + '/etc/template-file2carrel.htm'
+BIORXIV2CARREL = READERCLASSIC_HOME + '/etc/template-biorxiv2carrel.htm'
+GUTENBERG2CARREL = READERCLASSIC_HOME + '/etc/template-gutenberg2carrel.htm'
 
 # require
 from sqlalchemy import create_engine
@@ -404,8 +411,51 @@ sys.stderr.write( '                        file(s): ' + ', '.join( [ '; '.join( 
 sys.stderr.write( '                      titles(s): ' + ' | '.join( [ '; '.join( titles ) for titles in topicQuintupleTitles ] ) + '\n' )
 sys.stderr.write( '\n' )
 
+# read the provenance data
+with open( PROVENANCE, 'r' ) as handle : record = handle.read().strip()
+fields       = record.split( "\t" )
+type         = fields[ 0 ]
+nameofcarrel = fields[ 1 ]
+date         = fields[ 2 ]
+time         = fields[ 3 ]
+username     = fields[ 4 ]
+input       = fields[ 5 ]
+
+# given a username, get the name and email 
+engine = create_engine( 'sqlite:///' + PATRONS )
+query  = "SELECT name, email FROM patrons WHERE username is '{}'".format( username )
+result = pd.read_sql_query( query, engine )
+patron = result.at[ 0, 'name' ]
+email  = result.at[ 0, 'email' ]
+
+# debug
+sys.stderr.write( "      Type: " + type + '\n' )
+sys.stderr.write( "     title: " + nameofcarrel + '\n' )
+sys.stderr.write( "      date: " + date + '\n' )
+sys.stderr.write( "      time: " + time + '\n' )
+sys.stderr.write( "  username: " + username + '\n' )
+sys.stderr.write( "    patron: " + patron + '\n' )
+sys.stderr.write( "     email: " + email + '\n' )
+sys.stderr.write( "     input: " + input + '\n' )
+
+# initialize the template
+if   ( type == 'zip2carrel' )     : template = ZIP2CARREL
+elif ( type == 'url2carrel' )     : template = URL2CARREL
+elif ( type == 'urls2carrel' )    : template = URLS2CARREL
+elif ( type == 'file2carrel' )    : template = FILE2CARREL
+elif ( type == 'biorxiv' )        : template = BIORXIV2CARREL
+elif ( type == 'gutenberg' )      : template = GUTENBERG2CARREL
+else : sys.stderr.write( "Error: Unknown value for type (" + type + ") Call Eric.\n" )
+
 # open the template and do the substitutions
-with open( TEMPLATE, 'r' ) as handle : html = handle.read()
+with open( template, 'r' ) as handle : html = handle.read()
+html = html.replace( '##NAMEOFCARREL##',           nameofcarrel )
+html = html.replace( '##DATEOFCREATION##',           date )
+html = html.replace( '##TIMEOFCREATION##',           time )
+html = html.replace( '##PATRON##',           patron )
+html = html.replace( '##EMAILOFCREATOR##',           email )
+html = html.replace( '##INPUT##',                  input )
+html = html.replace( '##CREATIONPROCESS##',                  type )
 html = html.replace( '##NUMBEROFITEMS##',          str( numberOfItems ) )
 html = html.replace( '##SUMOFWORDS##',             str( sumOfWords ) )
 html = html.replace( '##AVERAGESIZEINWORDS##',     str( averageSizeInWords)  )
