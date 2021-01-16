@@ -37,6 +37,8 @@ find tmp/input -name "*.htm"  | parallel --will-cite mv {} cache
 find tmp/input -name "*.html" | parallel --will-cite mv {} cache
 find tmp/input -name "*.txt"  | parallel --will-cite mv {} cache
 find tmp/input -name "*.doc"  | parallel --will-cite mv {} cache
+find tmp/input -name "*.epub" | parallel --will-cite mv {} cache
+find tmp/input -name "*.xml"  | parallel --will-cite mv {} cache
 find tmp/input -name "*.docx" | parallel --will-cite mv {} cache
 find tmp/input -name "*.pptx" | parallel --will-cite mv {} cache
 find tmp/input -name "*.xlsx" | parallel --will-cite mv {} cache
