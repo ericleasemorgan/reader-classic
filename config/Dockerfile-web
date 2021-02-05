@@ -1,0 +1,21 @@
+# The intention of this file is to set up a local test
+# envrionment of the web front-end to Distant Reader.
+
+FROM centos:7
+
+RUN yum install -y httpd
+
+RUN mkdir -p /var/log/httpd && chmod a+rwx /var/log/httpd
+
+COPY config /etc/httpd/conf/
+
+RUN mkdir -p /data-disk/www/html/library /data-disk/www/html/reader /data-disk/www/html/cord /data-disk/www/html/localhost  
+
+COPY www/library /data-disk/www/html/library
+COPY www/reader /data-disk/www/html/reader
+
+EXPOSE 80 8080
+
+CMD httpd -DFOREGROUND
+
+# vim:ft=Dockerfile
