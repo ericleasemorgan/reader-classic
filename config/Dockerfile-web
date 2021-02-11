@@ -3,7 +3,7 @@
 
 FROM centos:7
 
-RUN yum install -y httpd perl perl-CGI
+RUN yum install -y httpd perl perl-CGI rsync
 
 RUN mkdir -p /var/log/httpd \
         /data-disk/bin \
@@ -21,6 +21,7 @@ COPY config/dummy-htpasswd /data-disk/etc/reader-htpasswd
 COPY config /etc/httpd/conf/
 COPY www/library /data-disk/www/html/library
 COPY www/reader /data-disk/www/html/reader
+COPY . /data-disk/reader-classic
 
 EXPOSE 80 8080
 
