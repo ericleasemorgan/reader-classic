@@ -3,7 +3,7 @@
 
 FROM centos:7
 
-RUN yum install -y httpd perl perl-CGI rsync
+RUN yum install -y httpd perl perl-CGI rsync mod_wsgi
 
 RUN mkdir -p /var/log/httpd \
         /data-disk/bin \
