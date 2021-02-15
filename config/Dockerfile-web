@@ -3,7 +3,12 @@
 
 FROM centos:7
 
-RUN yum install -y httpd perl perl-CGI rsync mod_wsgi
+# set up packages
+COPY config/runit.repo /etc/yum.repos.d/imeyer_runit.repo
+RUN yum install -y httpd perl perl-CGI rsync runit python3 which
+RUN pip3 install pipenv
+# for pipenv & flask
+ENV LANG=en_US.utf8
 
 RUN mkdir -p /var/log/httpd \
         /data-disk/bin \
@@ -23,8 +28,13 @@ COPY www/library /data-disk/www/html/library
 COPY www/reader /data-disk/www/html/reader
 COPY . /data-disk/reader-classic
 
+RUN cd /data-disk/reader-classic/webui && pipenv install
+
 EXPOSE 80 8080
 
-CMD httpd -DFOREGROUND
+# set up the daemon processes for supervision
+RUN mkdir /service /var/log/reader
+COPY config/runit/ /service 
+CMD /sbin/runsvdir /service
 
 # vim:ft=Dockerfile
