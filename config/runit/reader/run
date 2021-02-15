@@ -1,0 +1,5 @@
+#!/bin/bash
+export LANG=en_US.utf8
+exec 2>&1
+cd /data-disk/reader-classic/webui
+exec pipenv run gunicorn --access-logfile - hello:app

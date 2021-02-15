@@ -11,3 +11,4 @@ library.db
 log
 queue
 tmp
+__pycache__
