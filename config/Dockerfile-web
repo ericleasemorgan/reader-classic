@@ -21,6 +21,8 @@ RUN mkdir -p /var/log/httpd \
         /data-disk/www/html/reader \
         /data-disk/www/html/cord \
         /data-disk/www/html/localhost \
+        /data-disk/reader-compute/reader-classic/queue/todo/ \
+        /data-disk/reader-compute/reader-classic/queue/backlog/ \
         /opt/reader \
         /opt/reader/log \
         /opt/reader/pip_cache \

@@ -1,0 +1,65 @@
+<html>
+<head>
+	<title>The Distant Reader - Project Gutenberg to study carrel</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="/etc/style.css">
+	<style>
+		.item { margin-bottom: 1em }
+	</style>
+</head>
+<body>
+<div class="header">
+	<h1>The Distant Reader - Project Gutenberg to study carrel</h1>
+</div>
+
+<div class="col-3 col-m-3 menu">
+  <ul>
+		<li style='margin-bottom: 2em'><a href="/">Distant Reader home</a></li>
+		
+		<li ><a href="/file2carrel/">File to study carrel</a></li>
+		<li><a href="/zip2carrel/">Zip to study carrel</a></li>
+		<li><a href="/url2carrel/">URL to study carrel</a></li>
+		<li><a href="/urls2carrel/">URLs to study carrel</a></li>
+		<li><a href="/trust2carrel/">HathiTrust to study carrel</a></li>
+		<li style='margin-bottom: 2em'><a href="/biorxiv2carrel/">Biorxiv to study carrel</a></li>
+		
+		<li><a href="/gutenberg/">Project Gutenberg to study carrel</a></li>
+		<li><a href="/cord/">COVID-19 to study carrel</a></li>
+		
+ </ul>
+</div>
+
+<div class="col-9 col-m-9">
+
+	<p>Use this form to queue the creation of a study carrel with the results of your search.</p>
+	
+	<form method='GET'>
+        <input type='hidden' name="query" value='{{ query }}' />
+	<table>
+		<tr>
+			<td style='text-align:right'>Short name:</td>
+			<td><input type='text'
+			           name='shortname'
+			           autofocus="autofocus"
+			           onkeyup="this.value = this.value.replace( /[^a-z|^A-Z|0-9|_|\-]/, '' )" />
+			</td>
+		</tr>
+		<tr>
+			<td style='text-align:right'>Action</td>
+			<td><input type='submit' name='queue' value='Queue' /></td>
+		<tr>
+	</table>
+	
+	</form>
+
+	<div class="footer">
+		<p style='text-align: right'>
+		Eric Lease Morgan &amp; Team Project Gutenberg<br />
+		November 26, 2020
+		</p>
+	</div>
+
+</div>
+
+</body>
+</html>
