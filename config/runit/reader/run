@@ -1,5 +1,7 @@
 #!/bin/bash
 export LANG=en_US.utf8
+export PIPENV_CACHE_DIR=/opt/reader/pip_cache
+export WORKON_HOME=/opt/reader/pip_cache
 exec 2>&1
-cd /data-disk/reader-classic/webui
-exec pipenv run gunicorn --access-logfile - hello:app
+cd /opt/reader
+exec chpst -u app pipenv run gunicorn --access-logfile - hello:app
