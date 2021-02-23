@@ -7,8 +7,12 @@ FROM centos:7
 COPY config/runit.repo /etc/yum.repos.d/imeyer_runit.repo
 RUN yum install -y httpd perl perl-CGI rsync runit python3 which
 RUN pip3 install pipenv
+
 # for pipenv & flask
 ENV LANG=en_US.utf8
+
+# user for running gunicorn with
+RUN useradd -r -u 800 -U app
 
 RUN mkdir -p /var/log/httpd \
         /data-disk/bin \
@@ -17,24 +21,36 @@ RUN mkdir -p /var/log/httpd \
         /data-disk/www/html/reader \
         /data-disk/www/html/cord \
         /data-disk/www/html/localhost \
-    && chmod a+rwx /var/log/httpd \
+        /opt/reader \
+        /opt/reader/log \
+        /opt/reader/pip_cache \
+    && chmod a+rwx /var/log/httpd /opt/reader/ /opt/reader/log /opt/reader/pip_cache \
     && ln -s /usr/bin/perl /data-disk/bin/perl
 
 # dummy user "test", password "test"
 COPY config/dummy-htpasswd /data-disk/etc/reader-htpasswd
 
+# copy apache and cgi stuff
 COPY config /etc/httpd/conf/
 COPY www/library /data-disk/www/html/library
 COPY www/reader /data-disk/www/html/reader
 COPY . /data-disk/reader-classic
 
-RUN cd /data-disk/reader-classic/webui && pipenv install
+# set up the daemon processes for supervision
+RUN mkdir /service
+COPY config/runit/ /service 
+
+USER app
+
+# set up the python source
+COPY webui /opt/reader
+ENV PIPENV_CACHE_DIR=/opt/reader/pip_cache
+ENV WORKON_HOME=/opt/reader/pip_cache
+RUN cd /opt/reader && pipenv install --deploy
 
 EXPOSE 80 8080
 
-# set up the daemon processes for supervision
-RUN mkdir /service /var/log/reader
-COPY config/runit/ /service 
+# run as root so apache can set itself up.
+USER root
 CMD /sbin/runsvdir /service
-
 # vim:ft=Dockerfile

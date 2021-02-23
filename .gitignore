@@ -8,7 +8,7 @@ etc/readers.tsv
 lib/tika-server.jar
 lib/tika-server.jar.md5
 library.db
-log
-queue
-tmp
+/log
+/queue
+/tmp
 __pycache__
