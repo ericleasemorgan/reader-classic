@@ -5,11 +5,7 @@ import os.path
 import pysolr
 
 app = Flask(__name__)
-
-# configure
-TODO_PATH = '/data-disk/reader-compute/reader-classic/queue/todo'
-BACKLOG_PATH = '/data-disk/reader-compute/reader-classic/queue/backlog'
-SOLR_URL = 'http://10.0.1.11:8983/solr/reader-gutenberg'
+app.config.from_envvar('READER_CONFIG')
 
 NUMERALS = {1:'I', 2:'II', 3:'III', 4:'IV', 5:'V',
         6:'VI', 7:'VII', 8:'VIII', 9:'IX', 10:'X',
@@ -40,7 +36,7 @@ def url2carrel():
     if queue != '':
         now = datetime.now().strftime("%Y-%m-%d\t%H:%M")
         # this is a security hole since shortname is user supplied
-        with open(os.path.join(TODO_PATH, shortname + ".tsv"), mode="w") as f:
+        with open(os.path.join(app.config['TODO_PATH'], shortname + ".tsv"), mode="w") as f:
             f.write("\t".join([TYPE, shortname, now, username, target_url]))
             f.write("\n")
         return render_template('url2carrel.html')
@@ -62,12 +58,12 @@ def urls2carrel():
     if queue != '':
         # get the basename of the loaded file, and move it to the backlog
         f = request.files['urls']
-        f.save(os.path.join(BACKLOG_PATH, secure_filename(f.filename)))
+        f.save(os.path.join(app.config['BACKLOG_PATH'], secure_filename(f.filename)))
 
         # update the queue
         now = datetime.now().strftime("%Y-%m-%d\t%H:%M")
         # this is a security hole since shortname is user supplied
-        with open(os.path.join(TODO_PATH, shortname + ".tsv"), mode="w") as f:
+        with open(os.path.join(app.config['TODO_PATH'], shortname + ".tsv"), mode="w") as f:
             f.write("\t".join([TYPE, shortname, now, username, name + ".txt"]))
             f.write("\n")
         return render_template('urls2carrel-queue.html', username=username, shortname=shortname)
@@ -92,12 +88,12 @@ def zip2carrel():
         # get the basename of the loaded file, and move it to the backlog
         f = request.files['zip']
         name = secure_filename(f.filename)
-        f.save(os.path.join(BACKLOG_PATH, name))
+        f.save(os.path.join(app.config['BACKLOG_PATH'], name))
 
         # update the queue
         now = datetime.now().strftime("%Y-%m-%d\t%H:%M")
         # this is a security hole since shortname is user supplied
-        with open(os.path.join(TODO_PATH, shortname + ".tsv"), mode="w") as f:
+        with open(os.path.join(app.config['TODO_PATH'], shortname + ".tsv"), mode="w") as f:
             f.write("\t".join([TYPE, shortname, now, username, name]))
             f.write("\n")
         return render_template('zip2carrel-queue.html', username=username, shortname=shortname)
@@ -119,12 +115,12 @@ def file2carrel():
         # get the basename of the loaded file, and move it to the backlog
         f = request.files['file']
         name = secure_filename(f.filename)
-        f.save(os.path.join(BACKLOG_PATH, name))
+        f.save(os.path.join(app.config['BACKLOG_PATH'], name))
 
         # update the queue
         now = datetime.now().strftime("%Y-%m-%d\t%H:%M")
         # this is a security hole since shortname is user supplied
-        with open(os.path.join(TODO_PATH, shortname + ".tsv"), mode="w") as f:
+        with open(os.path.join(app.config['TODO_PATH'], shortname + ".tsv"), mode="w") as f:
             f.write("\t".join([TYPE, shortname, now, username, name]))
             f.write("\n")
         return render_template('file2carrel-queue.html', username=username, shortname=shortname)
@@ -147,11 +143,11 @@ def trust2carrel():
         # get the basename of the loaded file, and move it to the backlog
         f = request.files['tsv']
         name = secure_filename(f.filename)
-        f.save(os.path.join(BACKLOG_PATH, name))
+        f.save(os.path.join(app.config['BACKLOG_PATH'], name))
 
         now = datetime.now().strftime("%Y-%m-%d\t%H:%M")
         # this is a security hole since shortname is user supplied
-        with open(os.path.join(TODO_PATH, shortname + ".tsv"), mode="w") as f:
+        with open(os.path.join(app.config['TODO_PATH'], shortname + ".tsv"), mode="w") as f:
             f.write("\t".join([TYPE, shortname, now, username, name]))
             f.write("\n")
         return render_template('trust2carrel-queue.html', username=username, shortname=shortname)
@@ -173,21 +169,21 @@ def biorxiv2carrel():
         # get the basename of the loaded file, and move it to the backlog
         f = request.files['xml']
         name = secure_filename(f.filename)
-        f.save(os.path.join(BACKLOG_PATH, name))
+        f.save(os.path.join(app.config['BACKLOG_PATH'], name))
 
         now = datetime.now().strftime("%Y-%m-%d\t%H:%M")
         # this is a security hole since shortname is user supplied
-        with open(os.path.join(TODO_PATH, shortname + ".tsv"), mode="w") as f:
+        with open(os.path.join(app.config['TODO_PATH'], shortname + ".tsv"), mode="w") as f:
             f.write("\t".join([TYPE, shortname, now, username, name]))
             f.write("\n")
         return render_template('biorxiv2carrel-queue.html', username=username, shortname=shortname)
 
-# array_to_dict takes a list like ['aaa', 123, 'bbb', 234, 'ccc', 345, ...]
+# list_to_pairs takes a list like ['aaa', 123, 'bbb', 234, 'ccc', 345, ...]
 # interprets it as a list of key-value pairs, and returns
-# a dictionary made from those key-values e.g. {'aaa': 123, 'bbb': 234, 'ccc': 345, ...}
-def array_to_dict(a):
+# the list of those pairs e.g. [('aaa', 123), ('bbb', 234), ('ccc', 345), ...]
+def list_to_pairs(a):
     i = iter(a)
-    return dict(zip(i, i))
+    return list(zip(i, i))
 
 
 @app.route('/gutenberg')
@@ -199,7 +195,7 @@ def gutenberg():
 
     # initialize
     query = request.args.get('query', '')
-    solr = pysolr.Solr(url=SOLR_URL)
+    solr = pysolr.Solr(url=app.config['SOLR_URL'])
     #my %numerals = NUMERALS;
 
     if query == '':
@@ -214,9 +210,10 @@ def gutenberg():
 
     response = solr.search(query, **search_options)
 
-    classification_facets = array_to_dict(response.facets['facet_fields']['facet_classification'])
-    author_facets = array_to_dict(response.facets['facet_fields']['facet_author'])
-    subject_facets = array_to_dict(response.facets['facet_fields']['facet_subject'])
+    facets = {facet:array_to_dict(v) for facet,v in response.facets['facet_fields'].items()}
+    #classification_facets = array_to_dict(response.facets['facet_fields']['facet_classification'])
+    #author_facets = array_to_dict(response.facets['facet_fields']['facet_author'])
+    #subject_facets = array_to_dict(response.facets['facet_fields']['facet_subject'])
 
     total_hits = response.hits
     num_displayed = len(response)
@@ -231,9 +228,7 @@ def gutenberg():
             total_hits=total_hits,
             num_displayed=num_displayed,
             results=response.docs,
-            author_facets=author_facets,
-            subject_facets=subject_facets,
-            classification_facets=classification_facets)
+            facets=facets)
 
 @app.route('/create/gutenberg')
 def create_gutenberg():
@@ -251,7 +246,7 @@ def create_gutenberg():
     if queue != '':
         now = datetime.now().strftime("%Y-%m-%d\t%H:%M")
         # this is a security hole since shortname is user supplied
-        with open(os.path.join(TODO_PATH, shortname + ".tsv"), mode="w") as f:
+        with open(os.path.join(app.config['TODO_PATH'], shortname + ".tsv"), mode="w") as f:
             f.write("\t".join([TYPE, shortname, now, username, query]))
             f.write("\n")
         return render_template('gutenberg-queue.html', username=username, shortname=shortname)
