@@ -1,0 +1,91 @@
+<html>
+<head>
+	<title>The Distant Reader - Project Gutenberg to study carrel</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="/etc/style.css">
+	<style>
+		.item { margin-bottom: 1em }
+	</style>
+</head>
+<body>
+<div class="header">
+	<h1>The Distant Reader - Project Gutenberg to study carrel</h1>
+</div>
+
+<div class="col-3 col-m-3 menu">
+	<ul>
+		<li style='margin-bottom: 2em'><a href="/">Distant Reader home</a></li>
+		
+		<li ><a href="/file2carrel/">File to study carrel</a></li>
+		<li><a href="/zip2carrel/">Zip to study carrel</a></li>
+		<li><a href="/url2carrel/">URL to study carrel</a></li>
+		<li><a href="/urls2carrel/">URLs to study carrel</a></li>
+		<li><a href="/trust2carrel/">HathiTrust to study carrel</a></li>
+		<li style='margin-bottom: 2em'><a href="/biorxiv2carrel/">Biorxiv to study carrel</a></li>
+		
+		<li><a href="/gutenberg/">Project Gutenberg to study carrel</a></li>
+		<li><a href="/cord/">COVID-19 to study carrel</a></li>
+		
+	</ul>
+</div>
+
+<div class="col-6 col-m-6">
+	<p>
+	<form method='GET' action=''>
+		Query: <input type='text' name='query' value='{{ query }}' size='50' autofocus="autofocus"/>
+	<input type='submit' value='Search' />
+	</form></p>
+
+	<p>Your search found {{ total_hits }} item(s) and {{ num_displayed }} item(s) are displayed. If you are satisfied with the results, then you may want to <a href='{{ url_for('create_gutenberg', query=query) }}'>queue the creation of a study carrel</a> with them.</p>
+
+	<h3>Items</h3>
+	<ol>
+		{%- for item in results %}
+		<li class='item'>
+			<a href='{{ item['file'] }}'>{{ item['title'] }}</a>
+			<ul>
+				{%- if item['author'] -%}
+				<li style='list-style-type:circle'>
+					<a href='?query=author:"{{ item['author'] }}"'>{{ item['author'] }}</a>
+				</li>
+				{%- endif -%}
+				{%- if item['subject'] -%}
+				<li style='list-style-type:circle'>
+					{%- for subject in item['subject'] -%}
+					{{ loop.index | roman_numeral }}. <a href='?query=subject:"{{ subject }}"'>{{ subject }}</a>
+					{% endfor -%}
+				</li>
+				{%- endif -%}
+				{%- if item['classification'] -%}
+				<li style='list-style-type:circle'>
+					{%- for classification in item['classification'] -%}
+					<a href='?query=classification:"{{ classification }}"'>{{ classification }}</a>
+					{%- if not loop.last %};{% endif -%}
+					{%- endfor -%}
+				</li>
+				{%- endif -%}
+				<li style='list-style-type:circle'>{{ item['gid'] }}</li>
+			</ul>
+		</li>
+		{%- endfor -%}
+	</ol>
+</div>
+
+<div class="col-3 col-m-3">
+	{% macro add_facet(title, query_field, facet_field) %}
+		{% if facets[facet_field] %}
+		<h3>{{ title }}</h3>
+		<p>
+		{% for term, count in facets[facet_field] %}
+			<a href='?query={{ query }} AND {{ query_field }}:"{{ term }}"'>{{ term }}</a> ({{ count }});
+		{%- endfor -%}
+		</p>
+		{% endif %}
+	{% endmacro %}
+
+	{{ add_facet("Author facets", "author", "facet_author") }}
+	{{ add_facet("Subject facets", "subject", "facet_subject") }}
+	{{ add_facet("Classification facets", "classification", "facet_classification") }}
+</div>
+</body>
+</html>

@@ -9,7 +9,7 @@
 APACHE_CONFIG_FILES=config/httpd.conf \
     config/httpd-le-ssl.conf
 for f in $APACHE_CONFIG_FILES; do
-    install -m 666 $f /etc/httpd/conf/
+    install -m 666 $f "/etc/httpd/conf/$(basename $f)"
 done
 
 # copy all the static files and cgi scripts

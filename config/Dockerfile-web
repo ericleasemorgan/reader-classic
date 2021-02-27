@@ -21,10 +21,13 @@ RUN mkdir -p /var/log/httpd \
         /data-disk/www/html/reader \
         /data-disk/www/html/cord \
         /data-disk/www/html/localhost \
+        /data-disk/reader-compute/reader-classic/queue/todo/ \
+        /data-disk/reader-compute/reader-classic/queue/backlog/ \
         /opt/reader \
+        /opt/reader/env \
         /opt/reader/log \
         /opt/reader/pip_cache \
-    && chmod a+rwx /var/log/httpd /opt/reader/ /opt/reader/log /opt/reader/pip_cache \
+    && chmod -R a+rwx /var/log/httpd /opt/reader/ /opt/reader/log /opt/reader/pip_cache \
     && ln -s /usr/bin/perl /data-disk/bin/perl
 
 # dummy user "test", password "test"
@@ -44,6 +47,9 @@ USER app
 
 # set up the python source
 COPY webui /opt/reader
+COPY config/webui-config.docker /opt/reader/config.docker
+RUN echo '/opt/reader/config.docker' > /opt/reader/env/READER_CONFIG
+
 ENV PIPENV_CACHE_DIR=/opt/reader/pip_cache
 ENV WORKON_HOME=/opt/reader/pip_cache
 RUN cd /opt/reader && pipenv install --deploy

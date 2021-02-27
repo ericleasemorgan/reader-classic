@@ -1,0 +1,10 @@
+# configure for local laptop
+
+SECRET_KEY='replace in production'
+TESTING=True  # false in production
+APPLICATION_ROOT='/'   # or '/p/'?
+
+TODO_PATH = '/data-disk/reader-compute/reader-classic/queue/todo'
+BACKLOG_PATH = '/data-disk/reader-compute/reader-classic/queue/backlog'
+SOLR_URL = 'http://localhost:7000/solr/reader-gutenberg'
+
