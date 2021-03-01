@@ -6,6 +6,7 @@ import pysolr
 
 app = Flask(__name__)
 app.config.from_envvar('READER_CONFIG')
+app.url_map.strict_slashes = False
 
 NUMERALS = {1:'I', 2:'II', 3:'III', 4:'IV', 5:'V',
         6:'VI', 7:'VII', 8:'VIII', 9:'IX', 10:'X',
@@ -210,7 +211,7 @@ def gutenberg():
 
     response = solr.search(query, **search_options)
 
-    facets = {facet:array_to_dict(v) for facet,v in response.facets['facet_fields'].items()}
+    facets = {facet:list_to_pairs(v) for facet,v in response.facets['facet_fields'].items()}
     #classification_facets = array_to_dict(response.facets['facet_fields']['facet_classification'])
     #author_facets = array_to_dict(response.facets['facet_fields']['facet_author'])
     #subject_facets = array_to_dict(response.facets['facet_fields']['facet_subject'])

@@ -12,13 +12,22 @@ for f in $APACHE_CONFIG_FILES; do
     install -m 666 $f "/etc/httpd/conf/$(basename $f)"
 done
 
+# Copy python service files
+# /sv/reader
+# /opt/reader/env
+# /opt/reader/config.production
+
 # copy all the static files and cgi scripts
 rsync --checksum --recursive www /data-disk/www/html
 
 # copy the python components
-sudo -u app rsync --checksum --recursive webui /opt/reader
+rsync --checksum --recursive webui /opt/reader
+chown -R app:app /opt/reader
+# this needs to run as the app user
 sudo -u app env \
     PIPENV_CACHE_DIR=/opt/reader/pip_cache \
     WORKON_HOME=/opt/reader/pip_cache \
     /usr/local/bin/pipenv install --deploy
+
 sv restart reader
+systemctl reload httpd
