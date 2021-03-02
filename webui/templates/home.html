@@ -14,9 +14,8 @@
 	The Distant Reader, a tool for reading stuff
 </h1>
 <p>
-	<img src='/etc/banner.jpg' alt='banner' style="max-width:50%;height:auto;float:right;margin-left:1em" />Intended for anybody who reads, the Distant Reader takes text as input, does analysis against it, and outputs sets of structured data, affectionately called "<strong>study carrels</strong>". The student, research, or scholar can then use a study carrel to read the text both closely as well as at a distance.
+    <img src="{{ url_for('static', filename='banner.jpg') }}" alt='banner' style="max-width:50%;height:auto;float:right;margin-left:1em" />Intended for anybody who reads, the Distant Reader takes text as input, does analysis against it, and outputs sets of structured data, affectionately called "<strong>study carrels</strong>". The student, research, or scholar can then use a study carrel to read the text both closely as well as at a distance.
 </p>
-<a id='inventory'> 
 <h2>
 	What's here
 </h2>
@@ -35,13 +34,25 @@
 		</li>
 		<li>carrels with data from external services
 		<ul>
-			<li><a href="/trust2carrel/">HathiTrust</a> - millions of books in the public domain; <a href="https://www.hathitrust.org">search the 'Trust</a>, add items to your "collection", download your or somebody else's collection file, and use it as input for this service</li>
-			<li><a href="/biorxiv2carrel/">bioRxiv</a> - a pre-print server for biology; <a href="https://www.biorxiv.org">search bioRxiv</a>, mark items of interest, download the list of selected items as an "XML" file, and use the result as the input for this service</li>
+            <li><a href="{{ url_for('trust2carrel') }}">HathiTrust</a> - millions of books in the public domain; <a href="https://www.hathitrust.org">search the 'Trust</a>, add items to your "collection", download your or somebody else's collection file, and use it as input for this service</li>
+            <li><a href="{{ url_for('biorxiv2carrel') }}">bioRxiv</a> - a pre-print server for biology; <a href="https://www.biorxiv.org">search bioRxiv</a>, mark items of interest, download the list of selected items as an "XML" file, and use the result as the input for this service</li>
 		</ul>
 		</li>
 		<li>carrels with data from local indexes
 		<ul>
-			<li><a href="/gutenberg/">Project Gutenberg</a> - a local cache of the about 30,000 public domain documents from the venerable Project Gutenberg; submit a query, and create a carrel from the results; very easy and almost all queries will return something; great for "big" ideas (like <a href="/gutenberg/?query=subject%3A%22Love%22">love</a>, <a href="/gutenberg/?query=subject%3A%22war%22">war</a>, or <a href="/gutenberg/?query=subject%3A%22knowledge%22">knowledge</a>), "classic" authors (like <a href="/gutenberg/?query=author%3A%22Plato%22">Plato</a>, <a href="/gutenberg/?query=author:shakespeare%20AND%20author:%22Shakespeare,%20William%22">Shakespeare</a>, or <a href="/gutenberg/?query=author%3A%22Austen%2C+Jane%22">Jane Austen</a>), or types of literature (like <a href="/gutenberg/?query=subject%3A%22Romances%22">Romances</a>, <a href="/gutenberg/?query=subject:%22Western%20stories%22">Westerns</a>, or <a href="/gutenberg/?query=subject:%22Science%20fiction%22">Science Fiction</a>)
+            <li><a href="{{ url_for('gutenberg') }}">Project Gutenberg</a> - a local cache of the about 30,000 public domain documents from the venerable Project Gutenberg; submit a query, and create a carrel from the results; very easy and almost all queries will return something; great for "big" ideas (like
+                <a href="{{ url_for('gutenberg', query='subject:"Love"') }}">love</a>,
+                <a href="{{ url_for('gutenberg', query='subject:"war"') }}">war</a>, or
+                <a href="{{ url_for('gutenberg', query='subject:"knowledge"') }}">knowledge</a>),
+                "classic" authors (like
+                <a href="{{ url_for('gutenberg', query='author:"Plato"') }}">Plato</a>,
+                <a href="{{ url_for('gutenberg', query='author:shakespeare AND author:"Shakespeare, William"') }}">Shakespeare</a>, or
+                <a href="{{ url_for('gutenberg', query='author:"Austen, Jane"') }}">Jane Austen</a>),
+                or types of literature (like
+                <a href="{{ url_for('gutenberg', query='subject:"Romances"') }}">Romances</a>,
+                <a href="{{ url_for('gutenberg', query='subject:"Western stories"') }}">Westerns</a>, or
+                <a href="{{ url_for('gutenberg', query='subject:"Science fiction"') }}">Science Fiction</a>)
+            </li>
 			<li><a href="/cord/">CORD-19</a> - a cache of more than 100,000 scholarly and scientific journal articles on the topic of COVID-19; based on <a href="https://www.semanticscholar.org/cord19">a data set by the same name</a>, this index can be used to create study carrels based on topics (like <a href="/cord/?query=%28+%28+*+NOT+%28+pdf_json%3Anan+%29+%29+OR+%28+*+NOT+%28+pmc_json%3Anan+%29+%29+%29+AND+%28title%3Ainfection*+AND+entity%3Ainfection*+AND+keywords%3Ainfection*%29">infection</a>, <a href="/cord/?query=%28+%28+*+NOT+%28+pdf_json%3Anan+%29+%29+OR+%28+*+NOT+%28+pmc_json%3Anan+%29+%29+%29+AND+%28title%3Avaccine*+AND+entity%3A+vaccine*+AND+keywords%3A+vaccine*%29">vaccines</a>, or <a href="/cord/?query=%28+%28+*+NOT+%28+pdf_json%3Anan+%29+%29+OR+%28+*+NOT+%28+pmc_json%3Anan+%29+%29+%29+AND+%28title%3Asars*+AND+entity%3A+sars*+AND+keywords%3A+sars*%29">SARS</a>) or journals titles (like <a href="/cord/?query=(%20(%20*%20NOT%20(%20pdf_json:nan%20)%20)%20OR%20(%20*%20NOT%20(%20pmc_json:nan%20)%20)%20)%20AND%20facet_journal:%22Lancet%22">Lancet</a>, <a href="/cord/?query=(%20(%20*%20NOT%20(%20pdf_json:nan%20)%20)%20OR%20(%20*%20NOT%20(%20pmc_json:nan%20)%20)%20)%20AND%20facet_journal:%22PLoS%20One%22">PLoS One</a>, or <a href="/cord/?query=(%20(%20*%20NOT%20(%20pdf_json:nan%20)%20)%20OR%20(%20*%20NOT%20(%20pmc_json:nan%20)%20)%20)%20AND%20facet_journal:%22J%20Med%20Virol%22">Journal of Medical Virology</a>) </li>
 		</ul>
 		</li>
@@ -49,7 +60,6 @@
 	</li>
 	<li><a href="http://cord.distantreader.org/">Project CORD</a> - an "archived" website originally sponsored by the <a href="https://covid19-hpc-consortium.org">COVID-19 HPC Consortium</a> for the purposes of indexing &amp; providing access to <a href="https://www.semanticscholar.org/cord19">CORD-19</a></li>
 </ol>
-</a>
 <h2>
 	About
 </h2>
@@ -88,13 +98,18 @@
 </p>
 <div style='text-align: center'>
 	<p>
-		<img src='/etc/wordle.png' alt='wordle' style="max-width:100%;height:auto;" />
+        <img src='{{ url_for('static', filename='wordle.png') }}' alt='wordle' style="max-width:100%;height:auto;" />
 	</p>
 	<p>
-		<img src='/etc/xsede.jpg' align="middle" alt='xsede' style="max-width:33%;height:auto;" /> <img src='/etc/nfcds.png' align="middle" alt='nfcds' style="max-width:33%;height:auto;" /> <img src='/etc/scigap.png' align="middle" alt='schigap' style="max-width:33%;height:auto;" />
+        <img src='{{ url_for('static', filename='xsede.jpg') }}' align="middle" alt='xsede' style="max-width:33%;height:auto;" />
+        <img src='{{ url_for('static', filename='nfcds.png') }}' align="middle" alt='nfcds' style="max-width:33%;height:auto;" />
+        <img src='{{ url_for('static', filename='scigap.png') }}' align="middle" alt='schigap' style="max-width:33%;height:auto;" />
 	</p>
 	<p>
-		<img src='/etc/microsoft.png' align="middle" alt='microsoft' style="max-width:25%;height:auto;" /> <img src='/etc/airavata.png' align="middle" alt='airavata' style="max-width:25%;height:auto;" /> <img src='/etc/nsf.png' align="middle" alt='nsf' style="max-width:25%;height:auto;" /> <img src='/etc/lanl.png' align="middle" alt='lanl' style="max-width:25%;height:auto;" />
+        <img src='{{ url_for('static', filename='microsoft.png') }}' align="middle" alt='microsoft' style="max-width:25%;height:auto;" />
+        <img src='{{ url_for('static', filename='airavata.png') }}' align="middle" alt='airavata' style="max-width:25%;height:auto;" />
+        <img src='{{ url_for('static', filename='nsf.png') }}' align="middle" alt='nsf' style="max-width:25%;height:auto;" />
+        <img src='{{ url_for('static', filename='lanl.png') }}' align="middle" alt='lanl' style="max-width:25%;height:auto;" />
 	</p>
 </div>
 <h2>Software</h2>
