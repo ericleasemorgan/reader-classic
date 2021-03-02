@@ -15,6 +15,7 @@
 # configure
 TXT='txt';
 CACHE='cache'
+JOBS=12
 
 # sanity check
 if [[ -z "$1" ]]; then
@@ -27,18 +28,18 @@ NAME=$1
 INPUT="$TXT"
 
 # extract addresses, urls, and keywords
-find "$INPUT" -name '*.txt' | parallel --will-cite txt2adr.sh {}  &
-find "$INPUT" -name '*.txt' | parallel --will-cite txt2urls.sh {} &
+find "$INPUT" -name '*.txt' | parallel --jobs $JOBS --will-cite txt2adr.sh {}  &
+find "$INPUT" -name '*.txt' | parallel --jobs $JOBS --will-cite txt2urls.sh {} &
 
 # extract bibliographics
-find "$CACHE" -type f | parallel --will-cite file2bib.sh {} &
+find "$CACHE" -type f | parallel --jobs $JOBS --will-cite file2bib.sh {} &
 
 # extract parts-of-speech and named-entities
-find "$INPUT" -name '*.txt' | parallel --will-cite txt2ent.sh {} &
-find "$INPUT" -name '*.txt' | parallel --will-cite txt2pos.sh {} &
+find "$INPUT" -name '*.txt' | parallel --jobs $JOBS --will-cite txt2ent.sh {} &
+find "$INPUT" -name '*.txt' | parallel --jobs $JOBS --will-cite txt2pos.sh {} &
 
 # extract keywords
-find "$INPUT" -name '*.txt' | parallel --will-cite txt2keywords.sh {} &
+find "$INPUT" -name '*.txt' | parallel --jobs $JOBS --will-cite txt2keywords.sh {} &
 
 # wait and done
 wait
