@@ -19,7 +19,7 @@ def roman_numeral(n):
 
 
 @app.route('/')
-def hello_world():
+def index():
     return render_template('home.html')
 
 @app.route('/create/url2carrel')
