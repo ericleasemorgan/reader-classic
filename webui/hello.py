@@ -186,6 +186,10 @@ def list_to_pairs(a):
     i = iter(a)
     return list(zip(i, i))
 
+# keep_non_zero takes a list of pairs [(a,b), (c,d), ...] and returns a list
+# of pairs where the second element is > 0
+def keep_positive(a):
+    return [(x,y) for x,y in a if y > 0]
 
 @app.route('/gutenberg')
 def gutenberg():
@@ -211,7 +215,7 @@ def gutenberg():
 
     response = solr.search(query, **search_options)
 
-    facets = {facet:list_to_pairs(v) for facet,v in response.facets['facet_fields'].items()}
+    facets = {facet: keep_positive(list_to_pairs(v)) for facet,v in response.facets['facet_fields'].items()}
     #classification_facets = array_to_dict(response.facets['facet_fields']['facet_classification'])
     #author_facets = array_to_dict(response.facets['facet_fields']['facet_author'])
     #subject_facets = array_to_dict(response.facets['facet_fields']['facet_subject'])
