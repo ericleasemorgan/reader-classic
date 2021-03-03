@@ -3,5 +3,6 @@ APPLICATION_ROOT='/p/'
 
 TODO_PATH = '/data-disk/reader-compute/reader-classic/queue/todo'
 BACKLOG_PATH = '/data-disk/reader-compute/reader-classic/queue/backlog'
-SOLR_URL = 'http://localhost:7000/solr/reader-gutenberg'
+SOLR_URL_GUTENBERG = 'http://localhost:7000/solr/reader-gutenberg'
+SOLR_URL_CORD = 'http://localhost:7000/solr/reader-cord'
 
