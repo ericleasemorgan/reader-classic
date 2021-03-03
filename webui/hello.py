@@ -196,12 +196,10 @@ def gutenberg():
     # configure
     FACETFIELD = ['facet_subject', 'facet_author', 'facet_classification']
     ROWS = 499
-    # SEARCH2QUEUE = './search2queue.cgi?query='
 
     # initialize
     query = request.args.get('query', '')
-    solr = pysolr.Solr(url=app.config['SOLR_URL'])
-    #my %numerals = NUMERALS;
+    solr = pysolr.Solr(url=app.config['SOLR_URL_GUTENBERG'])
 
     if query == '':
         return render_template('gutenberg.html', query='', results=[])
@@ -216,9 +214,6 @@ def gutenberg():
     response = solr.search(query, **search_options)
 
     facets = {facet: keep_positive(list_to_pairs(v)) for facet,v in response.facets['facet_fields'].items()}
-    #classification_facets = array_to_dict(response.facets['facet_fields']['facet_classification'])
-    #author_facets = array_to_dict(response.facets['facet_fields']['facet_author'])
-    #subject_facets = array_to_dict(response.facets['facet_fields']['facet_subject'])
 
     total_hits = response.hits
     num_displayed = len(response)
@@ -255,4 +250,63 @@ def create_gutenberg():
             f.write("\t".join([TYPE, shortname, now, username, query]))
             f.write("\n")
         return render_template('gutenberg-queue.html', username=username, shortname=shortname)
+
+
+@app.route('/cord')
+def cord_search():
+    FACETFIELD = ['facet_journal', 'year', 'facet_authors', 'facet_keywords', 'facet_entity', 'facet_type', 'facet_sources']
+    FIELDS = 'id,title,doi,urls,date,journal,abstract,sources,pmc_json,pdf_json,sha'
+    # SOLR         => 'http://10.0.1.11:8983/solr/reader-cord';
+    ROWS = 49
+    SEARCH2QUEUE = './search2queue.cgi?query='
+
+    # initialize
+    query = request.args.get('query', '')
+    solr = pysolr.Solr(url=app.config['SOLR_URL_CORD'])
+
+    # display the home page
+    if query == '':
+        return render_template('cord.html', query='', results=[])
+
+    # build the search options
+    search_options = {
+            'facet.field': FACETFIELD,
+            'fl': FIELDS,
+            'facet': 'true',
+            'rows': ROWS
+    }
+
+    response = solr.search(query, **search_options)
+
+    facets = {facet: keep_positive(list_to_pairs(v)) for facet,v in response.facets['facet_fields'].items()}
+    total_hits = response.hits
+    num_displayed = len(response)
+
+    return render_template('cord-results.html',
+            query=query,
+            total_hits=total_hits,
+            num_displayed=num_displayed,
+            results=response.docs,
+            facets=facets)
+
+@app.route('/create/cord')
+def create_cord():
+    TYPE = 'cord'
+
+    # initialize
+    shortname = request.args.get('shortname', '')
+    query = request.args.get('query', '')
+    queue = request.args.get('queue', '')
+    # my $username  = $cgi->remote_user();
+    username = 'nobody'
+
+    if shortname == '':
+        return render_template('cord-create.html', query=query)
+    if queue != '':
+        now = datetime.now().strftime("%Y-%m-%d\t%H:%M")
+        # this is a security hole since shortname is user supplied
+        with open(os.path.join(app.config['TODO_PATH'], shortname + ".tsv"), mode="w") as f:
+            f.write("\t".join([TYPE, shortname, now, username, query]))
+            f.write("\n")
+        return render_template('cord-queue.html', username=username, shortname=shortname)
 
