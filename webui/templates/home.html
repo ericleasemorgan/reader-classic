@@ -53,7 +53,15 @@
                 <a href="{{ url_for('gutenberg', query='subject:"Western stories"') }}">Westerns</a>, or
                 <a href="{{ url_for('gutenberg', query='subject:"Science fiction"') }}">Science Fiction</a>)
             </li>
-			<li><a href="/cord/">CORD-19</a> - a cache of more than 100,000 scholarly and scientific journal articles on the topic of COVID-19; based on <a href="https://www.semanticscholar.org/cord19">a data set by the same name</a>, this index can be used to create study carrels based on topics (like <a href="/cord/?query=%28+%28+*+NOT+%28+pdf_json%3Anan+%29+%29+OR+%28+*+NOT+%28+pmc_json%3Anan+%29+%29+%29+AND+%28title%3Ainfection*+AND+entity%3Ainfection*+AND+keywords%3Ainfection*%29">infection</a>, <a href="/cord/?query=%28+%28+*+NOT+%28+pdf_json%3Anan+%29+%29+OR+%28+*+NOT+%28+pmc_json%3Anan+%29+%29+%29+AND+%28title%3Avaccine*+AND+entity%3A+vaccine*+AND+keywords%3A+vaccine*%29">vaccines</a>, or <a href="/cord/?query=%28+%28+*+NOT+%28+pdf_json%3Anan+%29+%29+OR+%28+*+NOT+%28+pmc_json%3Anan+%29+%29+%29+AND+%28title%3Asars*+AND+entity%3A+sars*+AND+keywords%3A+sars*%29">SARS</a>) or journals titles (like <a href="/cord/?query=(%20(%20*%20NOT%20(%20pdf_json:nan%20)%20)%20OR%20(%20*%20NOT%20(%20pmc_json:nan%20)%20)%20)%20AND%20facet_journal:%22Lancet%22">Lancet</a>, <a href="/cord/?query=(%20(%20*%20NOT%20(%20pdf_json:nan%20)%20)%20OR%20(%20*%20NOT%20(%20pmc_json:nan%20)%20)%20)%20AND%20facet_journal:%22PLoS%20One%22">PLoS One</a>, or <a href="/cord/?query=(%20(%20*%20NOT%20(%20pdf_json:nan%20)%20)%20OR%20(%20*%20NOT%20(%20pmc_json:nan%20)%20)%20)%20AND%20facet_journal:%22J%20Med%20Virol%22">Journal of Medical Virology</a>) </li>
+            <li><a href="{{ url_for('cord_search') }}">CORD-19</a> - a cache of more than 100,000 scholarly and scientific journal articles on the topic of COVID-19; based on <a href="https://www.semanticscholar.org/cord19">a data set by the same name</a>, this index can be used to create study carrels based on topics (like
+                <a href="{{ url_for('cord_search', query='( ( * NOT ( pdf_json:nan ) ) OR ( * NOT ( pmc_json:nan ) ) ) AND (title:infection* AND entity:infection* AND keywords:infection*)') }}">infection</a>,
+                <a href="{{ url_for('cord_search', query='( ( * NOT ( pdf_json:nan ) ) OR ( * NOT ( pmc_json:nan ) ) ) AND (title:vaccine* AND entity: vaccine* AND keywords: vaccine*)') }}">vaccines</a>, or
+                <a href="{{ url_for('cord_search', query='( ( * NOT ( pdf_json:nan ) ) OR ( * NOT ( pmc_json:nan ) ) ) AND (title:sars* AND entity: sars* AND keywords: sars*)') }}">SARS</a>)
+                or journals titles (like
+                <a href="{{ url_for('cord_search', query='( ( * NOT ( pdf_json:nan ) ) OR ( * NOT ( pmc_json:nan ) ) ) AND facet_journal:"Lancet"') }}">Lancet</a>,
+                <a href="{{ url_for('cord_search', query='( ( * NOT ( pdf_json:nan ) ) OR ( * NOT ( pmc_json:nan ) ) ) AND facet_journal:"PLoS One"') }}">PLoS One</a>, or
+                <a href="{{ url_for('cord_search', query='( ( * NOT ( pdf_json:nan ) ) OR ( * NOT ( pmc_json:nan ) ) ) AND facet_journal:"J Med Virol"') }}">Journal of Medical Virology</a>)
+            </li>
 		</ul>
 		</li>
 	</ul>
