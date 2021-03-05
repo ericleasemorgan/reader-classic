@@ -22,6 +22,13 @@ def roman_numeral(n):
 def index():
     return render_template('home.html')
 
+def add_job_to_queue(job_type, shortname, username, extra):
+    now = datetime.now().strftime("%Y-%m-%d\t%H:%M")
+    # this is a security hole since shortname is user supplied
+    with open(os.path.join(app.config['TODO_PATH'], shortname + ".tsv"), mode="w") as f:
+        f.write("\t".join([job_type, shortname, now, username, extra]))
+        f.write("\n")
+
 @app.route('/create/url2carrel')
 def url2carrel():
     TYPE = 'url2carrel'
@@ -35,20 +42,15 @@ def url2carrel():
     if shortname == '' or target_url == '':
         return render_template('url2carrel.html')
     if queue != '':
-        now = datetime.now().strftime("%Y-%m-%d\t%H:%M")
-        # this is a security hole since shortname is user supplied
-        with open(os.path.join(app.config['TODO_PATH'], shortname + ".tsv"), mode="w") as f:
-            f.write("\t".join([TYPE, shortname, now, username, target_url]))
-            f.write("\n")
+        shortname = secure_filename(shortname)
+        add_job_to_queue(TYPE, shortname, username, target_url)
         return render_template('url2carrel.html')
 
 @app.route('/create/urls2carrel', methods=['GET', 'POST'])
 def urls2carrel():
     TYPE    = 'urls2carrel'
-    POSTMAX = 1024 * 1000
 
     # initialize
-    #$CGI::POST_MAX = POSTMAX;
     shortname  = request.args.get('shortname', '')
     queue = request.args.get('queue', '')
     #my $username   = $cgi->remote_user();
@@ -57,16 +59,13 @@ def urls2carrel():
     if shortname == '':
         return render_template('urls2carrel.html')
     if queue != '':
+        shortname = secure_filename(shortname)
         # get the basename of the loaded file, and move it to the backlog
         f = request.files['urls']
-        f.save(os.path.join(app.config['BACKLOG_PATH'], secure_filename(f.filename)))
+        name = secure_filename(f.filename)
+        f.save(os.path.join(app.config['BACKLOG_PATH'], name))
 
-        # update the queue
-        now = datetime.now().strftime("%Y-%m-%d\t%H:%M")
-        # this is a security hole since shortname is user supplied
-        with open(os.path.join(app.config['TODO_PATH'], shortname + ".tsv"), mode="w") as f:
-            f.write("\t".join([TYPE, shortname, now, username, name + ".txt"]))
-            f.write("\n")
+        add_job_to_queue(TYPE, shortname, username, name)
         return render_template('urls2carrel-queue.html', username=username, shortname=shortname)
 
 
@@ -74,10 +73,8 @@ def urls2carrel():
 def zip2carrel():
 # configure
     TYPE = 'zip2carrel'
-    POSTMAX = 1024 * 50000
 
     # initialize
-    # $CGI::POST_MAX = POSTMAX;
     shortname = request.form.get('shortname', '')
     queue = request.form.get('queue', '')
     #my $username   = $cgi->remote_user();
@@ -86,24 +83,19 @@ def zip2carrel():
     if shortname == '':
         return render_template('zip2carrel.html')
     if queue != '':
+        shortname = secure_filename(shortname)
         # get the basename of the loaded file, and move it to the backlog
         f = request.files['zip']
         name = secure_filename(f.filename)
         f.save(os.path.join(app.config['BACKLOG_PATH'], name))
 
-        # update the queue
-        now = datetime.now().strftime("%Y-%m-%d\t%H:%M")
-        # this is a security hole since shortname is user supplied
-        with open(os.path.join(app.config['TODO_PATH'], shortname + ".tsv"), mode="w") as f:
-            f.write("\t".join([TYPE, shortname, now, username, name]))
-            f.write("\n")
+        add_job_to_queue(TYPE, shortname, username, name)
         return render_template('zip2carrel-queue.html', username=username, shortname=shortname)
 
 @app.route('/create/file2carrel', methods=['GET', 'POST'])
 def file2carrel():
 # configure
     TYPE = 'file2carrel'
-    POSTMAX = 1024 * 20000
 
     shortname = request.form.get('shortname', '')
     queue = request.form.get('queue', '')
@@ -113,24 +105,19 @@ def file2carrel():
     if shortname == '':
         return render_template('file2carrel.html')
     if queue != '':
+        shortname = secure_filename(shortname)
         # get the basename of the loaded file, and move it to the backlog
         f = request.files['file']
         name = secure_filename(f.filename)
         f.save(os.path.join(app.config['BACKLOG_PATH'], name))
 
-        # update the queue
-        now = datetime.now().strftime("%Y-%m-%d\t%H:%M")
-        # this is a security hole since shortname is user supplied
-        with open(os.path.join(app.config['TODO_PATH'], shortname + ".tsv"), mode="w") as f:
-            f.write("\t".join([TYPE, shortname, now, username, name]))
-            f.write("\n")
+        add_job_to_queue(TYPE, shortname, username, name)
         return render_template('file2carrel-queue.html', username=username, shortname=shortname)
 
 @app.route('/create/trust2carrel', methods=['GET', 'POST'])
 def trust2carrel():
     # configure
     TYPE = 'trust'
-    POSTMAX = 1024 * 5000
 
     # initialize
     shortname = request.form.get('shortname', '')
@@ -141,23 +128,19 @@ def trust2carrel():
     if shortname == '':
         return render_template('trust2carrel.html')
     if queue != '':
+        shortname = secure_filename(shortname)
         # get the basename of the loaded file, and move it to the backlog
         f = request.files['tsv']
         name = secure_filename(f.filename)
         f.save(os.path.join(app.config['BACKLOG_PATH'], name))
 
-        now = datetime.now().strftime("%Y-%m-%d\t%H:%M")
-        # this is a security hole since shortname is user supplied
-        with open(os.path.join(app.config['TODO_PATH'], shortname + ".tsv"), mode="w") as f:
-            f.write("\t".join([TYPE, shortname, now, username, name]))
-            f.write("\n")
+        add_job_to_queue(TYPE, shortname, username, name)
         return render_template('trust2carrel-queue.html', username=username, shortname=shortname)
 
 @app.route('/create/biorxiv2carrel', methods=['GET', 'POST'])
 def biorxiv2carrel():
     # configure
     TYPE = 'biorxiv'
-    POSTMAX = 1024 * 5000
 
     shortname = request.form.get('shortname', '')
     queue = request.form.get('queue', '')
@@ -167,16 +150,13 @@ def biorxiv2carrel():
     if shortname == '':
         return render_template('biorxiv2carrel.html')
     if queue != '':
+        shortname = secure_filename(shortname)
         # get the basename of the loaded file, and move it to the backlog
         f = request.files['xml']
         name = secure_filename(f.filename)
         f.save(os.path.join(app.config['BACKLOG_PATH'], name))
 
-        now = datetime.now().strftime("%Y-%m-%d\t%H:%M")
-        # this is a security hole since shortname is user supplied
-        with open(os.path.join(app.config['TODO_PATH'], shortname + ".tsv"), mode="w") as f:
-            f.write("\t".join([TYPE, shortname, now, username, name]))
-            f.write("\n")
+        add_job_to_queue(TYPE, shortname, username, name)
         return render_template('biorxiv2carrel-queue.html', username=username, shortname=shortname)
 
 # list_to_pairs takes a list like ['aaa', 123, 'bbb', 234, 'ccc', 345, ...]
@@ -244,11 +224,8 @@ def create_gutenberg():
     if shortname == '':
         return render_template('gutenberg-create.html', query=query)
     if queue != '':
-        now = datetime.now().strftime("%Y-%m-%d\t%H:%M")
-        # this is a security hole since shortname is user supplied
-        with open(os.path.join(app.config['TODO_PATH'], shortname + ".tsv"), mode="w") as f:
-            f.write("\t".join([TYPE, shortname, now, username, query]))
-            f.write("\n")
+        shortname = secure_filename(shortname)
+        add_job_to_queue(TYPE, shortname, username, query)
         return render_template('gutenberg-queue.html', username=username, shortname=shortname)
 
 
@@ -303,10 +280,7 @@ def create_cord():
     if shortname == '':
         return render_template('cord-create.html', query=query)
     if queue != '':
-        now = datetime.now().strftime("%Y-%m-%d\t%H:%M")
-        # this is a security hole since shortname is user supplied
-        with open(os.path.join(app.config['TODO_PATH'], shortname + ".tsv"), mode="w") as f:
-            f.write("\t".join([TYPE, shortname, now, username, query]))
-            f.write("\n")
+        shortname = secure_filename(shortname)
+        add_job_to_queue(TYPE, shortname, username, query)
         return render_template('cord-queue.html', username=username, shortname=shortname)
 
