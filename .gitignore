@@ -11,4 +11,5 @@ library.db
 /log
 /queue
 /tmp
+webui/queue
 __pycache__
