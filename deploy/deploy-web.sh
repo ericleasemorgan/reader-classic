@@ -21,10 +21,10 @@ done
 rsync --checksum --recursive www /data-disk/www/html
 
 # copy the python components
-rsync --checksum --recursive webui /opt/reader
+rsync --checksum --recursive webui/ /opt/reader
 chown -R app:app /opt/reader
 # this needs to run as the app user
-sudo -u app env \
+cd /opt/reader && sudo -u app env \
     PIPENV_CACHE_DIR=/opt/reader/pip_cache \
     WORKON_HOME=/opt/reader/pip_cache \
     /usr/local/bin/pipenv install --deploy
