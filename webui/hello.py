@@ -29,49 +29,44 @@ def add_job_to_queue(job_type, shortname, username, extra):
         f.write("\t".join([job_type, shortname, now, username, extra]))
         f.write("\n")
 
-@app.route('/create/url2carrel')
+@app.route('/create/url2carrel', methods=['GET', 'POST'])
 def url2carrel():
     TYPE = 'url2carrel'
-    shortname = request.args.get('shortname', '')
-    target_url = request.args.get('url', '')
-    confirm = request.args.get('confirm', '')
-    queue = request.args.get('queue', '')
+    shortname = request.form.get('shortname', '')
+    target_url = request.form.get('url', '')
     # my $username  = $cgi->remote_user();
     username = 'nobody'
 
-    if shortname == '' or target_url == '':
+    if request.method != 'POST' or shortname == '' or target_url == '':
         return render_template('url2carrel.html')
-    if queue != '':
-        shortname = secure_filename(shortname)
-        add_job_to_queue(TYPE, shortname, username, target_url)
-        return render_template('url2carrel.html')
+    shortname = secure_filename(shortname)
+    add_job_to_queue(TYPE, shortname, username, target_url)
+    return render_template('urls2carrel-queue.html', username=username, shortname=shortname)
 
 @app.route('/create/urls2carrel', methods=['GET', 'POST'])
 def urls2carrel():
     TYPE    = 'urls2carrel'
 
     # initialize
-    shortname  = request.args.get('shortname', '')
-    queue = request.args.get('queue', '')
+    shortname  = request.form.get('shortname', '')
+    queue = request.form.get('queue', '')
     #my $username   = $cgi->remote_user();
     username = 'nobody'
 
-    if shortname == '':
+    if request.method != 'POST' or shortname == '':
         return render_template('urls2carrel.html')
-    if queue != '':
-        shortname = secure_filename(shortname)
-        # get the basename of the loaded file, and move it to the backlog
-        f = request.files['urls']
-        name = secure_filename(f.filename)
-        f.save(os.path.join(app.config['BACKLOG_PATH'], name))
+    shortname = secure_filename(shortname)
+    # get the basename of the loaded file, and move it to the backlog
+    f = request.files['file']
+    name = secure_filename(f.filename)
+    f.save(os.path.join(app.config['BACKLOG_PATH'], name))
 
-        add_job_to_queue(TYPE, shortname, username, name)
-        return render_template('urls2carrel-queue.html', username=username, shortname=shortname)
+    add_job_to_queue(TYPE, shortname, username, name)
+    return render_template('urls2carrel-queue.html', username=username, shortname=shortname)
 
 
 @app.route('/create/zip2carrel', methods=['GET', 'POST'])
 def zip2carrel():
-# configure
     TYPE = 'zip2carrel'
 
     # initialize
@@ -80,21 +75,19 @@ def zip2carrel():
     #my $username   = $cgi->remote_user();
     username = 'nobody'
 
-    if shortname == '':
+    if request.method != 'POST' or shortname == '':
         return render_template('zip2carrel.html')
-    if queue != '':
-        shortname = secure_filename(shortname)
-        # get the basename of the loaded file, and move it to the backlog
-        f = request.files['zip']
-        name = secure_filename(f.filename)
-        f.save(os.path.join(app.config['BACKLOG_PATH'], name))
+    shortname = secure_filename(shortname)
+    # get the basename of the loaded file, and move it to the backlog
+    f = request.files['file']
+    name = secure_filename(f.filename)
+    f.save(os.path.join(app.config['BACKLOG_PATH'], name))
 
-        add_job_to_queue(TYPE, shortname, username, name)
-        return render_template('zip2carrel-queue.html', username=username, shortname=shortname)
+    add_job_to_queue(TYPE, shortname, username, name)
+    return render_template('zip2carrel-queue.html', username=username, shortname=shortname)
 
 @app.route('/create/file2carrel', methods=['GET', 'POST'])
 def file2carrel():
-# configure
     TYPE = 'file2carrel'
 
     shortname = request.form.get('shortname', '')
@@ -102,21 +95,19 @@ def file2carrel():
     # username   = $cgi->remote_user();
     username = 'nobody'
 
-    if shortname == '':
+    if request.method != 'POST' or shortname == '':
         return render_template('file2carrel.html')
-    if queue != '':
-        shortname = secure_filename(shortname)
-        # get the basename of the loaded file, and move it to the backlog
-        f = request.files['file']
-        name = secure_filename(f.filename)
-        f.save(os.path.join(app.config['BACKLOG_PATH'], name))
+    shortname = secure_filename(shortname)
+    # get the basename of the loaded file, and move it to the backlog
+    f = request.files['file']
+    name = secure_filename(f.filename)
+    f.save(os.path.join(app.config['BACKLOG_PATH'], name))
 
-        add_job_to_queue(TYPE, shortname, username, name)
-        return render_template('file2carrel-queue.html', username=username, shortname=shortname)
+    add_job_to_queue(TYPE, shortname, username, name)
+    return render_template('file2carrel-queue.html', username=username, shortname=shortname)
 
 @app.route('/create/trust2carrel', methods=['GET', 'POST'])
 def trust2carrel():
-    # configure
     TYPE = 'trust'
 
     # initialize
@@ -125,21 +116,19 @@ def trust2carrel():
     # username   = $cgi->remote_user();
     username = 'nobody'
 
-    if shortname == '':
+    if request.method != 'POST' or shortname == '':
         return render_template('trust2carrel.html')
-    if queue != '':
-        shortname = secure_filename(shortname)
-        # get the basename of the loaded file, and move it to the backlog
-        f = request.files['tsv']
-        name = secure_filename(f.filename)
-        f.save(os.path.join(app.config['BACKLOG_PATH'], name))
+    shortname = secure_filename(shortname)
+    # get the basename of the loaded file, and move it to the backlog
+    f = request.files['file']
+    name = secure_filename(f.filename)
+    f.save(os.path.join(app.config['BACKLOG_PATH'], name))
 
-        add_job_to_queue(TYPE, shortname, username, name)
-        return render_template('trust2carrel-queue.html', username=username, shortname=shortname)
+    add_job_to_queue(TYPE, shortname, username, name)
+    return render_template('trust2carrel-queue.html', username=username, shortname=shortname)
 
 @app.route('/create/biorxiv2carrel', methods=['GET', 'POST'])
 def biorxiv2carrel():
-    # configure
     TYPE = 'biorxiv'
 
     shortname = request.form.get('shortname', '')
@@ -147,17 +136,16 @@ def biorxiv2carrel():
     # username   = $cgi->remote_user();
     username = 'nobody'
 
-    if shortname == '':
+    if request.method != 'POST' or shortname == '':
         return render_template('biorxiv2carrel.html')
-    if queue != '':
-        shortname = secure_filename(shortname)
-        # get the basename of the loaded file, and move it to the backlog
-        f = request.files['xml']
-        name = secure_filename(f.filename)
-        f.save(os.path.join(app.config['BACKLOG_PATH'], name))
+    shortname = secure_filename(shortname)
+    # get the basename of the loaded file, and move it to the backlog
+    f = request.files['file']
+    name = secure_filename(f.filename)
+    f.save(os.path.join(app.config['BACKLOG_PATH'], name))
 
-        add_job_to_queue(TYPE, shortname, username, name)
-        return render_template('biorxiv2carrel-queue.html', username=username, shortname=shortname)
+    add_job_to_queue(TYPE, shortname, username, name)
+    return render_template('biorxiv2carrel-queue.html', username=username, shortname=shortname)
 
 # list_to_pairs takes a list like ['aaa', 123, 'bbb', 234, 'ccc', 345, ...]
 # interprets it as a list of key-value pairs, and returns
@@ -210,32 +198,32 @@ def gutenberg():
             results=response.docs,
             facets=facets)
 
-@app.route('/create/gutenberg')
+@app.route('/create/gutenberg', methods=['GET', 'POST'])
 def create_gutenberg():
     TYPE = 'gutenberg'
 
     # initialize
-    shortname = request.args.get('shortname', '')
-    query = request.args.get('query', '')
-    queue = request.args.get('queue', '')
+    # query is passed as a param for GET requests and as
+    # as a form vaule for POSTs.
+    shortname = request.form.get('shortname', '')
     # my $username  = $cgi->remote_user();
     username = 'nobody'
 
-    if shortname == '':
+    if request.method != 'POST' or shortname == '':
+        query = request.args.get('query', '')
         return render_template('gutenberg-create.html', query=query)
-    if queue != '':
-        shortname = secure_filename(shortname)
-        add_job_to_queue(TYPE, shortname, username, query)
-        return render_template('gutenberg-queue.html', username=username, shortname=shortname)
+
+    query = request.form.get('query', '')
+    shortname = secure_filename(shortname)
+    add_job_to_queue(TYPE, shortname, username, query)
+    return render_template('gutenberg-queue.html', username=username, shortname=shortname)
 
 
 @app.route('/cord')
 def cord_search():
     FACETFIELD = ['facet_journal', 'year', 'facet_authors', 'facet_keywords', 'facet_entity', 'facet_type', 'facet_sources']
     FIELDS = 'id,title,doi,urls,date,journal,abstract,sources,pmc_json,pdf_json,sha'
-    # SOLR         => 'http://10.0.1.11:8983/solr/reader-cord';
     ROWS = 49
-    SEARCH2QUEUE = './search2queue.cgi?query='
 
     # initialize
     query = request.args.get('query', '')
@@ -266,21 +254,23 @@ def cord_search():
             results=response.docs,
             facets=facets)
 
-@app.route('/create/cord')
+@app.route('/create/cord', methods=['GET', 'POST'])
 def create_cord():
     TYPE = 'cord'
 
     # initialize
-    shortname = request.args.get('shortname', '')
-    query = request.args.get('query', '')
-    queue = request.args.get('queue', '')
+    # query is passed as a param for GET requests and as
+    # as a form vaule for POSTs.
+    shortname = request.form.get('shortname', '')
     # my $username  = $cgi->remote_user();
     username = 'nobody'
 
-    if shortname == '':
+    if request.method != 'POST' or shortname == '':
+        query = request.args.get('query', '')
         return render_template('cord-create.html', query=query)
-    if queue != '':
-        shortname = secure_filename(shortname)
-        add_job_to_queue(TYPE, shortname, username, query)
-        return render_template('cord-queue.html', username=username, shortname=shortname)
+
+    query = request.form.get('query', '')
+    shortname = secure_filename(shortname)
+    add_job_to_queue(TYPE, shortname, username, query)
+    return render_template('cord-queue.html', username=username, shortname=shortname)
 

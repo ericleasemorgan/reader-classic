@@ -7,7 +7,7 @@ The Distant Reader - Project Gutenberg to study carrel
 {% block body %}
 	<p>Use this form to queue the creation of a study carrel with the results of your search.</p>
 	
-	<form method='GET'>
+    <form method="post" enctype="multipart/form-data">
         <input type='hidden' name="query" value='{{ query }}' />
 	<table>
 		<tr>

@@ -4,8 +4,8 @@ SECRET_KEY='replace in production'
 TESTING=True  # false in production
 APPLICATION_ROOT='/'   # or '/p/'?
 
-TODO_PATH = '/data-disk/reader-compute/reader-classic/queue/todo'
-BACKLOG_PATH = '/data-disk/reader-compute/reader-classic/queue/backlog'
+TODO_PATH = 'queue/todo'
+BACKLOG_PATH = 'queue/backlog'
 SOLR_URL_GUTENBERG = 'http://localhost:7000/solr/reader-gutenberg'
 SOLR_URL_CORD = 'http://localhost:7000/solr/reader-cord'
 
