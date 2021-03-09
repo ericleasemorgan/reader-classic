@@ -28,6 +28,7 @@ RUN mkdir -p /var/log/httpd \
         /opt/reader/log \
         /opt/reader/pip_cache \
     && chmod -R a+rwx /var/log/httpd /opt/reader/ /opt/reader/log /opt/reader/pip_cache \
+    && chmod -R a+rwx /data-disk/reader-compute/reader-classic/queue/todo/ /data-disk/reader-compute/reader-classic/queue/backlog/ \
     && ln -s /usr/bin/perl /data-disk/bin/perl
 
 # dummy user "test", password "test"

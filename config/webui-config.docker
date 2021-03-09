@@ -1,5 +1,6 @@
 # configure for local laptop
 APPLICATION_ROOT='/p/'
+HTPASSWD_FILE='/data-disk/etc/reader-htpasswd'
 
 TODO_PATH = '/data-disk/reader-compute/reader-classic/queue/todo'
 BACKLOG_PATH = '/data-disk/reader-compute/reader-classic/queue/backlog'
