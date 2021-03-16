@@ -1,12 +1,12 @@
 # configure for local laptop
-APPLICATION_ROOT='/p/'
+APPLICATION_ROOT='/'
 SECRET_KEY= b'\xab\x9e>\xcb\xd2\x04H\x08\x8f\xdc\xc9\xb4\xdfIu\xc0'
 DATABASE_SQLITE = '/data-disk/reader-classic/webui/test-db.sqlite3'
 
 ORCID_CLIENT_ID = '1234567890'
 ORCID_CLIENT_SECRET = '1234-1234-1234'
-ORCID_AUTHORIZE_URL = 'http://localhost:8000/p/oauth/authorize'
-ORCID_ACCESS_TOKEN_URL = 'http://localhost:80/p/oauth/token'  # :80 since we run on port 80 in the container
+ORCID_AUTHORIZE_URL = 'http://localhost:8000/oauth/authorize'
+ORCID_ACCESS_TOKEN_URL = 'http://localhost:80/oauth/token'  # :80 since we run on port 80 in the container
 
 TODO_PATH = '/data-disk/reader-compute/reader-classic/queue/todo'
 TODO_PATH_CORD = '/data-disk/reader-compute/reader-classic/queue/todo'
