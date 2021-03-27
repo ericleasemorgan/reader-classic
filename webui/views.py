@@ -1,48 +1,35 @@
-from flask import (Flask,render_template, request)
+from flask import (render_template, session, request, redirect, g, url_for)
 from werkzeug.utils import secure_filename
 from datetime import datetime
-from flask_httpauth import HTTPBasicAuth
-from passlib.apache import HtpasswdFile
 import os.path
 import pysolr
+from app import app
+from models import User
+from flask_login import login_user, login_required, current_user
+from auth import login_manager, verify_password
+from is_safe_url import is_safe_url
 
-app = Flask(__name__)
-app.config.from_envvar('READER_CONFIG')
-app.url_map.strict_slashes = False
-
-auth = HTTPBasicAuth(realm="Authentication Required")
-
-htpasswd = None
-htpasswd_filename = app.config.get('HTPASSWD_FILE', None)
-if htpasswd_filename:
-    htpasswd = HtpasswdFile(htpasswd_filename)
-
-@auth.verify_password
-def verify_password(username, password):
-    if htpasswd:
-        return htpasswd.check_password(username, password)
-    # only allow no password file if in debugging mode.
-    # this is to "fail-safe" in production
-    # if we are not in debug mode, every auth request fails
-    return app.debug
-
-##### Template helpers
-
-NUMERALS = {1:'I', 2:'II', 3:'III', 4:'IV', 5:'V',
-        6:'VI', 7:'VII', 8:'VIII', 9:'IX', 10:'X',
-        11:'XI', 12:'XII', 13:'XIII', 14:'XIV', 15:'XV',
-        16:'XVI', 17:'XVII', 18:'XVIII', 19:'XIX', 20:'XX'}
-
-@app.template_filter('roman_numeral')
-def roman_numeral(n):
-    return NUMERALS.get(n, '')
-
-
-##### Route Handlers
 
 @app.route('/')
 def index():
     return render_template('home.html')
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form.get('username', '')
+        password = request.form.get('password', '')
+        if verify_password(username, password):
+            u = User(username)
+            login_user(u)
+            next = session.pop('next', url_for('index'))
+            if is_safe_url(next, allowed_hosts=None):
+                return redirect(next)
+    return render_template('login.html')
+
+@app.route('/login/callback', methods=['GET', 'POST'])
+def login_callback():
+    pass
 
 def add_job_to_queue(job_type, shortname, username, extra):
     now = datetime.now().strftime("%Y-%m-%d\t%H:%M")
@@ -53,12 +40,12 @@ def add_job_to_queue(job_type, shortname, username, extra):
         f.write("\n")
 
 @app.route('/create/url2carrel', methods=['GET', 'POST'])
-@auth.login_required
+@login_required
 def url2carrel():
     TYPE = 'url2carrel'
     shortname = request.form.get('shortname', '')
     target_url = request.form.get('url', '')
-    username = auth.username()
+    username = current_user.id
 
     if request.method != 'POST' or shortname == '' or target_url == '':
         return render_template('url2carrel.html')
@@ -67,14 +54,14 @@ def url2carrel():
     return render_template('urls2carrel-queue.html', username=username, shortname=shortname)
 
 @app.route('/create/urls2carrel', methods=['GET', 'POST'])
-@auth.login_required
+@login_required
 def urls2carrel():
     TYPE = 'urls2carrel'
 
     # initialize
     shortname  = request.form.get('shortname', '')
     queue = request.form.get('queue', '')
-    username = auth.username()
+    username = current_user.id
 
     if request.method != 'POST' or shortname == '':
         return render_template('urls2carrel.html')
@@ -89,14 +76,14 @@ def urls2carrel():
 
 
 @app.route('/create/zip2carrel', methods=['GET', 'POST'])
-@auth.login_required
+@login_required
 def zip2carrel():
     TYPE = 'zip2carrel'
 
     # initialize
     shortname = request.form.get('shortname', '')
     queue = request.form.get('queue', '')
-    username = auth.username()
+    username = current_user.id
 
     if request.method != 'POST' or shortname == '':
         return render_template('zip2carrel.html')
@@ -110,13 +97,13 @@ def zip2carrel():
     return render_template('zip2carrel-queue.html', username=username, shortname=shortname)
 
 @app.route('/create/file2carrel', methods=['GET', 'POST'])
-@auth.login_required
+@login_required
 def file2carrel():
     TYPE = 'file2carrel'
 
     shortname = request.form.get('shortname', '')
     queue = request.form.get('queue', '')
-    username = auth.username()
+    username = current_user.id
 
     if request.method != 'POST' or shortname == '':
         return render_template('file2carrel.html')
@@ -130,14 +117,14 @@ def file2carrel():
     return render_template('file2carrel-queue.html', username=username, shortname=shortname)
 
 @app.route('/create/trust2carrel', methods=['GET', 'POST'])
-@auth.login_required
+@login_required
 def trust2carrel():
     TYPE = 'trust'
 
     # initialize
     shortname = request.form.get('shortname', '')
     queue = request.form.get('queue', '')
-    username = auth.username()
+    username = current_user.id
 
     if request.method != 'POST' or shortname == '':
         return render_template('trust2carrel.html')
@@ -151,13 +138,13 @@ def trust2carrel():
     return render_template('trust2carrel-queue.html', username=username, shortname=shortname)
 
 @app.route('/create/biorxiv2carrel', methods=['GET', 'POST'])
-@auth.login_required
+@login_required
 def biorxiv2carrel():
     TYPE = 'biorxiv'
 
     shortname = request.form.get('shortname', '')
     queue = request.form.get('queue', '')
-    username = auth.username()
+    username = current_user.id
 
     if request.method != 'POST' or shortname == '':
         return render_template('biorxiv2carrel.html')
@@ -222,7 +209,7 @@ def gutenberg():
             facets=facets)
 
 @app.route('/create/gutenberg', methods=['GET', 'POST'])
-@auth.login_required
+@login_required
 def create_gutenberg():
     TYPE = 'gutenberg'
 
@@ -230,7 +217,7 @@ def create_gutenberg():
     # query is passed as a param for GET requests and as
     # as a form vaule for POSTs.
     shortname = request.form.get('shortname', '')
-    username = auth.username()
+    username = current_user.id
 
     if request.method != 'POST' or shortname == '':
         query = request.args.get('query', '')
@@ -278,7 +265,7 @@ def cord_search():
             facets=facets)
 
 @app.route('/create/cord', methods=['GET', 'POST'])
-@auth.login_required
+@login_required
 def create_cord():
     TYPE = 'cord'
 
@@ -286,7 +273,7 @@ def create_cord():
     # query is passed as a param for GET requests and as
     # as a form vaule for POSTs.
     shortname = request.form.get('shortname', '')
-    username = auth.username()
+    username = current_user.id
 
     if request.method != 'POST' or shortname == '':
         query = request.args.get('query', '')
@@ -296,4 +283,5 @@ def create_cord():
     shortname = secure_filename(shortname)
     add_job_to_queue(TYPE, shortname, username, query)
     return render_template('cord-queue.html', username=username, shortname=shortname)
+
 
