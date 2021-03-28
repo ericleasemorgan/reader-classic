@@ -12,4 +12,5 @@ library.db
 /queue
 /tmp
 webui/queue
+webui/test-db.sqlite3
 __pycache__

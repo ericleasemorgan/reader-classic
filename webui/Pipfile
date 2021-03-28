@@ -13,6 +13,7 @@ oauthlib = "*"
 flask-login = "*"
 requests = "*"
 is-safe-url = "*"
+yoyo-migrations = "*"
 
 [dev-packages]
 
