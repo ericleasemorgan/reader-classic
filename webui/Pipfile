@@ -9,6 +9,10 @@ gunicorn = "*"
 pysolr = "*"
 flask-httpauth = "*"
 passlib = "*"
+oauthlib = "*"
+flask-login = "*"
+requests = "*"
+is-safe-url = "*"
 
 [dev-packages]
 
