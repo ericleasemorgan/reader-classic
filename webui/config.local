@@ -4,6 +4,7 @@ SECRET_KEY='replace in production'
 TESTING=True  # false in production
 APPLICATION_ROOT='/'   # or '/p/'?
 HTPASSWD_FILE='../config/dummy-htpasswd'
+DATABASE_SQLITE='./test-db.sqlite3'
 
 TODO_PATH = 'queue/todo'
 BACKLOG_PATH = 'queue/backlog'

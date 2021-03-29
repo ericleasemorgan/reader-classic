@@ -1,14 +1,14 @@
-from flask import (render_template, session, request, redirect, g, url_for)
-from werkzeug.utils import secure_filename
 from datetime import datetime
 import os.path
-import pysolr
-from app import app
-from models import User
+from flask import (render_template, session, request, redirect, g, url_for)
+from werkzeug.utils import secure_filename
 from flask_login import login_user, login_required, current_user
-from auth import login_manager, verify_password
 from is_safe_url import is_safe_url
+import pysolr
 
+from app import app
+from auth import login_manager, verify_password
+from models import User
 
 @app.route('/')
 def index():
@@ -20,7 +20,10 @@ def login():
         username = request.form.get('username', '')
         password = request.form.get('password', '')
         if verify_password(username, password):
-            u = User(username)
+            u = User.FromUsername(username)
+            if u is None:
+                u = User(username=username)
+                u.save()
             login_user(u)
             next = session.pop('next', url_for('index'))
             if is_safe_url(next, allowed_hosts=None):
@@ -30,6 +33,7 @@ def login():
 @app.route('/login/callback', methods=['GET', 'POST'])
 def login_callback():
     pass
+
 
 def add_job_to_queue(job_type, shortname, username, extra):
     now = datetime.now().strftime("%Y-%m-%d\t%H:%M")
@@ -45,7 +49,7 @@ def url2carrel():
     TYPE = 'url2carrel'
     shortname = request.form.get('shortname', '')
     target_url = request.form.get('url', '')
-    username = current_user.id
+    username = current_user.username
 
     if request.method != 'POST' or shortname == '' or target_url == '':
         return render_template('url2carrel.html')
@@ -61,7 +65,7 @@ def urls2carrel():
     # initialize
     shortname  = request.form.get('shortname', '')
     queue = request.form.get('queue', '')
-    username = current_user.id
+    username = current_user.username
 
     if request.method != 'POST' or shortname == '':
         return render_template('urls2carrel.html')
@@ -83,7 +87,7 @@ def zip2carrel():
     # initialize
     shortname = request.form.get('shortname', '')
     queue = request.form.get('queue', '')
-    username = current_user.id
+    username = current_user.username
 
     if request.method != 'POST' or shortname == '':
         return render_template('zip2carrel.html')
@@ -103,7 +107,7 @@ def file2carrel():
 
     shortname = request.form.get('shortname', '')
     queue = request.form.get('queue', '')
-    username = current_user.id
+    username = current_user.username
 
     if request.method != 'POST' or shortname == '':
         return render_template('file2carrel.html')
@@ -124,7 +128,7 @@ def trust2carrel():
     # initialize
     shortname = request.form.get('shortname', '')
     queue = request.form.get('queue', '')
-    username = current_user.id
+    username = current_user.username
 
     if request.method != 'POST' or shortname == '':
         return render_template('trust2carrel.html')
@@ -144,7 +148,7 @@ def biorxiv2carrel():
 
     shortname = request.form.get('shortname', '')
     queue = request.form.get('queue', '')
-    username = current_user.id
+    username = current_user.username
 
     if request.method != 'POST' or shortname == '':
         return render_template('biorxiv2carrel.html')
@@ -217,7 +221,7 @@ def create_gutenberg():
     # query is passed as a param for GET requests and as
     # as a form vaule for POSTs.
     shortname = request.form.get('shortname', '')
-    username = current_user.id
+    username = current_user.username
 
     if request.method != 'POST' or shortname == '':
         query = request.args.get('query', '')
@@ -273,7 +277,7 @@ def create_cord():
     # query is passed as a param for GET requests and as
     # as a form vaule for POSTs.
     shortname = request.form.get('shortname', '')
-    username = current_user.id
+    username = current_user.username
 
     if request.method != 'POST' or shortname == '':
         query = request.args.get('query', '')

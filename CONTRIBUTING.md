@@ -26,7 +26,7 @@ first install Python 3. Then install `pipenv`
     $ cd webui
     $ pipenv install
     $ pipenv shell
-    $ env READER_CONFIG=config.local FLASK_ENV=development FLASK_APP=hello.py flask run
+    $ env READER_CONFIG=config.local FLASK_ENV=development FLASK_APP=main.py flask run
 
 and the web app will be on `localhost:5000`.
     
