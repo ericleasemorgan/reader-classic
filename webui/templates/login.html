@@ -1,21 +1,19 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Login</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<style>
-		body { font-family: Georgia, serif; }
-		h1,h2 {font-family: Verdana, sans-serif}
-		ol.whatshere li {margin-top: 1em}
-	</style>
-</head>
-<body style="margin-left: 3%; margin-right:3%; margin-top: 3%; margin-bottom: 3%">
-<h1 style='text-align:center'>Login</h1>
+{% extends "base.html" %}
+{% block title %}Login{% endblock %}
 
+{% block body %}
+<h2>Log in using password</h2>
 <form method="post" action="{{ url_for('login') }}">
+    <input type='hidden' name='which' value='password'/>
     <label>User name: <input type='text' name="username" /></label>
     <label>Password: <input type='password' name="password" /></label>
     <button type='submit'>Submit</button>
 </form>
-</body>
-</html>
+
+<h2>Log in using ORCID<h2>
+<form method="post">
+    <input type='hidden' name='which' value='orcid'/>
+    <button type='submit'>Login with ORCID</button>
+</form>
+
+{% endblock %}
