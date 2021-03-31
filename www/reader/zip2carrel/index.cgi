@@ -12,7 +12,7 @@
 use constant BACKLOG => '/data-disk/reader-compute/reader-classic/queue/backlog';
 use constant TODO    => '/data-disk/reader-compute/reader-classic/queue/todo';
 use constant TYPE    => 'zip2carrel';
-use constant POSTMAX => 1024 * 50000;
+use constant POSTMAX => 1024 * 100000;
 
 # require
 use CGI;
