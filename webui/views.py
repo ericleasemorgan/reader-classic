@@ -7,7 +7,7 @@ from is_safe_url import is_safe_url
 import pysolr
 
 from app import app
-from auth import login_manager, verify_password
+from auth import login_manager, verify_password, oauth
 from models import User
 
 @app.route('/')
@@ -17,6 +17,10 @@ def index():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
+        # which method did the user choose: orcid or password?
+        if request.form.get('which', '') == "orcid":
+            redirect_uri = url_for('login_callback', _external=True)
+            return oauth.orcid.authorize_redirect(redirect_uri)
         username = request.form.get('username', '')
         password = request.form.get('password', '')
         if verify_password(username, password):
@@ -26,13 +30,89 @@ def login():
                 u.save()
             login_user(u)
             next = session.pop('next', url_for('index'))
-            if is_safe_url(next, allowed_hosts=None):
-                return redirect(next)
+            if not is_safe_url(next, allowed_hosts=None):
+                next = url_for(index)
+            return redirect(next)
     return render_template('login.html')
 
 @app.route('/login/callback', methods=['GET', 'POST'])
 def login_callback():
-    pass
+    """this is the oauth callback"""
+    token = oauth.orcid.authorize_access_token()
+    # Is there an existing user for this orcid?
+    orcid = token['orcid']
+    u = User.FromORCID(orcid)
+    if u is not None:
+        # YES, there is a record with this orcid
+        login_user(u)
+        next = session.pop('next', url_for('index'))
+        if not is_safe_url(next, allowed_hosts=None):
+            next = url_for('index')
+        return redirect(next)
+    # save the important token info and ask if we should consolidate with
+    # existing account or make a new one
+    session['orcid'] = orcid
+    session['name'] = token['name']
+    return redirect(url_for('login_new_orcid'))
+
+# pulls info out of the current request. looks for form fields
+# `username`, `email`. Returns None and sets the flash if there was a
+# validation error.
+def create_user_from_form():
+    username = request.form.get('username', '')
+    if username == '':
+        flash('username is required')
+        return None
+    if User.FromUsername(username) is not None:
+        flash('That username is used by someone else')
+        return None
+    email = request.form.get('email', '')
+    if email == '':
+        flash('An email is required')
+        return None
+    return User(username = username, email=email)
+
+@app.route('/login/new-orcid', methods=['GET', 'POST'])
+def login_new_orcid():
+    # the user has logged in with ORCID, but there is not a record with that
+    # ORCID, so ask whether to make a new one or to consolidate with an
+    # existing one.
+    # The user is not technically logged in yet, but we are storing the given
+    # orcid and name in the session, temporarily. (to log them in we would need
+    # to add a record to the database, sooooo either we figure out which record
+    # right now or we make a record and then possibly delete it later if they
+    # choose "associate"
+    if method == "GET":
+        return render_template('login-new-orcid')
+    # should we add this orcid to an existing account?
+    if request.form.get('which', '') == "associate":
+        username = request.form.get('username', '')
+        password = request.form.get('password', '')
+        if not verify_password(username, password):
+            flash('Bad username or password')
+            return render_template('login-new-orcid')
+        u = User.FromUsername(username)
+        name = session.pop('name')
+        if u is None:
+            u = User(username=username)
+            u.name = name
+        u.orcid = session.pop('orcid')
+        u.save()
+    else:
+        # make a new account
+        # is username taken?
+        u = create_user_from_form()
+        if u is None:
+            return render_template('login-new-orcid')
+        u.name = session.pop('name')
+        u.orcid = session.pop('orcid')
+        u.save()
+
+    login_user(u)
+    next = session.pop('next', url_for('index'))
+    if not is_safe_url(next, allowed_hosts=None):
+        next = url_for(index)
+    return redirect(next)
 
 
 def add_job_to_queue(job_type, shortname, username, extra):

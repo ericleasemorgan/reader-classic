@@ -7,13 +7,12 @@ name = "pypi"
 flask = "*"
 gunicorn = "*"
 pysolr = "*"
-flask-httpauth = "*"
 passlib = "*"
-oauthlib = "*"
 flask-login = "*"
 requests = "*"
 is-safe-url = "*"
 yoyo-migrations = "*"
+authlib = "*"
 
 [dev-packages]
 

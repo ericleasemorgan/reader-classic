@@ -1,6 +1,9 @@
 from flask import (Flask, session, render_template, request, g)
+from werkzeug.middleware.proxy_fix import ProxyFix
 
 app = Flask(__name__)
+# get external host name so we can make correct redirect urls for oauth
+app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_host=1)
 app.config.from_envvar('READER_CONFIG')
 app.url_map.strict_slashes = False
 

@@ -2,7 +2,7 @@
 
 SECRET_KEY='replace in production'
 TESTING=True  # false in production
-APPLICATION_ROOT='/'   # or '/p/'?
+APPLICATION_ROOT='/'
 HTPASSWD_FILE='../config/dummy-htpasswd'
 DATABASE_SQLITE='./test-db.sqlite3'
 
