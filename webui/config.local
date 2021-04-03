@@ -1,0 +1,13 @@
+# configure for local laptop
+
+SECRET_KEY='replace in production'
+TESTING=True  # false in production
+APPLICATION_ROOT='/'
+HTPASSWD_FILE='../config/dummy-htpasswd'
+DATABASE_SQLITE='./test-db.sqlite3'
+
+TODO_PATH = 'queue/todo'
+BACKLOG_PATH = 'queue/backlog'
+SOLR_URL_GUTENBERG = 'http://localhost:7000/solr/reader-gutenberg'
+SOLR_URL_CORD = 'http://localhost:7000/solr/reader-cord'
+

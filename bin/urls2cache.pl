@@ -61,7 +61,7 @@ if ( $response->is_success ) {
 			my $html = &make_absolute( $response->decoded_content, $response->base );
 			
 			# actually do the work but cheat with a more robust application; wget++
-			`wget -t 5 -k "$url" -O "$filename"`;
+			`wget -t 2 -T 10 -k "$url" -O "$filename"`;
 				
 		}
 		

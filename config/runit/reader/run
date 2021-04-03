@@ -1,0 +1,7 @@
+#!/bin/bash
+export LANG=en_US.utf8
+export PIPENV_CACHE_DIR=/opt/reader/pip_cache
+export WORKON_HOME=/opt/reader/pip_cache
+exec 2>&1
+cd /opt/reader
+exec chpst -u app -e /opt/reader/env pipenv run gunicorn --access-logfile - main:app

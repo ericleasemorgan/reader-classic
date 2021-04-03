@@ -1,0 +1,11 @@
+# configure for local laptop
+APPLICATION_ROOT='/p/'
+HTPASSWD_FILE='/data-disk/etc/reader-htpasswd'
+SECRET_KEY= b'\xab\x9e>\xcb\xd2\x04H\x08\x8f\xdc\xc9\xb4\xdfIu\xc0'
+DATABASE_SQLITE = '/data-disk/reader-classic/webui/test-db.sqlite3'
+
+TODO_PATH = '/data-disk/reader-compute/reader-classic/queue/todo'
+BACKLOG_PATH = '/data-disk/reader-compute/reader-classic/queue/backlog'
+SOLR_URL_GUTENBERG = 'http://localhost:7000/solr/reader-gutenberg'
+SOLR_URL_CORD = 'http://localhost:7000/solr/reader-cord'
+

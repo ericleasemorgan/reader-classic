@@ -7,8 +7,10 @@ collections
 etc/readers.tsv
 lib/tika-server.jar
 lib/tika-server.jar.md5
-Library
 library.db
-log
-queue
-tmp
+/log
+/queue
+/tmp
+webui/queue
+webui/test-db.sqlite3
+__pycache__

@@ -1,0 +1,63 @@
+{% extends "search-results-base.html" %}
+
+{% block title %}
+The Distant Reader - COVID-19 literature to study carrel
+{% endblock %}
+
+{% block body %}
+<p>
+<form method='GET'>
+    <textarea name='query' autofocus="autofocus" cols='50' rows='10' style='font-size: large'>{{ query }}</textarea>
+    <br />
+    <input type='submit' value='Search' />
+</form>
+
+    <p>Your search found {{ total_hits }} item(s) and {{ num_displayed }} item(s) are displayed. If you are satisfied with the results, then you may want to <a href='{{ url_for('create_cord', query=query) }}'>queue the creation of a study carrel</a> with them.</p>
+
+    <h3>Items</h3>
+    <ol>
+        {%- for item in results %}
+        <li class='item'>
+            <strong>{{ item['title'] }}</strong>
+            <ul>
+                <li style='list-style-type:circle'>abstract: {{ item['abstract'] }}</li>
+                <li style='list-style-type:circle'>date: {{ item['date'] }}</li>
+                <li style='list-style-type:circle'>journal: {{ item['journal'] }}</li>
+                {# original only took first url #}
+                {% for u in item['urls'] %}
+                    <li style='list-style-type:circle'>URL: <a href='{{ u }}'>{{ u }}</a></li>
+                {% endfor %}
+                <li style='list-style-type:circle'>DOI: {{ item['doi'] }}</li>
+                <li style='list-style-type:circle'>local id: {{ item['id'] }}</li>
+                <li style='list-style-type:circle'>source: {{ item['sources'] }}</li>
+                <li style='list-style-type:circle'>sha: {{ item['sha'] }}</li>
+                <li style='list-style-type:circle'>PMC JSON: {{ item['pmc_json'] }}</li>
+                <li style='list-style-type:circle'>PDF JSON: {{ item['pdf_json'] }}</li>
+            </ul>
+        </li>
+        {%- endfor -%}
+    </ol>
+{% endblock %}
+
+
+{% block sidebar %}
+    {% macro add_facet(title, query_field, facet_field) %}
+        {% if facets[facet_field] %}
+            <h3>{{ title }}</h3>
+            <p>
+            {% for term, count in facets[facet_field] -%}
+                <a href='{{ url_for(request.endpoint, query=(query + " AND " + query_field +':"'+ term +'"')) }}'>{{ term }}</a> ({{ count }})
+                {%- if not loop.last %};{% endif -%}
+            {%- endfor -%}
+            </p>
+        {% endif %}
+    {% endmacro %}
+
+    {{ add_facet("Source facets", "facet_sources", "facet_sources") }}
+    {{ add_facet("Year facets", "year", "year") }}
+    {{ add_facet("Entity facets", "entity", "facet_entity") }}
+    {{ add_facet("Entity type facets", "type", "facet_type") }}
+    {{ add_facet("Keyword facets", "keywords", "facet_keywords") }}
+    {{ add_facet("Author facets", "authors", "facet_authors") }}
+    {{ add_facet("Journal facets", "facet_journal", "facet_journal") }}
+{% endblock %}

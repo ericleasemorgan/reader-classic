@@ -28,8 +28,11 @@ specific characteristics for your collection. These
 characteristics can help you summarize the collection as well as
 enumerate things you might want to investigate more closely.
 
-                               Eric Lease Morgan <emorgan@nd.edu>
-                                                     May 27, 2019";
+This report is a terse narrative report, and when processing 
+is complete you will be linked to a more complete narrative
+report. 
+
+                               Eric Lease Morgan <emorgan@nd.edu>";
 
 
 

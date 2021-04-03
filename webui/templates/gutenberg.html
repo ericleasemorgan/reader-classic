@@ -1,0 +1,15 @@
+{% extends "create-base.html" %}
+
+{% block title %}
+    The Distant Reader - Project Gutenberg to study carrel
+{% endblock %}
+
+{% block body %}
+	<p>This is selected fulltext index to the content of Project Project Gutenberg. Enter a query.</p>
+	<p>
+	<form method='GET'>
+		Query: <input type='text' name='query' value='{{ query }}' size='50' autofocus="autofocus"/>
+	<input type='submit' value='Search' />
+	</form>
+
+{% endblock %}
