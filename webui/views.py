@@ -23,16 +23,18 @@ def login():
             return oauth.orcid.authorize_redirect(redirect_uri, scope="/authenticate")
         username = request.form.get('username', '')
         password = request.form.get('password', '')
-        if verify_password(username, password):
-            u = User.FromUsername(username)
-            if u is None:
-                u = User(username=username)
-                u.save()
-            login_user(u)
-            next = session.pop('next', url_for('index'))
-            if not is_safe_url(next, allowed_hosts=None):
-                next = url_for(index)
-            return redirect(next)
+        if not verify_password(username, password):
+            flash("username and password don't match")
+            return render_template('login.html')
+        u = User.FromUsername(username)
+        if u is None:
+            u = User(username=username)
+            u.save()
+        login_user(u)
+        next = session.pop('next', url_for('index'))
+        if not is_safe_url(next, allowed_hosts=None):
+            next = url_for(index)
+        return redirect(next)
     return render_template('login.html')
 
 @app.route('/login/callback', methods=['GET', 'POST'])
