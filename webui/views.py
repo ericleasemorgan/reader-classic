@@ -60,13 +60,13 @@ def login_callback():
 # pulls info out of the current request. looks for form fields
 # `username`, `email`. Returns None and sets the flash if there was a
 # validation error.
-def create_user_from_form():
+def populate_user_from_form():
     username = request.form.get('username', '')
     if username == '':
-        flash('username is required')
+        flash('A username is required')
         return None
     if User.FromUsername(username) is not None:
-        flash('That username is used by someone else')
+        flash('Please choose a username not already used')
         return None
     email = request.form.get('email', '')
     if email == '':
@@ -77,38 +77,20 @@ def create_user_from_form():
 @app.route('/login/new-orcid', methods=['GET', 'POST'])
 def login_new_orcid():
     # the user has logged in with ORCID, but there is not a record with that
-    # ORCID, so ask whether to make a new one or to consolidate with an
-    # existing one.
-    # The user is not technically logged in yet, but we are storing the given
-    # orcid and name in the session, temporarily. (to log them in we would need
-    # to add a record to the database, sooooo either we figure out which record
-    # right now or we make a record and then possibly delete it later if they
-    # choose "associate"
+    # ORCID, so ask user information to create a new one.
+    #
+    # The user is not technically logged in at this point (because there is no
+    # user id yet!). We are storing the given orcid and name in the session.
     if request.method == "GET":
         return render_template('login-new-orcid.html')
-    # should we add this orcid to an existing account?
-    if request.form.get('which', '') == "associate":
-        username = request.form.get('username', '')
-        password = request.form.get('password', '')
-        if not verify_password(username, password):
-            flash("username and password don't match")
-            return render_template('login-new-orcid.html')
-        u = User.FromUsername(username)
-        name = session.pop('name')
-        if u is None:
-            u = User(username=username)
-            u.name = name
-        u.orcid = session.pop('orcid')
-        u.save()
-    else:
-        # make a new account
-        # is username taken?
-        u = create_user_from_form()
-        if u is None:
-            return render_template('login-new-orcid.html')
-        u.name = session.pop('name')
-        u.orcid = session.pop('orcid')
-        u.save()
+    # make a new account
+    # is username taken?
+    u = populate_user_from_form()
+    if u is None:
+        return render_template('login-new-orcid.html')
+    u.name = session.pop('name')
+    u.orcid = session.pop('orcid')
+    u.save()
 
     login_user(u)
     next = session.pop('next', url_for('index'))
