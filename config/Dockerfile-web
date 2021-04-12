@@ -39,6 +39,8 @@ COPY config /etc/httpd/conf/
 COPY www/library /data-disk/www/html/library
 COPY www/reader /data-disk/www/html/reader
 COPY . /data-disk/reader-classic
+RUN chmod a+w /data-disk/reader-classic/webui
+RUN chmod a+w /data-disk/reader-classic/webui/test-db.sqlite3
 
 # set up the daemon processes for supervision
 RUN mkdir /service
@@ -50,6 +52,9 @@ USER app
 COPY webui /opt/reader
 COPY config/webui-config.docker /opt/reader/config.docker
 RUN echo '/opt/reader/config.docker' > /opt/reader/env/READER_CONFIG
+
+# put the python server into debug mode (so we don't hit orcid for oauth stuff)
+RUN echo 'development' > /opt/reader/env/FLASK_ENV
 
 ENV PIPENV_CACHE_DIR=/opt/reader/pip_cache
 ENV WORKON_HOME=/opt/reader/pip_cache

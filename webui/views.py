@@ -7,7 +7,7 @@ from is_safe_url import is_safe_url
 import pysolr
 
 from app import app
-from auth import login_manager, verify_password, oauth
+from auth import login_manager, oauth
 from models import User
 
 @app.route('/')
@@ -17,24 +17,8 @@ def index():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        # which method did the user choose: orcid or password?
-        if request.form.get('which', '') == "orcid":
-            redirect_uri = url_for('login_callback', _external=True)
-            return oauth.orcid.authorize_redirect(redirect_uri, scope="/authenticate")
-        username = request.form.get('username', '')
-        password = request.form.get('password', '')
-        if not verify_password(username, password):
-            flash("username and password don't match")
-            return render_template('login.html')
-        u = User.FromUsername(username)
-        if u is None:
-            u = User(username=username)
-            u.save()
-        login_user(u)
-        next = session.pop('next', url_for('index'))
-        if not is_safe_url(next, allowed_hosts=None):
-            next = url_for(index)
-        return redirect(next)
+        redirect_uri = url_for('login_callback', _external=True)
+        return oauth.orcid.authorize_redirect(redirect_uri, scope="/authenticate")
     return render_template('login.html')
 
 @app.route('/login/callback', methods=['GET', 'POST'])
@@ -97,6 +81,38 @@ def login_new_orcid():
     if not is_safe_url(next, allowed_hosts=None):
         next = url_for(index)
     return redirect(next)
+
+# these routes are only for development testing of the oauth login
+if app.debug:
+    import base64
+
+    @app.route('/oauth/authorize', methods=['GET', 'POST'])
+    def debug_oauth_authorize():
+        print(request.args)
+        if request.method == "GET":
+            return render_template('debug-oauth-authorize.html')
+        # we put the data we want to remember into the session
+        # base64 works on _bytes_ but we have _strings_ so lots of encoding/decoding needed
+        code = "{}:{}".format(request.form['name'], request.form['orcid']).encode('utf-8')
+        codestr = base64.b64encode(code).decode('utf-8')
+        return redirect("{}?code={}&state={}".format(request.form['redirect'], codestr, request.form['state']))
+
+    @app.route('/oauth/token', methods=['POST'])
+    def debug_oauth_token():
+        print(request.args)
+        print(request.form)
+        x = base64.b64decode(request.form['code'].encode('utf-8'))
+        name, orcid = x.decode('utf-8').split(":", 1)
+        return {
+                "access_token": "debugging-token",
+                "token_type": "bearer",
+                "refresh_token": "refresh-debugging-token",
+                "expires_in": 631138518,
+                "scope": "/authenticate",
+                "name": name,
+                "orcid": orcid,
+                "expires_at": 2248258384
+                }
 
 
 def add_job_to_queue(job_type, shortname, username, extra):

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Debug Oauth{% endblock %}
+
+{% block body %}
+<p>
+Enter the information to return.
+</p>
+
+<form method="post">
+    <label>Name: <input type='text' name="name" /></label>
+    <label>ORCID: <input type='text' name="orcid" /></label>
+    <label>Redirect URL: <input type='text' name="redirect" value="{{ request.args['redirect_uri'] }}" /></label>
+    <label>State: <input type='text' name="state" value="{{ request.args['state'] }}" /></label>
+    <button type='submit'>Sign in</button>
+</form>
+
+{% endblock %}
