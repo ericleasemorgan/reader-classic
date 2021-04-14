@@ -1,6 +1,6 @@
 from datetime import datetime
 import os.path
-from flask import (render_template, session, request, redirect, g, url_for)
+from flask import (render_template, session, request, redirect, g, url_for, flash)
 from werkzeug.utils import secure_filename
 from flask_login import login_user, login_required, current_user
 from is_safe_url import is_safe_url
@@ -20,19 +20,21 @@ def login():
         # which method did the user choose: orcid or password?
         if request.form.get('which', '') == "orcid":
             redirect_uri = url_for('login_callback', _external=True)
-            return oauth.orcid.authorize_redirect(redirect_uri)
+            return oauth.orcid.authorize_redirect(redirect_uri, scope="/authenticate")
         username = request.form.get('username', '')
         password = request.form.get('password', '')
-        if verify_password(username, password):
-            u = User.FromUsername(username)
-            if u is None:
-                u = User(username=username)
-                u.save()
-            login_user(u)
-            next = session.pop('next', url_for('index'))
-            if not is_safe_url(next, allowed_hosts=None):
-                next = url_for(index)
-            return redirect(next)
+        if not verify_password(username, password):
+            flash("username and password don't match")
+            return render_template('login.html')
+        u = User.FromUsername(username)
+        if u is None:
+            u = User(username=username)
+            u.save()
+        login_user(u)
+        next = session.pop('next', url_for('index'))
+        if not is_safe_url(next, allowed_hosts=None):
+            next = url_for(index)
+        return redirect(next)
     return render_template('login.html')
 
 @app.route('/login/callback', methods=['GET', 'POST'])
@@ -82,15 +84,15 @@ def login_new_orcid():
     # to add a record to the database, sooooo either we figure out which record
     # right now or we make a record and then possibly delete it later if they
     # choose "associate"
-    if method == "GET":
-        return render_template('login-new-orcid')
+    if request.method == "GET":
+        return render_template('login-new-orcid.html')
     # should we add this orcid to an existing account?
     if request.form.get('which', '') == "associate":
         username = request.form.get('username', '')
         password = request.form.get('password', '')
         if not verify_password(username, password):
-            flash('Bad username or password')
-            return render_template('login-new-orcid')
+            flash("username and password don't match")
+            return render_template('login-new-orcid.html')
         u = User.FromUsername(username)
         name = session.pop('name')
         if u is None:
@@ -103,7 +105,7 @@ def login_new_orcid():
         # is username taken?
         u = create_user_from_form()
         if u is None:
-            return render_template('login-new-orcid')
+            return render_template('login-new-orcid.html')
         u.name = session.pop('name')
         u.orcid = session.pop('orcid')
         u.save()

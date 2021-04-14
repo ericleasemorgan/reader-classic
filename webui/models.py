@@ -23,7 +23,7 @@ class User(UserMixin):
             self.create_date = datetime.date.today()
         if self.id is None:
             rowid = db.execute("""INSERT INTO patrons (username, name, email, date, orcid)
-                VALUES (?, ?, ?, ?)
+                VALUES (?, ?, ?, ?, ?)
                 RETURNING rowid""",
                 (self.username,
                 self.name,
@@ -35,13 +35,13 @@ class User(UserMixin):
             return
 
         db.execute("""INSERT OR REPLACE INTO patrons (rowid, username, name, email, date, orcid)
-            VALUES (?, ?, ?, ?, ?)""",
-            self.id,
+            VALUES (?, ?, ?, ?, ?, ?)""",
+            (self.id,
             self.username,
             self.name,
             self.email,
             self.create_date,
-            self.orcid)
+            self.orcid))
         db.commit()
 
     @staticmethod
