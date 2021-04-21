@@ -8,12 +8,12 @@ oauth = OAuth(app)
 # the client_id and client_secret are provided via the config file.
 if app.debug:
     # rely on the config file to supply the exact port we are running on
-    oauth.register(name='orcid')
+    oauth.register(name="orcid")
 else:
     oauth.register(
-        name='orcid',
-        authorize_url='https://orcid.org/oauth/authorize',
-        access_token_url='https://orcid.org/oauth/token',
+        name="orcid",
+        authorize_url="https://orcid.org/oauth/authorize",
+        access_token_url="https://orcid.org/oauth/token",
     )
 
 login_manager = LoginManager()
@@ -27,4 +27,3 @@ def load_user(user_id):
     if user_id is not None and user_id != "":
         return User.FromID(user_id)
     return None
-
