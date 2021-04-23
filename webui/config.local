@@ -7,7 +7,7 @@ DATABASE_SQLITE='./test-db.sqlite3'
 ORCID_CLIENT_ID = '1234567890'
 ORCID_CLIENT_SECRET = '1234-1234-1234'
 ORCID_AUTHORIZE_URL = 'http://localhost:5000/oauth/authorize'
-ORCID_ACCESS_TOKEN_URL = 'http://localhost:5000/ouath/token'
+ORCID_ACCESS_TOKEN_URL = 'http://localhost:5000/oauth/token'
 
 TODO_PATH = 'queue/todo'
 BACKLOG_PATH = 'queue/backlog'

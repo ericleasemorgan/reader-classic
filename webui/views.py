@@ -77,7 +77,7 @@ def login_new_orcid():
     u = populate_user_from_form()
     if u is None:
         return render_template("login-new-orcid.html")
-    u.name = session.pop("name")
+    u.name = request.form.get("name", session.pop("name"))
     u.orcid = session.pop("orcid")
     u.save()
 
@@ -125,6 +125,12 @@ if app.debug:
             "orcid": orcid,
             "expires_at": 2248258384,
         }
+
+
+@app.route("/profile")
+@login_required
+def profile():
+    return render_template("profile.html")
 
 
 def add_job_to_queue(job_type, shortname, username, extra):

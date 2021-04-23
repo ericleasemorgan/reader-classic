@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Profile{% endblock %}
+
+{% block body %}
+<dl>
+    <dt>ID</dt><dd>{{ current_user.id }}</dd>
+    <dt>Username</dt><dd>{{ current_user.username }}</dd>
+    <dt>Name</dt><dd>{{ current_user.name }}</dd>
+    <dt>Email</dt><dd>{{ current_user.email }}</dd>
+    <dt>ORCID</dt><dd>{{ current_user.orcid }}</dd>
+    <dt>Created Date</dt><dd>{{ current_user.create_date }}</dd>
+</dl>
+{% endblock %}
