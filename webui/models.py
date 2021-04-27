@@ -23,15 +23,18 @@ class User(UserMixin):
             self.create_date = datetime.date.today()
         if self.id is None:
             rowid = db.execute("""INSERT INTO patrons (username, name, email, date, orcid)
-                VALUES (?, ?, ?, ?, ?)
-                RETURNING rowid""",
+                VALUES (?, ?, ?, ?, ?)""",
                 (self.username,
                 self.name,
                 self.email,
                 self.create_date,
-                self.orcid)).fetchone()
-            self.id = rowid[0]
+                self.orcid))
             db.commit()
+            # we need to figure out what rowid was assigned to the record.
+            # (The INSERT INTO ... RETURNING statement is not in the production version of
+            # sqlite)
+            u = User.FromUsername(self.username)
+            self.id = u.id
             return
 
         db.execute("""INSERT OR REPLACE INTO patrons (rowid, username, name, email, date, orcid)

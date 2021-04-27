@@ -7,7 +7,7 @@ from is_safe_url import is_safe_url
 import pysolr
 
 from app import app
-from auth import login_manager, verify_password, oauth
+from auth import login_manager, oauth
 from models import User
 
 @app.route('/')
@@ -17,24 +17,8 @@ def index():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        # which method did the user choose: orcid or password?
-        if request.form.get('which', '') == "orcid":
-            redirect_uri = url_for('login_callback', _external=True)
-            return oauth.orcid.authorize_redirect(redirect_uri, scope="/authenticate")
-        username = request.form.get('username', '')
-        password = request.form.get('password', '')
-        if not verify_password(username, password):
-            flash("username and password don't match")
-            return render_template('login.html')
-        u = User.FromUsername(username)
-        if u is None:
-            u = User(username=username)
-            u.save()
-        login_user(u)
-        next = session.pop('next', url_for('index'))
-        if not is_safe_url(next, allowed_hosts=None):
-            next = url_for(index)
-        return redirect(next)
+        redirect_uri = url_for('login_callback', _external=True)
+        return oauth.orcid.authorize_redirect(redirect_uri, scope="/authenticate")
     return render_template('login.html')
 
 @app.route('/login/callback', methods=['GET', 'POST'])
@@ -60,13 +44,13 @@ def login_callback():
 # pulls info out of the current request. looks for form fields
 # `username`, `email`. Returns None and sets the flash if there was a
 # validation error.
-def create_user_from_form():
+def populate_user_from_form():
     username = request.form.get('username', '')
     if username == '':
-        flash('username is required')
+        flash('A username is required')
         return None
     if User.FromUsername(username) is not None:
-        flash('That username is used by someone else')
+        flash('Please choose a username not already used')
         return None
     email = request.form.get('email', '')
     if email == '':
@@ -77,44 +61,58 @@ def create_user_from_form():
 @app.route('/login/new-orcid', methods=['GET', 'POST'])
 def login_new_orcid():
     # the user has logged in with ORCID, but there is not a record with that
-    # ORCID, so ask whether to make a new one or to consolidate with an
-    # existing one.
-    # The user is not technically logged in yet, but we are storing the given
-    # orcid and name in the session, temporarily. (to log them in we would need
-    # to add a record to the database, sooooo either we figure out which record
-    # right now or we make a record and then possibly delete it later if they
-    # choose "associate"
+    # ORCID, so ask user information to create a new one.
+    #
+    # The user is not technically logged in at this point (because there is no
+    # user id yet!). We are storing the given orcid and name in the session.
     if request.method == "GET":
         return render_template('login-new-orcid.html')
-    # should we add this orcid to an existing account?
-    if request.form.get('which', '') == "associate":
-        username = request.form.get('username', '')
-        password = request.form.get('password', '')
-        if not verify_password(username, password):
-            flash("username and password don't match")
-            return render_template('login-new-orcid.html')
-        u = User.FromUsername(username)
-        name = session.pop('name')
-        if u is None:
-            u = User(username=username)
-            u.name = name
-        u.orcid = session.pop('orcid')
-        u.save()
-    else:
-        # make a new account
-        # is username taken?
-        u = create_user_from_form()
-        if u is None:
-            return render_template('login-new-orcid.html')
-        u.name = session.pop('name')
-        u.orcid = session.pop('orcid')
-        u.save()
+    # make a new account
+    # is username taken?
+    u = populate_user_from_form()
+    if u is None:
+        return render_template('login-new-orcid.html')
+    u.name = session.pop('name')
+    u.orcid = session.pop('orcid')
+    u.save()
 
     login_user(u)
     next = session.pop('next', url_for('index'))
     if not is_safe_url(next, allowed_hosts=None):
         next = url_for(index)
     return redirect(next)
+
+# these routes are only for development testing of the oauth login
+if app.debug:
+    import base64
+
+    @app.route('/oauth/authorize', methods=['GET', 'POST'])
+    def debug_oauth_authorize():
+        print(request.args)
+        if request.method == "GET":
+            return render_template('debug-oauth-authorize.html')
+        # we put the data we want to remember into the session
+        # base64 works on _bytes_ but we have _strings_ so lots of encoding/decoding needed
+        code = "{}:{}".format(request.form['name'], request.form['orcid']).encode('utf-8')
+        codestr = base64.b64encode(code).decode('utf-8')
+        return redirect("{}?code={}&state={}".format(request.form['redirect'], codestr, request.form['state']))
+
+    @app.route('/oauth/token', methods=['POST'])
+    def debug_oauth_token():
+        print(request.args)
+        print(request.form)
+        x = base64.b64decode(request.form['code'].encode('utf-8'))
+        name, orcid = x.decode('utf-8').split(":", 1)
+        return {
+                "access_token": "debugging-token",
+                "token_type": "bearer",
+                "refresh_token": "refresh-debugging-token",
+                "expires_in": 631138518,
+                "scope": "/authenticate",
+                "name": name,
+                "orcid": orcid,
+                "expires_at": 2248258384
+                }
 
 
 def add_job_to_queue(job_type, shortname, username, extra):

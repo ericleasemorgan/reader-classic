@@ -2,18 +2,14 @@
 {% block title %}Login{% endblock %}
 
 {% block body %}
-<h2>Log in using password</h2>
-<form method="post" action="{{ url_for('login') }}">
-    <input type='hidden' name='which' value='password'/>
-    <label>User name: <input type='text' name="username" /></label>
-    <label>Password: <input type='password' name="password" /></label>
-    <button type='submit'>Submit</button>
-</form>
+<p>
+The Distant Reader uses <a href="https://orcid.org/">ORCIDs</a> to sign in.
+If you don't have an ORCID account, they are free to create.
+</p>
 
-<h2>Log in using ORCID<h2>
+<h2>Sign in using ORCID<h2>
 <form method="post">
-    <input type='hidden' name='which' value='orcid'/>
-    <button type='submit'>Login with ORCID</button>
+    <button type='submit'>Sign in with ORCID</button>
 </form>
 
 {% endblock %}
