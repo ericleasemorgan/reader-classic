@@ -13,7 +13,5 @@ is-safe-url = "*"
 yoyo-migrations = "*"
 authlib = "*"
 
-[dev-packages]
-
 [requires]
 python_version = "3.6"

@@ -1,4 +1,7 @@
 from datetime import datetime
+import smtplib
+from email.message import EmailMessage
+import random
 import os.path
 from flask import render_template, session, request, redirect, url_for, flash
 from werkzeug.utils import secure_filename
@@ -8,7 +11,7 @@ import pysolr
 
 from app import app
 from auth import oauth
-from models import User
+from models import User, EmailToken
 
 
 @app.route("/")
@@ -81,11 +84,68 @@ def login_new_orcid():
     u.orcid = session.pop("orcid")
     u.save()
 
+    send_email_verification(u)
+
     login_user(u)
     next = session.pop("next", url_for("index"))
     if not is_safe_url(next, allowed_hosts=None):
         next = url_for(index)
     return redirect(next)
+
+@app.route("/login/verify_email/<token>")
+def verify_email(token):
+    ev = EmailToken.FromToken(token)
+    if ev is None:
+        flash("Can't verify email: unknown token")
+        return redirect(url_for("index"))
+    u = User.FromID(ev.userid)
+    if u is None:
+        flash("Can't verify email: unknown user")
+        return redirect(url_for("index"))
+    if u.email_verify_date != "":
+        # the user already has a verified email
+        flash("Email Verified")
+        return redirect(url_for("index"))
+    if u.email != ev.email:
+        # the token was issued for an old email address
+        flash("Can't verify email: old token")
+        return redirect(url_for("index"))
+    u.email_verify_date = datetime.today()
+    u.save()
+    ev.delete()
+    flash("Email Verified")
+    return redirect(url_for("index"))
+
+def send_email_verification(user):
+    assert user is not None
+    if user.email_verify_date != "":
+        return
+    if user.email == "":
+        return
+    token = random.randbytes(8).hex()
+    ev = EmailToken(token=token, email=user.email, userid=user.id)
+    ev.save()
+
+    # now send email
+    body = render_template("verify-email.txt", token=token)
+    send_email(to=user.email, subject="Email Verification", body=body)
+
+
+def send_email(to="", subject="", body=""):
+    if app.debug:
+        print("Send Email")
+        print("To: ", to)
+        print("Subject: ", subject)
+        print(body)
+        return
+    message = EmailMessage()
+    message['Subject'] = subject
+    message['To'] = to
+    message['From'] = "noreply@distantreader.org"
+    message.set_content(body)
+    s = smtplib.SMTP('localhost')
+    s.send_message(message)
+    s.quit()
 
 
 # these routes are only for development testing of the oauth login
