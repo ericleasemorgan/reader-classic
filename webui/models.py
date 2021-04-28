@@ -22,13 +22,11 @@ class User(UserMixin):
         if self.create_date == "":
             self.create_date = datetime.date.today()
         if self.id is None:
-            rowid = db.execute("""INSERT INTO patrons (username, name, email, date, orcid)
+            rowid = db.execute(
+                """INSERT INTO patrons (username, name, email, date, orcid)
                 VALUES (?, ?, ?, ?, ?)""",
-                (self.username,
-                self.name,
-                self.email,
-                self.create_date,
-                self.orcid))
+                (self.username, self.name, self.email, self.create_date, self.orcid),
+            )
             db.commit()
             # we need to figure out what rowid was assigned to the record.
             # (The INSERT INTO ... RETURNING statement is not in the production version of
@@ -37,23 +35,29 @@ class User(UserMixin):
             self.id = u.id
             return
 
-        db.execute("""INSERT OR REPLACE INTO patrons (rowid, username, name, email, date, orcid)
+        db.execute(
+            """INSERT OR REPLACE INTO patrons (rowid, username, name, email, date, orcid)
             VALUES (?, ?, ?, ?, ?, ?)""",
-            (self.id,
-            self.username,
-            self.name,
-            self.email,
-            self.create_date,
-            self.orcid))
+            (
+                self.id,
+                self.username,
+                self.name,
+                self.email,
+                self.create_date,
+                self.orcid,
+            ),
+        )
         db.commit()
 
     @staticmethod
     def FromID(id_):
         db = get_db()
-        record = db.execute("""SELECT rowid, username, name, email, date, orcid
+        record = db.execute(
+            """SELECT rowid, username, name, email, date, orcid
             FROM patrons
             WHERE rowid = ?""",
-            (id_,)).fetchone()
+            (id_,),
+        ).fetchone()
         if not record:
             return None
         return User(record[0], record[1], record[2], record[3], record[4], record[5])
@@ -61,10 +65,12 @@ class User(UserMixin):
     @staticmethod
     def FromUsername(username):
         db = get_db()
-        record = db.execute("""SELECT rowid, username, name, email, date, orcid
+        record = db.execute(
+            """SELECT rowid, username, name, email, date, orcid
             FROM patrons
             WHERE username = ?""",
-            (username,)).fetchone()
+            (username,),
+        ).fetchone()
         if record is None:
             return None
         return User(record[0], record[1], record[2], record[3], record[4], record[5])
@@ -72,13 +78,12 @@ class User(UserMixin):
     @staticmethod
     def FromORCID(orcid):
         db = get_db()
-        record = db.execute("""SELECT rowid, username, name, email, date, orcid
+        record = db.execute(
+            """SELECT rowid, username, name, email, date, orcid
             FROM patrons
             WHERE orcid = ?""",
-            (orcid,)).fetchone()
+            (orcid,),
+        ).fetchone()
         if record is None:
             return None
         return User(record[0], record[1], record[2], record[3], record[4], record[5])
-
-
-
