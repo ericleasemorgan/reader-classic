@@ -1,7 +1,7 @@
 from datetime import datetime
 import smtplib
 from email.message import EmailMessage
-import random
+import secrets
 import os.path
 from flask import render_template, session, request, redirect, url_for, flash
 from werkzeug.utils import secure_filename
@@ -122,7 +122,7 @@ def send_email_verification(user):
         return
     if user.email == "":
         return
-    token = random.randbytes(8).hex()
+    token = secrets.token_urlsafe()
     ev = EmailToken(token=token, email=user.email, userid=user.id)
     ev.save()
 
