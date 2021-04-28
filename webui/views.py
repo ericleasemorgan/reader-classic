@@ -1,6 +1,4 @@
 from datetime import datetime
-import smtplib
-from email.message import EmailMessage
 import secrets
 import os.path
 from flask import render_template, session, request, redirect, url_for, flash
@@ -130,22 +128,6 @@ def send_email_verification(user):
     body = render_template("verify-email.txt", token=token)
     send_email(to=user.email, subject="Email Verification", body=body)
 
-
-def send_email(to="", subject="", body=""):
-    if app.debug:
-        print("Send Email")
-        print("To: ", to)
-        print("Subject: ", subject)
-        print(body)
-        return
-    message = EmailMessage()
-    message['Subject'] = subject
-    message['To'] = to
-    message['From'] = "noreply@distantreader.org"
-    message.set_content(body)
-    s = smtplib.SMTP('localhost')
-    s.send_message(message)
-    s.quit()
 
 
 # these routes are only for development testing of the oauth login

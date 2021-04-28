@@ -1,6 +1,9 @@
 import datetime
+import smtplib
+from email.message import EmailMessage
 from flask_login import UserMixin
 
+from app import app
 from db import get_db
 
 # User represents a single person who interacts with this site.
@@ -133,4 +136,21 @@ class EmailToken(object):
             return None
         return EmailToken(record[0], record[1], record[2], record[3])
 
+
+
+def send_email(to="", subject="", body=""):
+    if app.debug:
+        print("Send Email")
+        print("To: ", to)
+        print("Subject: ", subject)
+        print(body)
+        return
+    message = EmailMessage()
+    message['Subject'] = subject
+    message['To'] = to
+    message['From'] = "noreply@distantreader.org"
+    message.set_content(body)
+    s = smtplib.SMTP('localhost')
+    s.send_message(message)
+    s.quit()
 
