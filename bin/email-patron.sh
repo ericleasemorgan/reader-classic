@@ -14,7 +14,7 @@ PROVENANCE='provenance.tsv'
 STARTED="$READERCLASSIC_HOME/etc/template-email-started.txt"
 PROCESSING="$READERCLASSIC_HOME/etc/template-email-processing.txt"
 FINISHED="$READERCLASSIC_HOME/etc/template-email-finished.txt"
-PATRONS='/ocean/projects/cis210016p/shared/etc/reader-patrons.db';
+PATRONS='/data-disk/etc/reader-patrons.db';
 REPORT='standard-output.txt'
 LOGFILE='standard-error.txt'
 

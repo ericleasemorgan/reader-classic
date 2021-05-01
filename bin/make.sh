@@ -30,7 +30,7 @@ fi
 NAME=$1
 
 # start tika
-java -jar /ocean/projects/cis210016p/shared/lib/tika-server.jar &
+java -jar /home/eric/data-disk/lib/tika-server.jar &
 PID=$!
 sleep 10
 
