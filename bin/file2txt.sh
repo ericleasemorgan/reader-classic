@@ -26,6 +26,8 @@ BASENAME=$( basename "$FILE" )
 BASENAME="${BASENAME%.*}"
 OUTPUT="$DIRECTORY/$BASENAME.txt"
 
+if [[ $BASENAME == 'xml2htm' ]]; then exit; fi
+
 echo "  FILE: $FILE" >&2
 echo "OUTPUT: $OUTPUT" >&2
 

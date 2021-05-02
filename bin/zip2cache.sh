@@ -42,19 +42,26 @@ find tmp/input -name "*.xml"  | parallel --will-cite mv {} cache
 find tmp/input -name "*.docx" | parallel --will-cite mv {} cache
 find tmp/input -name "*.pptx" | parallel --will-cite mv {} cache
 find tmp/input -name "*.xlsx" | parallel --will-cite mv {} cache
+find tmp/input -name "*.xsl"  | parallel --will-cite mv {} cache
 
 # configure possible metadata file
+METADATAS=( $(find ./tmp/input -name metadata.csv ) )
 DIRECTORIES=( $(find ./tmp/input -type d) )
+echo "=== DIRECTORIES: $DIRECTORIES " >&2
 DIRECTORY=${DIRECTORIES[1]}
-METADATA="$DIRECTORY/metadata.csv"
+echo "=== DIRECTORY: $DIRECTORY " >&2
+METADATA=${METADATAS[0]}
+echo "=== metadata file: $METADATA " >&2
 
 # re-initialize bibliographics sql
 rm -rf ./tmp/bibliographics.sql
+
 
 # check for optional metadata file
 if [[ -f $METADATA ]]; then
 
 	# process metadata
+	echo "=== found metadata file" >&2
     $METADATA2SQL $METADATA > ./tmp/bibliographics.sql
 
 # initialize bib table

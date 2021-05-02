@@ -30,16 +30,16 @@ fi
 NAME=$1
 
 # start tika
-java -jar /home/eric/data-disk/lib/tika-server.jar &
-PID=$!
-sleep 10
+#java -jar /home/eric/data-disk/lib/tika-server.jar &
+#PID=$!
+#sleep 10
 
 # transform cache to plain text files
 $CACHE2TXT $NAME
 
 # extract parts-of-speech, named entities, etc
 $MAP $NAME
-kill $PID
+#kill $PID
 
 # build the database
 $REDUCE $NAME

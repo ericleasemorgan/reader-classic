@@ -31,6 +31,9 @@ LEAF=$( basename "$FILE" )
 LEAF="${LEAF%.*}"
 OUTPUT="$BIB/$LEAF.bib"
 
+# skip over freebo style sheet; a hack
+if [[ $LEAF == 'xml2htm' ]]; then exit; fi
+
 # do the work
 if [ -f "$OUTPUT" ]; then
 	echo "$OUTPUT exist" >&2
