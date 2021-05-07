@@ -1,170 +1,137 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Distant Reader - Home</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<style>
-		body { font-family: Georgia, serif; }
-		h1,h2 {font-family: Verdana, sans-serif}
-		ol.whatshere li {margin-top: 1em}
-	</style>
-</head>
-<body style="margin-left: 3%; margin-right:3%; margin-top: 3%; margin-bottom: 3%">
+{% extends "base.html" %}
 
-{% include "flash.html" %}
+{% block body %}
+<!-- jumbotron -->
+  <div class="jumbotron" id="jumbotron"></div>
 
-<h1 style='text-align:center'>
-	The Distant Reader, a tool for reading stuff
-</h1>
-<p>
-    <img src="{{ url_for('static', filename='banner.jpg') }}" alt='banner' style="max-width:50%;height:auto;float:right;margin-left:1em" />Intended for anybody who reads, the Distant Reader takes text as input, does analysis against it, and outputs sets of structured data, affectionately called "<strong>study carrels</strong>". The student, research, or scholar can then use a study carrel to read the text both closely as well as at a distance.
-</p>
-<h2>
-	What's here
-</h2>
-<ol class="whatshere">
-	<li><a href="http://library.distantreader.org/catalog/">Library "catalog</a>" - a simple &amp; rudimentary list of curated study carrels</li>
-    <li><a href="https://library.distantreader.org/patrons/">Patrons / sign in</a> - if you have created study carrels, then you can log in to see them here; if you would like to create study carrels, then <a href="mailto:emorgan@nd.edu?subject=[distantreader]%20password%20request">request a username/passsword</a></li>
-	<li>Interfaces for creating study carrels: 
-	<ul>
-		<li>carrels with data you supply
-		<ol>
-			<li>a <a href="{{ url_for('file2carrel') }}">file</a> - quick &amp; easy, but is really only useful for "large" files like entire books</li>
-			<li>a <a href="{{ url_for('zip2carrel') }}">Zip file</a> - save files of just about any type in a folder/directory on your computer, compress (zip) the folder, and submit the results; great for those journal articles you downloaded for your research paper or the items in your class's reading list</li>
-			<li>a <a href="{{ url_for('url2carrel') }}">URL</a> - quick &amp; easy, but the content may not be accesible by the Reader and the results may be overwhelmed with website navigation information; try Wikipedia pages, a blog, or a departmental website</li>
-			<li>a <a href="{{ url_for('urls2carrel') }}">list of URLs</a> - like creating carrels from a single URL but more targeted and more scalable; consider creating a study carrel, and use the list of extracted URLs as the input for this service</li>
-		</ol>
-		</li>
-		<li>carrels with data from external services
-		<ul>
-            <li><a href="{{ url_for('trust2carrel') }}">HathiTrust</a> - millions of books in the public domain; <a href="https://www.hathitrust.org">search the 'Trust</a>, add items to your "collection", download your or somebody else's collection file, and use it as input for this service</li>
-            <li><a href="{{ url_for('biorxiv2carrel') }}">bioRxiv</a> - a pre-print server for biology; <a href="https://www.biorxiv.org">search bioRxiv</a>, mark items of interest, download the list of selected items as an "XML" file, and use the result as the input for this service</li>
-		</ul>
-		</li>
-		<li>carrels with data from local indexes
-		<ul>
-            <li><a href="{{ url_for('gutenberg') }}">Project Gutenberg</a> - a local cache of the about 30,000 public domain documents from the venerable Project Gutenberg; submit a query, and create a carrel from the results; very easy and almost all queries will return something; great for "big" ideas (like
-                <a href="{{ url_for('gutenberg', query='subject:"Love"') }}">love</a>,
-                <a href="{{ url_for('gutenberg', query='subject:"war"') }}">war</a>, or
-                <a href="{{ url_for('gutenberg', query='subject:"knowledge"') }}">knowledge</a>),
-                "classic" authors (like
-                <a href="{{ url_for('gutenberg', query='author:"Plato"') }}">Plato</a>,
-                <a href="{{ url_for('gutenberg', query='author:shakespeare AND author:"Shakespeare, William"') }}">Shakespeare</a>, or
-                <a href="{{ url_for('gutenberg', query='author:"Austen, Jane"') }}">Jane Austen</a>),
-                or types of literature (like
-                <a href="{{ url_for('gutenberg', query='subject:"Romances"') }}">Romances</a>,
-                <a href="{{ url_for('gutenberg', query='subject:"Western stories"') }}">Westerns</a>, or
-                <a href="{{ url_for('gutenberg', query='subject:"Science fiction"') }}">Science Fiction</a>)
-            </li>
-            <li><a href="{{ url_for('cord_search') }}">CORD-19</a> - a cache of more than 100,000 scholarly and scientific journal articles on the topic of COVID-19; based on <a href="https://www.semanticscholar.org/cord19">a data set by the same name</a>, this index can be used to create study carrels based on topics (like
-                <a href="{{ url_for('cord_search', query='( ( * NOT ( pdf_json:nan ) ) OR ( * NOT ( pmc_json:nan ) ) ) AND (title:infection* AND entity:infection* AND keywords:infection*)') }}">infection</a>,
-                <a href="{{ url_for('cord_search', query='( ( * NOT ( pdf_json:nan ) ) OR ( * NOT ( pmc_json:nan ) ) ) AND (title:vaccine* AND entity: vaccine* AND keywords: vaccine*)') }}">vaccines</a>, or
-                <a href="{{ url_for('cord_search', query='( ( * NOT ( pdf_json:nan ) ) OR ( * NOT ( pmc_json:nan ) ) ) AND (title:sars* AND entity: sars* AND keywords: sars*)') }}">SARS</a>)
-                or journals titles (like
-                <a href="{{ url_for('cord_search', query='( ( * NOT ( pdf_json:nan ) ) OR ( * NOT ( pmc_json:nan ) ) ) AND facet_journal:"Lancet"') }}">Lancet</a>,
-                <a href="{{ url_for('cord_search', query='( ( * NOT ( pdf_json:nan ) ) OR ( * NOT ( pmc_json:nan ) ) ) AND facet_journal:"PLoS One"') }}">PLoS One</a>, or
-                <a href="{{ url_for('cord_search', query='( ( * NOT ( pdf_json:nan ) ) OR ( * NOT ( pmc_json:nan ) ) ) AND facet_journal:"J Med Virol"') }}">Journal of Medical Virology</a>)
-            </li>
-		</ul>
-		</li>
-	</ul>
-	</li>
-	<li><a href="http://cord.distantreader.org/">Project CORD</a> - an "archived" website originally sponsored by the <a href="https://covid19-hpc-consortium.org">COVID-19 HPC Consortium</a> for the purposes of indexing &amp; providing access to <a href="https://www.semanticscholar.org/cord19">CORD-19</a></li>
-</ol>
-<h2>
-	About
-</h2>
-<p>
-	Through the use of study carrels, the student, researcher or scholar can easily ask and answer questions such as but not limited to:
-</p>
-<ul>
-	<li>Who or what is mentioned in this corpus?</li>
-	<li>What do they do?</li>
-	<li>When does the action take place?</li>
-	<li>Where does the action take place?</li>
-	<li>How are they described?</li>
-	<li>What themes exist in a corpus and how are the manifested over time or between writers?</li>
-</ul>
-<p>
-	Study carrels are also useful tools for getting your mind around large corpora because they provide ways to sort, group, and prioritized their content.
-</p>
-<p>
-	The key to getting the most out of the Distant Reader is two-fold:
-</p>
-<ol>
-	<li>articulating a question you would like to address, and</li>
-	<li>identifying a corpus which may be used to answer the question</li>
-</ol>
-<p>
-	The questions can be as rudimentary as "What words are used most frequently in <cite>Moby Dick</cite>?" or as sublime as "How was love defined during the 19th Century?"
-</p>
-<p>
-	Study carrels can be created from but not limited to: websites, blogs, social media feeds, or files from your computer. The Reader can analyze just about any type of file including but not limited to: Portable Document Format (.pdf) files, Word (.doc and docx) documents, PowerPoint (.ppt and pptx) files, HTML (.htm and .html) files, plain text (.txt) files, XML (.xml) files, etc.
-</p>
-<h2>
-	People &amp; Sponsors
-</h2>
-<p>
-	Sincere and heart-felt thanks go out to the following people and sponsors; "It takes a village." 
-</p>
-<div style='text-align: center'>
-	<p>
-        <img src='{{ url_for('static', filename='wordle.png') }}' alt='wordle' style="max-width:100%;height:auto;" />
-	</p>
-	<p>
-        <img src='{{ url_for('static', filename='xsede.jpg') }}' align="middle" alt='xsede' style="max-width:33%;height:auto;" />
-        <img src='{{ url_for('static', filename='nfcds.png') }}' align="middle" alt='nfcds' style="max-width:33%;height:auto;" />
-        <img src='{{ url_for('static', filename='scigap.png') }}' align="middle" alt='schigap' style="max-width:33%;height:auto;" />
-	</p>
-	<p>
-        <img src='{{ url_for('static', filename='microsoft.png') }}' align="middle" alt='microsoft' style="max-width:25%;height:auto;" />
-        <img src='{{ url_for('static', filename='airavata.png') }}' align="middle" alt='airavata' style="max-width:25%;height:auto;" />
-        <img src='{{ url_for('static', filename='nsf.png') }}' align="middle" alt='nsf' style="max-width:25%;height:auto;" />
-        <img src='{{ url_for('static', filename='lanl.png') }}' align="middle" alt='lanl' style="max-width:25%;height:auto;" />
-	</p>
-</div>
-<h2>Software</h2>
-<p>
-	From a computer system's point of view, the Distant Reader is really the amalgamation of differents sets of computer software tools used to create a (hopefully) useful and interesting service. Much of that software inclues, but is not limited to:
-</p>
-<ul>
-	<li><a href="https://airavata.apache.org/">Airivata</a> - used to submit and monitor large-scale applications</li>
-	<li><a href="https://metacpan.org/pod/Archive::Zip">Archive::Zip</a> - a Perl library to create Zip files</li>
-	<li><a href="https://getbootstrap.com/">bootstrap</a> - a library of Javascript and CSS functions</li>
-	<li><a href="https://metacpan.org/pod/distribution/CGI/lib/CGI.pod">CGI</a> - A Perl module for creating CGI scripts</li>
-	<li><a href="http://csvkit.rtfd.org/">csvstack</a> - a set of command-line tool reading tabular data </li>
-	<li><a href="https://metacpan.org/pod/DBI">DBI</a> - a Perl library to do I/O against databases</li>
-	<li><a href="https://metacpan.org/pod/File::Basename">File::Basename</a> - a Perl library to process file names</li>
-	<li><a href="https://metacpan.org/pod/File::Copy">File::Copy</a> - a Perl library used to copy files</li>
-	<li><a href="https://radimrehurek.com/gensim/">Gensim</a> - a Python library for natural language processing</li>
-	<li><a href="https://metacpan.org/pod/HTML::Entities">HTML::Entities</a> - a Perl library for encoding data for the Web</li>
-	<li><a href="https://jquery.com/">jquery</a> - a Javascript library for user-interface</li>
-	<li><a href="https://metacpan.org/pod/JSON">JSON</a> - a Perl library for reading JSON data</li>
-	<li><a href="https://matplotlib.org/mpl_toolkits/">mpl_toolkits</a> - a Python library for generating charts &amp; graphs</li>
-	<li><a href="https://networkx.github.io/">networkx</a> - a Javascript library for creating network diagrams</li>
-	<li><a href="https://www.nltk.org/">nltk</a> - a Python library for natural language processing</li>
-	<li><a href="https://www.openstack.org/">OpenStack</a> - a Linux toolkit for creating virtual machines</li>
-	<li><a href="https://pandas.pydata.org/">pandas</a> - a Python library for processing matrix-based data</li>
-	<li><a href="https://scikit-learn.org/">sklearn</a> - a Python library for machine learning</li>
-	<li><a href="https://slurm.schedmd.com/">Slurm</a> - a Linux toolkit to support cluster computing</li>
-	<li><a href="https://spacy.io">SpaCy</a> - a Python library for natural language processing</li>
-	<li><a href="https://www.sqlalchemy.org/">SQLAlchemy</a> - a Python library for interacting with databases</li>
-	<li><a href="https://www.sqlite.org/index.html">SQLite</a> - a C library-based relational database</li>
-	<li><a href="http://www.erinhengel.com/software/textatistic/">Textacy</a> - a Python library for natural language processing</li>
-	<li><a href="https://tika.apache.org">Tika</a> - a Java archive for text pre-processing</li>
-	<li><a href="https://metacpan.org/pod/WebService::Solr">WebService::Solr</a> - a Perl library used to interact with a Solr index</li>
-	<li><a href="https://www.gnu.org/software/wget/">Wget</a> - a HTTP user-agent</li>
-	<li><a href="https://github.com/amueller/word_cloud">wordcloud</a> - a Python library for creating word clouds</li>
-	<li><a href="https://metacpan.org/pod/XML::XPath">XML::XPath</a> - a Perl library for querying XML </li>
-</ul>
-<p>All of the code to the Distant Reader is located in a number of different GitHub repositories. If you would like to contribute, then please see "<a href="https://github.com/ericleasemorgan/reader/blob/master/CONTRIBUTING.md">Contributing to the Distant Reader</a>". Software is never done, and if it were, then it would be called "hardware".</p>
+  <!-- main wrapper div -->
+  <div class="container" id="wrapper">
 
-<hr />
-<p style='text-align: right'>
-	Eric Lease Morgan &lt;<a href="mailto:emorgan@nd.edu">emorgan@nd.edu</a>&gt;<br />
-	University of Notre Dame<br />
-	<br />
-	January 17, 2021 
-</p>
-</body>
-</html>
+    <div class="row">
+
+      <div class="col-sm-12 mb-5 mt-4">
+
+        <!-- General / marketing description of tool -->
+        <p class="display-5 text-center mt-3 mb-2" id="tagline">Intended for anybody who reads, the Distant Reader takes text as input, does analysis against it, and outputs sets of structured data, affectionately called "study carrels". The student, research, or scholar can then use a study carrel to read the text both closely as well as at a distance.</p>
+
+      </div>
+
+      <!-- <div class="col-sm-12 col-md-7 col-lg-8" id="action-buttons"> -->
+      <div class="col-12" id="action-buttons">
+
+        <h3 class="maroon mb-4">Getting Started</h3>
+
+        <ul class="list-group list-group-flush">
+
+          <li class="list-group-item pointer shadow-sm p-4 mb-1" data-url="getting-started.html">
+            <div class="row">
+              <div class="col-12 col-md-2">
+                <p class="text-center"><i class="fad fa-fw fa-3x fa-list-ol trench-blue"></i></p>
+              </div>
+              <div class="col-12 col-md-10">
+                <h4 class="card-title bright-blue">Instructions for Working with Distant Reader</h4>
+                <p>Read our step-by-step instructions on how to view and create, use and cite carrels.</p>
+              </div>
+            </div>
+          </li>
+        </ul>
+
+
+        <h3 class="maroon mt-5 mb-4">Working with Carrels</h3>
+
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item pointer shadow-sm p-4 mb-1" data-url="browse.html">
+            <div class="row">
+              <div class="col-12 col-md-2">
+                <p class="text-center"><i class="fad fa-fw fa-3x fa-list-alt trench-blue"></i></p>
+              </div>
+              <div class="col-12 col-md-10">
+                <h4 class="card-title bright-blue">Browse Library of Carrels</h4>
+                <p>Browse the library of carrels you've created and those created and publicly shared by others.</p>
+              </div>
+            </div>
+          </li>
+          <li class="list-group-item pointer shadow-sm p-4 mb-1" data-url="create.html">
+            <div class="row">
+              <div class="col-12 col-md-2">
+                <p class="text-center"><i class="fad fa-fw fa-file-medical trench-blue fa-3x"></i></p>
+              </div>
+              <div class="col-12 col-md-10">
+                <h4 class="card-title bright-blue">Create a Carrel from Your Data</h4>
+                <p>Create a new carrel from a range of file types, including DOC/DOCX, PPT/PPTX, PDF, TXT, CSV, HTML and XML, and even URLs.</p>
+              </div>
+            </div>
+          </li>
+          <li class="list-group-item pointer shadow-sm p-4 mb-1" data-url="create.html">
+            <div class="row">
+              <div class="col-12 col-md-2">
+                <p class="text-center"><i class="fad fa-fw fa-files-medical trench-blue fa-3x"></i></p>
+              </div>
+              <div class="col-12 col-md-10">
+                <h4 class="card-title bright-blue">Create a Carrel from Project Gutenberg</h4>
+                <p>Create a carrel from a local cache of the approximately 30,000 public domain documents from Project Gutenberg.</p>
+              </div>
+            </div>
+          </li>
+          <li class="list-group-item pointer shadow-sm p-4 mb-1" data-url="">
+            <div class="row">
+              <div class="col-12 col-md-2">
+                <p class="text-center"><i class="fad fa-fw fa-files-medical trench-blue fa-3x"></i></p>
+              </div>
+              <div class="col-12 col-md-10">
+                <h4 class="card-title bright-blue">Create a Carrel from CORD-19 Data</h4>
+                <p>Create a carrel from a cache of more than 100,000 scholarly and scientific journal articles on the topic of COVID-19.</p>
+              </div>
+            </div>
+          </li>
+        </ul>
+
+        <h3 class="maroon mb-4 mt-5">More Information</h3>
+
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item pointer shadow-sm p-4 mb-1" data-url="about.html">
+            <div class="row">
+              <div class="col-12 col-md-2">
+                <p class="text-center"><i class="fad fa-fw fa-3x fa-info-circle trench-blue"></i></p>
+              </div>
+              <div class="col-12 col-md-10">
+                <h4 class="card-title bright-blue">About This Project</h4>
+                <p>Learn about the history of this project, including the important contributions of sponsors and code-contributors, as well as how to cite this tool in your works cited page or bibliography.</p>
+              </div>
+            </div>
+          </li>
+
+          <li class="list-group-item pointer shadow-sm p-4 mb-1" data-url="contact.html">
+            <div class="row">
+              <div class="col-12 col-md-2">
+                <p class="text-center"><i class="fad fa-fw fa-hands-helping trench-blue fa-3x"></i></p>
+              </div>
+              <div class="col-12 col-md-10">
+                <h4 class="card-title bright-blue">Contact Us / Contribute to the Project</h4>
+                <p>We're always looking to improve the Distant Reader. There are a number of ways you can contribute to our success — from contributing code to sharing the uses you've found for the Distant Reader. We're looking forward to hearing
+                  from you!</p>
+              </div>
+            </div>
+          </li>
+          <li class="list-group-item pointer shadow-sm p-4 mb-1" data-url="faq.html">
+            <div class="row">
+              <div class="col-12 col-md-2">
+                <p class="text-center"><i class="fad fa-fw fa-question-circle trench-blue fa-3x"></i></p>
+              </div>
+              <div class="col-12 col-md-10">
+                <h4 class="card-title bright-blue">FAQ / Troubleshooting</h4>
+                <p>Here we offer answers to frequently asked questions and simple troubleshooting advice.</p>
+              </div>
+            </div>
+          </li>
+        </ul>
+
+      </div>
+      <!-- col-sm-8 -->
+
+    </div>
+    <!-- .row -->
+
+  </div>
+  <!-- #wrapper .container -->
+{% endblock %}
