@@ -193,29 +193,14 @@ SELECT COUNT( LOWER( t.token || ' ' || c.token || ' ' || d.token || ' ' || e.tok
 
 -- INSERT MORE KEWL GRAMMERS HERE
 
-
--- size of items
+-- a sort of bibliography
 select '
 
-Sizes of items; "Measures in words, how big is each item?"
-----------------------------------------------------------';
-select words, id from bib order by words desc;
+A rudimentary bibliography
+--------------------------';
+.mode lines
+select b.id, b.author, b.title, b.date, group_concat(w.keyword, '; ') as keywords, b.summary from bib as b, wrd as w where b.id = w.id group by b.id order by b.author;"
 
 
--- readability of items
-select '
-
-Readability of items; "How difficult is each item to read?"
------------------------------------------------------------';
-select rtrim(round(flesch)) as f, id from bib order by f desc;
-
-
--- summaries
-select '
-
-Item summaries; "In a narrative form, how can each item be abstracted?"
------------------------------------------------------------------------';
-select id, summary || '
-' from bib order by id;
 
 
