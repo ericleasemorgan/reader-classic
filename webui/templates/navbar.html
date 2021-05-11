@@ -1,0 +1,37 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-navbar text-light">
+  <!-- <div class="container"> -->
+    <!-- <div class="container"> -->
+    <a class="navbar-brand ml-4" href="{{ url_for("index") }}"><img class="img-fluid" src="{{ url_for("static", filename="distant-reader_logo-white.svg") }}" alt="Distant reader and link to home page"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-body" aria-controls="navbar-body" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fad fa-bars fa-fw"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar-body">
+      <ul class="navbar-nav ml-auto mr-2 pr-2">
+        <li id="research" class="nav-item active mr-2">
+          <a class="nav-link" href="browse.html">Browse Carrels</a>
+        </li>
+        <li class="nav-item dropdown mr-2 active">
+          <a class="nav-link dropdown-toggle" href="#" id="navbar-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Create Carrels
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbar-dropdown">
+              <a class="dropdown-item" href="{{ url_for("url2carrel") }}">New Carrel</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="{{ url_for("gutenberg") }}">From Project Gutenberg</a>
+            <a class="dropdown-item" href="{{ url_for("cord_search") }}">From CORD-19</a>
+        </li>
+
+        <li class="nav-item mr-2">
+        {% if current_user %}
+          Signed in as {{ current_user.username }}
+        {% else %}
+          <button class="btn btn-light text-primary ml-2" data-url="{{ url_for("login") }}"><i class="fad fa-user-check text-primary fa-fw mr-2" aria-hidden="true"></i>Sign In</button>
+        {% endif %}
+       </li>
+
+      </ul>
+    </div>
+    <!-- </div> -->
+  <!-- </div> -->
+  <!-- container -->
+</nav>
