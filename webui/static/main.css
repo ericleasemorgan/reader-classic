@@ -1,0 +1,472 @@
+:root {
+  /* root color variables */
+  --bright-blue: #007bff;
+  --light-grey-body: #fafafa;
+  --ghost-white: #f5f5fA;
+  --alice-blue: aliceblue;
+  --footer-slate: #e6e8f1;
+  --white: white;
+  --body-font: #666;
+  --slate-gray: lightslategray;
+  --silver: silver;
+  --graphite: #506578;
+  --trench-blue: #406885;
+  --light-blue: #d0e9fe;
+  --chocolate: rgb(210, 105, 30);
+  --maroon: #9c2b33;
+  /* --maroon: #bf3d3a; */
+  --cyan: #b6d1d4;
+  --nd-blue: #20364c;
+}
+
+body {
+  box-sizing: border-box;
+  font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+  background: #fafafa;
+  color: var(--graphite);
+  font-size: 1rem;
+}
+
+.relative {
+  position: relative;
+  overflow-y: scroll;
+}
+
+p, ul, li td, tr, .card {
+  color: var(--graphite);
+  font-size: 1rem;
+}
+
+/* Headings -------------------------------------------------------------------- */
+h1, h2, h3 {
+  color: var(--maroon) !important;
+}
+
+h5, h6 {
+  color: var(--slate-gray) !important;
+}
+
+h4 {
+  font-size: 1.4rem;
+  color: var(--maroon);
+  margin-bottom: .75rem;
+  /* border-bottom: 1px solid var(--silver); */
+}
+
+#jumbotron {
+    /* XXX: should use url_for here to get mounted path prefix */
+  background-image: url("/static/banner-1300.jpg");
+  box-sizing: border-box;
+  font-style: normal;
+  background-position: top left;
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 350px;
+}
+
+#page-header {
+  margin-top: 4.5rem;
+  font-size: 2.8rem;
+}
+
+#carrel-navigation .active {
+  color: var(--white);
+}
+
+.card-header {
+  background: var(--ghost-white);
+}
+
+#tab-citations,
+#tab-browse {
+  padding: 1.25rem;
+  background: var(--white);
+  border-left: 1px solid rgba(0,0,0,.125);
+  border-right: 1px solid rgba(0,0,0,.125);
+  border-bottom: 1px solid rgba(0,0,0,.125);
+  border-bottom-left-radius: .25rem;
+  border-bottom-right-radius: .25rem;
+}
+
+#tab-citations .nav-tabs,
+#tab-browse .nav-tabs {
+  border-bottom: none !important;
+}
+
+/* #tab-citations .tab-pane {
+  padding: 1.25rem;
+  background: var(--white);
+} */
+
+/* Contact form --------------------------------------------------------------- */
+#contact-form {
+  border-radius: .25rem;
+}
+
+#contact-form label {
+  color: var(--trench-blue);
+}
+
+.required-label {
+  font-variant: small-caps;
+  margin-left: 1.25rem;
+  font-size: .8rem;
+}
+
+/* Links --------------------------------------------------------------------- */
+#wrapper a {
+  color: var(--bright-blue);
+}
+
+/* Navbar -------------------------------------------- */
+.bg-navbar {
+  background: var(--nd-blue);
+}
+
+.display-5 {
+  font-size: calc(2rem + .3vw);
+  font-weight: 300;
+}
+
+#navbar nav {
+  padding: 1.25rem;
+}
+
+.navbar-brand img {
+  width: 100px;
+}
+
+#footer {
+  margin-top: 0 !important;
+}
+
+#footer img {
+  width: 150px;
+}
+
+/* Colors ------------------------------------------------------------------- */
+.bright-blue {
+  color: var(--bright-blue);
+}
+
+.chocolate {
+  color: var(--chocolate);
+}
+
+.trench-blue {
+  color: var(--trench-blue) !important;
+}
+
+.ghost-white {
+  color: var(--ghost-white);
+}
+
+.bright-blue {
+  color: var(--bright-blue) !important;
+}
+
+.light-blue {
+  color: var(--light-blue);
+}
+
+.footer-slate {
+  color: var(--footer-slate);
+}
+
+.white {
+  color: var(--white);
+}
+
+.slate-gray {
+  color: var(--slate-gray);
+}
+
+.silver {
+  color: var(--silver);
+}
+
+.graphite {
+  color: var(--graphite);
+}
+
+.maroon {
+  color: var(--maroon) !important;
+}
+
+/* Back to top button  --------------------------------------- */
+#back-to-top {
+  display: none;
+  position: fixed;
+  bottom: 50%;
+  right: 0;
+  z-index: 99;
+  border: none;
+  outline: none;
+  background-color: var(--bright-blue);
+  color: var(--white) !important;
+  padding: 8px 4px 10px 4px;
+  border-radius: 2px 0 0 2px;
+  font-size: 1rem;
+  cursor: pointer !important;
+}
+
+#back-to-top:hover {
+  background-color: var(--bright-blue);
+  color: var(--white);
+}
+
+/* Footer  ----------------------------------------------------------*/
+#footer {
+  margin-top: 6rem;
+}
+
+#footer-logo {
+  font-size: 1.75rem;
+  color: var(--graphite) !important;
+}
+
+/* About page ---------------------------------------------------------------- */
+/* #software-packages li:nth-child(odd) {
+  background: #f5f5f5;
+} */
+
+/* Social Networking --------------------------------------------------------- */
+#twitter-feed {
+  height: 950px !important;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  border-radius: .25rem;
+}
+
+#social-networking-icons {
+  list-style-type: none !important;
+  background: #007bff;
+  padding: .5rem;
+  border-radius: .25rem;
+}
+
+#social-networking-icons li,
+#social-networking-icons li a {
+  color: var(--white);
+}
+
+#footer li a {
+  color: var(--white);
+}
+
+/* General --------------------------------------------------------- */
+#dr-header-icon {
+  margin-top: 2rem;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.bg-light {
+  background: var(--ghost-white) !important;
+}
+
+blockquote {
+  background: var(--light-blue);
+  border-left: 10px solid var(--graphite);
+}
+
+.short-round {
+  font-size: 1.6rem;
+  height: 3rem;
+  width: 3rem;
+  padding: .5rem;
+  border-radius: 80px;
+  background: var(--slate-gray);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #FFFFFF;
+}
+
+#sponsors {
+  margin-top: 7rem !important;
+}
+
+#breadcrumb,
+#breadcrumb ol,
+#breadcrumb li {
+  border-radius: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+  background: transparent;
+}
+
+/* FAQ cards section ------------------------------------------------------ */
+#faq-accordions {
+  margin-top: 3rem;
+}
+
+#faq-section .card {
+  border: none;
+  /* border-bottom: 1px dotted var(--silver) !important; */
+  background: none;
+  border-radius: .25rem;
+  margin-bottom: 1rem;
+}
+
+#faq-section .card-header {
+  padding: .2rem 0rem .2rem .3rem;
+  border-bottom: none !important;
+}
+
+#faq-section .card-body {
+  background: transparent !important;
+  padding: 1rem 0 2rem 3.5rem;
+  border-bottom: none !important;
+}
+
+#faq-section button {
+  text-align: left;
+}
+
+.fa-rotate-45 {
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.fa-rotate-90 {
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+/* Getting Started page ----------------------------------------------- */
+#getting-started-tabs {
+  padding-top: 4rem;
+}
+
+#getting-started-tabs .nav-link.active {
+  color: var(--white) !important;
+}
+
+#getting-started-tabs .nav-link:not(.active) {
+  background: #f5f5f5;
+}
+
+#getting-started-tabs .nav-link {
+  border-radius: 0;
+}
+
+#getting-started-tabs .nav-link[href*="overview"] {
+  border-top-left-radius: .25rem;
+  border-bottom-left-radius: .25rem;
+}
+
+#getting-started-tabs .nav-link[href*="create"] {
+  border-top-right-radius: .25rem;
+  border-bottom-right-radius: .25rem;
+}
+
+.navbar-toggler {
+  opacity: 1;
+  color: var(--white) !important;
+  border: 1px solid var(--silver) !important;
+  box-shadow: none;
+}
+
+/* Media queries ---------------------------------------------------- */
+@media screen and (max-width: 768px) {
+  #navbar .navbar-nav {
+    padding-top: 1rem;
+    padding-left: 1.5rem !important;
+  }
+
+  #navbar button {
+    margin-left: 0 !important;
+    margin-top: 1rem;
+  }
+
+  /* Fix for vertical cards */
+  .vertical-fix {
+    margin-top: 2rem;
+  }
+
+  /* Make the tagline smaller on mobil */
+  #tagline {
+    font-size: 1.5rem;
+    font-weight: 500;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  /* shorten the padding on mobile for buttons */
+  #getting-started-tabs .nav-link {
+    padding-left: .5rem;
+    padding-right: .5rem;
+  }
+
+  /* Remove the header icon on mobile */
+  #dr-header-icon {
+    display: none;
+  }
+
+  /* Set the margin-top for mobile */
+  #social-section {
+    margin-top: 3rem;
+  }
+
+  #contribute-section {
+    margin-top: 3rem;
+  }
+
+  #twitter-feed {
+    height: 400px !important;
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+
+  #breadcrumb {
+    display: none;
+  }
+
+  #page-header {
+    margin-top: 2.5rem;
+  }
+
+}
+
+
+
+/* test  */
+/* Sign in and sign up modal */
+.nav-tabs li:not(.active) {
+  background: #efeff3;
+}
+
+.nav-tabs li:not(.active) a {
+  color: #b62230;
+}
+
+.switchTabs {
+  color: #b62230;
+  cursor: pointer;
+}
+
+.tab-pane {
+  padding: 2.5rem 2rem;
+}
+
+.sign-modal-header {
+  font-weight: 300;
+  text-transform: capitalize;
+  font-size: 3rem;
+  text-align: center;
+  color: slategray;
+}
+
+/* sign up banner */
+#encourage-sign-up {
+  padding: 4rem;
+}

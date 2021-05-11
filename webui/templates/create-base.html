@@ -1,21 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<title>{% block title %}{% endblock %}</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-	<style>
-		.item { margin-bottom: 1em }
-	</style>
-</head>
-<body>
+{% extends "base.html" %}
 
-{% include "flash.html" %}
-
-<div class="header">
-    <h1>{{ self.title() }}</h1>
-</div>
-
+{% block body %}
 <div class="col-3 col-m-3 menu">
   <ul>
     <li style='margin-bottom: 2em'><a href="{{ url_for('index') }}">Distant Reader home</a></li>
@@ -33,16 +18,9 @@
 
 <div class="col-9 col-m-9">
 
-    {% block body %}
+    {% block searchbody %}
     {% endblock %}
 
-    <div class="footer">
-        <p style='text-align: right'>
-        Eric Lease Morgan<br />
-        November 29, 2020
-        </p>
-    </div>
-
 </div>
-</body>
-</html>
+
+{% endblock %}
