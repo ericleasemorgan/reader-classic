@@ -1,7 +1,17 @@
 from datetime import datetime
 import secrets
 import os.path
-from flask import render_template, session, request, redirect, url_for, flash
+import stat
+from flask import (
+    render_template,
+    session,
+    request,
+    redirect,
+    url_for,
+    flash,
+    abort,
+    send_file,
+)
 from werkzeug.utils import secure_filename
 from flask_login import login_user, login_required, current_user
 from is_safe_url import is_safe_url
@@ -9,16 +19,18 @@ import pysolr
 
 from app import app
 from auth import oauth
-from models import User, EmailToken
+from models import User, EmailToken, StudyCarrel
 
 
 @app.route("/")
 def index():
     return render_template("home.html")
 
+
 @app.errorhandler(404)
 def page_not_found(error):
     return (render_template("404.html"), 404)
+
 
 @app.errorhandler(500)
 def server_error(error):
@@ -98,6 +110,7 @@ def login_new_orcid():
         next = url_for(index)
     return redirect(next)
 
+
 @app.route("/login/verify_email/<token>")
 def verify_email(token):
     ev = EmailToken.FromToken(token)
@@ -122,6 +135,7 @@ def verify_email(token):
     flash("Email Verified")
     return redirect(url_for("index"))
 
+
 def send_email_verification(user):
     assert user is not None
     if user.email_verify_date != "":
@@ -135,7 +149,6 @@ def send_email_verification(user):
     # now send email
     body = render_template("verify-email.txt", token=token)
     send_email(to=user.email, subject="Email Verification", body=body)
-
 
 
 # these routes are only for development testing of the oauth login
@@ -181,6 +194,65 @@ if app.debug:
 @login_required
 def profile():
     return render_template("profile.html")
+
+
+@app.route("/patrons/<username>/")
+@login_required
+def patron_carrel_list(username):
+    if username != current_user.username:
+        return redirect(url_for("patron_carrel_list", username=current_user.username))
+    carrels = StudyCarrel.ForOwner(username)
+    return render_template("carrel_list.html", carrels=carrels)
+
+
+@app.route("/patrons/<username>/<carrel>/", defaults={"p": "/"})
+@app.route("/patrons/<username>/<carrel>/<path:p>")
+@login_required
+def patron_carrel(username, carrel, p):
+    if username != current_user.username:
+        return redirect(url_for("patron_carrel_list", username=current_user.username))
+    # Does thie carrel exist?
+    carrel = StudyCarrel.FromOwnerShortname(username, carrel)
+    if carrel is None:
+        abort(404)  # NotFound
+    # Does this user own the carrel?
+    if carrel.owner != current_user.username:
+        abort(401)  # Forbidden
+    # Does this path exist?
+    carrel_abs_path = os.path.join(carrel.fullpath, secure_filename(p))
+    mode = os.stat(carrel_abs_path).st_mode
+    if stat.S_ISREG(mode):
+        # this is a content file, so proxy it out
+        #
+        # some of the files in a carrel are HTML, and are intended to be
+        # displayed in the browser. This means we don't indicate they are
+        # attachments.
+        return send_file(carrel_abs_path, as_attachment=False)
+    elif stat.S_ISDIR(mode):
+        # this path to a directory. give a listing.
+        if p == "/":
+            parentdir = ''
+        else:
+            # sometimes the path does not have an initial slash, so the dirname
+            # gives '' as the parent. In this case, make the parent be the root
+            parentdir = os.path.dirname(p) or "/"
+        listing = []
+        with os.scandir(carrel_abs_path) as it:
+            listing = [
+                {
+                    "filename": entry.name,
+                    "size": entry.stat().st_size,
+                    "modified": entry.stat().st_mtime,
+                    "directory": entry.is_dir(),
+                }
+                for entry in it
+            ]
+        return render_template(
+            "carrel_filelist.html", carrel=carrel, directory=p, parentdir=parentdir, listing=listing
+        )
+    else:
+        print("path is not directory or file", carrel_abs_path)
+        abort(404)  # NotFound - Don't recognize the type of this item
 
 
 def add_job_to_queue(job_type, shortname, username, extra):

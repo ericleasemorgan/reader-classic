@@ -12,7 +12,16 @@ from db import get_db
 # the database, so it won't be assigned until the record is saved
 # to the database for the first time.
 class User(UserMixin):
-    def __init__(self, id_=None, username="", name="", email="", date="", orcid="", email_verify_date=""):
+    def __init__(
+        self,
+        id_=None,
+        username="",
+        name="",
+        email="",
+        date="",
+        orcid="",
+        email_verify_date="",
+    ):
         self.id = id_
         self.username = username
         self.name = name
@@ -29,7 +38,14 @@ class User(UserMixin):
             rowid = db.execute(
                 """INSERT INTO patrons (username, name, email, date, orcid, email_verify_date)
                 VALUES (?, ?, ?, ?, ?, ?)""",
-                (self.username, self.name, self.email, self.create_date, self.orcid, self.email_verify_date),
+                (
+                    self.username,
+                    self.name,
+                    self.email,
+                    self.create_date,
+                    self.orcid,
+                    self.email_verify_date,
+                ),
             )
             db.commit()
             # we need to figure out what rowid was assigned to the record.
@@ -65,7 +81,9 @@ class User(UserMixin):
         ).fetchone()
         if not record:
             return None
-        return User(record[0], record[1], record[2], record[3], record[4], record[5], record[6])
+        return User(
+            record[0], record[1], record[2], record[3], record[4], record[5], record[6]
+        )
 
     @staticmethod
     def FromUsername(username):
@@ -78,7 +96,9 @@ class User(UserMixin):
         ).fetchone()
         if record is None:
             return None
-        return User(record[0], record[1], record[2], record[3], record[4], record[5], record[6])
+        return User(
+            record[0], record[1], record[2], record[3], record[4], record[5], record[6]
+        )
 
     @staticmethod
     def FromORCID(orcid):
@@ -91,8 +111,9 @@ class User(UserMixin):
         ).fetchone()
         if record is None:
             return None
-        return User(record[0], record[1], record[2], record[3], record[4], record[5], record[6])
-
+        return User(
+            record[0], record[1], record[2], record[3], record[4], record[5], record[6]
+        )
 
 
 class EmailToken(object):
@@ -119,7 +140,7 @@ class EmailToken(object):
         db = get_db()
         db.execute(
             """DELETE FROM email_tokens WHERE token = ?""",
-            (self.token, ),
+            (self.token,),
         )
         db.commit()
 
@@ -137,7 +158,6 @@ class EmailToken(object):
         return EmailToken(record[0], record[1], record[2], record[3])
 
 
-
 def send_email(to="", subject="", body=""):
     if app.debug:
         print("Send Email")
@@ -146,11 +166,101 @@ def send_email(to="", subject="", body=""):
         print(body)
         return
     message = EmailMessage()
-    message['Subject'] = subject
-    message['To'] = to
-    message['From'] = "noreply@distantreader.org"
+    message["Subject"] = subject
+    message["To"] = to
+    message["From"] = "noreply@distantreader.org"
     message.set_content(body)
-    s = smtplib.SMTP('localhost')
+    s = smtplib.SMTP("localhost")
     s.send_message(message)
     s.quit()
 
+
+class StudyCarrel(object):
+    def __init__(
+        self,
+        owner="",
+        shortname="",
+        fullpath="",
+        status="",
+        created="",
+        size_items=0,
+        size_words=0,
+        readability=0,
+        size_bytes=0,
+    ):
+        self.owner = owner
+        self.shortname = shortname
+        self.fullpath = fullpath
+        self.status = status
+        self.created = created
+        self.size_items = size_items
+        self.size_words = size_words
+        self.readability = readability
+        self.size_bytes = size_bytes
+
+    def save(self):
+        db = get_db()
+        if self.created == "":
+            self.created = datetime.date.today()
+        db.execute(
+            """INSERT OR REPLACE INTO carrels (owner, shortname, fullpath, status, created, items, words, readability, bytes) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+            (
+                self.owner,
+                self.shortname,
+                self.fullpath,
+                self.status,
+                self.created,
+                self.size_items,
+                self.size_words,
+                self.readability,
+                self.size_bytes,
+            ),
+        )
+        db.commit()
+
+    @staticmethod
+    def FromOwnerShortname(owner, shortname):
+        db = get_db()
+        record = db.execute(
+            """SELECT owner, shortname, fullpath, status, created, items, words, readability, bytes
+            FROM carrels
+            WHERE owner = ? and shortname = ?""",
+            (owner, shortname),
+        ).fetchone()
+        if record is None:
+            return None
+        return StudyCarrel(
+            record[0],
+            record[1],
+            record[2],
+            record[3],
+            record[4],
+            record[5],
+            record[6],
+            record[7],
+            record[8],
+        )
+
+    @staticmethod
+    def ForOwner(owner):
+        db = get_db()
+        records = db.execute(
+            """SELECT owner, shortname, fullpath, status, created, items, words, readability, bytes
+            FROM carrels
+            WHERE owner = ?""",
+            (owner,),
+        ).fetchall()
+        return [
+            StudyCarrel(
+                record[0],
+                record[1],
+                record[2],
+                record[3],
+                record[4],
+                record[5],
+                record[6],
+                record[7],
+                record[8],
+            )
+            for record in records
+        ]
