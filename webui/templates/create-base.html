@@ -5,7 +5,7 @@
   <ul>
     <li style='margin-bottom: 2em'><a href="{{ url_for('index') }}">Distant Reader home</a></li>
 
-    <li ><a href="{{ url_for('file2carrel') }}">File to study carrel</a></li>
+    <li><a href="{{ url_for('file2carrel') }}">File to study carrel</a></li>
     <li><a href="{{ url_for('zip2carrel') }}">Zip to study carrel</a></li>
     <li><a href="{{ url_for('url2carrel') }}">URL to study carrel</a></li>
     <li><a href="{{ url_for('urls2carrel') }}">URLs to study carrel</a></li>
@@ -13,14 +13,12 @@
     <li style='margin-bottom: 2em'><a href="{{ url_for('biorxiv2carrel') }}">Biorxiv to study carrel</a></li>
     <li><a href="{{ url_for('gutenberg') }}">Gutenberg to study carrel</a></li>
     <li><a href="{{ url_for('cord_search') }}">COVID-19 to study carrel</a></li>
-</ul>
+  </ul>
 </div>
 
 <div class="col-9 col-m-9">
-
     {% block searchbody %}
     {% endblock %}
-
 </div>
 
 {% endblock %}

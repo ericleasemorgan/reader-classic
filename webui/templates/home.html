@@ -40,7 +40,7 @@
         <h3 class="maroon mt-5 mb-4">Working with Carrels</h3>
 
         <ul class="list-group list-group-flush">
-          <li class="list-group-item pointer shadow-sm p-4 mb-1" data-url="browse.html">
+          <li class="list-group-item pointer shadow-sm p-4 mb-1" data-url="https://library.distantreader.org/catalog">
             <div class="row">
               <div class="col-12 col-md-2">
                 <p class="text-center"><i class="fad fa-fw fa-3x fa-list-alt trench-blue"></i></p>
@@ -51,7 +51,7 @@
               </div>
             </div>
           </li>
-          <li class="list-group-item pointer shadow-sm p-4 mb-1" data-url="create.html">
+          <li class="list-group-item pointer shadow-sm p-4 mb-1" data-url="{{ url_for("url2carrel") }}">
             <div class="row">
               <div class="col-12 col-md-2">
                 <p class="text-center"><i class="fad fa-fw fa-file-medical trench-blue fa-3x"></i></p>
@@ -62,7 +62,7 @@
               </div>
             </div>
           </li>
-          <li class="list-group-item pointer shadow-sm p-4 mb-1" data-url="create.html">
+          <li class="list-group-item pointer shadow-sm p-4 mb-1" data-url="{{ url_for("gutenberg") }}">
             <div class="row">
               <div class="col-12 col-md-2">
                 <p class="text-center"><i class="fad fa-fw fa-files-medical trench-blue fa-3x"></i></p>
@@ -73,7 +73,7 @@
               </div>
             </div>
           </li>
-          <li class="list-group-item pointer shadow-sm p-4 mb-1" data-url="">
+          <li class="list-group-item pointer shadow-sm p-4 mb-1" data-url="{{ url_for("cord_search") }}">
             <div class="row">
               <div class="col-12 col-md-2">
                 <p class="text-center"><i class="fad fa-fw fa-files-medical trench-blue fa-3x"></i></p>
@@ -86,6 +86,8 @@
           </li>
         </ul>
 
+        {#
+--------these pages need to be added
         <h3 class="maroon mb-4 mt-5">More Information</h3>
 
         <ul class="list-group list-group-flush">
@@ -125,6 +127,7 @@
             </div>
           </li>
         </ul>
+--------#}
 
       </div>
       <!-- col-sm-8 -->
@@ -134,4 +137,7 @@
 
   </div>
   <!-- #wrapper .container -->
+
+{% include "sponsors.html" %}
+
 {% endblock %}
