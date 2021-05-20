@@ -11,6 +11,7 @@ app.config["USE_SESSION_FOR_NEXT"] = 1
 
 ##### Template helpers
 
+
 @app.template_filter("formatwithcommas")
 def formatwithcommas(n):
     try:
@@ -22,6 +23,8 @@ def formatwithcommas(n):
         if filepath.endswith(fragment):
             return desc
     return ""
+
+
 NUMERALS = {
     1: "I",
     2: "II",

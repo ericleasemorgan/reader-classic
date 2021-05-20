@@ -13,7 +13,7 @@ from flask import (
     send_file,
 )
 from werkzeug.utils import secure_filename
-from flask_login import login_user, login_required, current_user
+from flask_login import login_user, login_required, current_user, logout_user
 from is_safe_url import is_safe_url
 import pysolr
 
@@ -35,6 +35,14 @@ def page_not_found(error):
 @app.errorhandler(500)
 def server_error(error):
     return (render_template("500.html"), 500)
+
+
+@app.route("/logout")
+@login_required
+def logout():
+    logout_user()
+    flash("You have been signed out")
+    return redirect(url_for("index"))
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -231,7 +239,7 @@ def patron_carrel(username, carrel, p):
     elif stat.S_ISDIR(mode):
         # this path to a directory. give a listing.
         if p == "/":
-            parentdir = ''
+            parentdir = ""
         else:
             # sometimes the path does not have an initial slash, so the dirname
             # gives '' as the parent. In this case, make the parent be the root
@@ -248,7 +256,11 @@ def patron_carrel(username, carrel, p):
                 for entry in it
             ]
         return render_template(
-            "carrel_filelist.html", carrel=carrel, directory=p, parentdir=parentdir, listing=listing
+            "carrel_filelist.html",
+            carrel=carrel,
+            directory=p,
+            parentdir=parentdir,
+            listing=listing,
         )
     else:
         print("path is not directory or file", carrel_abs_path)
