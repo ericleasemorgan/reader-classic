@@ -19,7 +19,7 @@ import pysolr
 
 from app import app
 from auth import oauth
-from models import User, EmailToken, StudyCarrel
+from models import User, EmailToken, StudyCarrel, send_email
 
 
 @app.route("/")
