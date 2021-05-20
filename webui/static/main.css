@@ -54,8 +54,7 @@ h4 {
 }
 
 #jumbotron {
-    /* XXX: should use url_for here to get mounted path prefix */
-  background-image: url("/static/banner-1300.jpg");
+  background-image: url("banner-1300.jpg");
   box-sizing: border-box;
   font-style: normal;
   background-position: top left;
