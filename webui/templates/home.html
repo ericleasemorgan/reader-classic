@@ -12,7 +12,10 @@
       <div class="col-sm-12 mb-5 mt-4">
 
         <!-- General / marketing description of tool -->
-        <p class="display-5 text-center mt-3 mb-2" id="tagline">Intended for anybody who reads, the Distant Reader takes text as input, does analysis against it, and outputs sets of structured data, affectionately called "study carrels". The student, research, or scholar can then use a study carrel to read the text both closely as well as at a distance.</p>
+        <p class="text-center mt-3 mb-2" id="tagline">Intended for anybody who reads analytically,
+        Distant Reader takes text as input, does analysis against it, and outputs sets of structured data
+        called &lquot;study carrels&rquote;, which users can use to read both closely and at a distance.
+        </p>
 
       </div>
 
@@ -23,7 +26,7 @@
 
         <ul class="list-group list-group-flush">
 
-          <li class="list-group-item pointer shadow-sm p-4 mb-1" data-url="getting-started.html">
+          <li class="list-group-item pointer shadow-sm p-4 mb-3" data-url="{{ url_for("getting_started") }}">
             <div class="row">
               <div class="col-12 col-md-2">
                 <p class="text-center"><i class="fad fa-fw fa-3x fa-list-ol trench-blue"></i></p>
@@ -40,7 +43,7 @@
         <h3 class="maroon mt-5 mb-4">Working with Carrels</h3>
 
         <ul class="list-group list-group-flush">
-          <li class="list-group-item pointer shadow-sm p-4 mb-1" data-url="https://library.distantreader.org/catalog">
+          <li class="list-group-item pointer shadow-sm p-4 mb-3" data-url="https://library.distantreader.org/catalog">
             <div class="row">
               <div class="col-12 col-md-2">
                 <p class="text-center"><i class="fad fa-fw fa-3x fa-list-alt trench-blue"></i></p>
@@ -51,7 +54,7 @@
               </div>
             </div>
           </li>
-          <li class="list-group-item pointer shadow-sm p-4 mb-1" data-url="{{ url_for("url2carrel") }}">
+          <li class="list-group-item pointer shadow-sm p-4 mb-3" data-url="{{ url_for("url2carrel") }}">
             <div class="row">
               <div class="col-12 col-md-2">
                 <p class="text-center"><i class="fad fa-fw fa-file-medical trench-blue fa-3x"></i></p>
@@ -62,7 +65,7 @@
               </div>
             </div>
           </li>
-          <li class="list-group-item pointer shadow-sm p-4 mb-1" data-url="{{ url_for("gutenberg") }}">
+          <li class="list-group-item pointer shadow-sm p-4 mb-3" data-url="{{ url_for("gutenberg") }}">
             <div class="row">
               <div class="col-12 col-md-2">
                 <p class="text-center"><i class="fad fa-fw fa-files-medical trench-blue fa-3x"></i></p>
@@ -73,7 +76,7 @@
               </div>
             </div>
           </li>
-          <li class="list-group-item pointer shadow-sm p-4 mb-1" data-url="{{ url_for("cord_search") }}">
+          <li class="list-group-item pointer shadow-sm p-4 mb-3" data-url="{{ url_for("cord_search") }}">
             <div class="row">
               <div class="col-12 col-md-2">
                 <p class="text-center"><i class="fad fa-fw fa-files-medical trench-blue fa-3x"></i></p>
@@ -86,12 +89,10 @@
           </li>
         </ul>
 
-        {#
---------these pages need to be added
         <h3 class="maroon mb-4 mt-5">More Information</h3>
 
         <ul class="list-group list-group-flush">
-          <li class="list-group-item pointer shadow-sm p-4 mb-1" data-url="about.html">
+          <li class="list-group-item pointer shadow-sm p-4 mb-3" data-url="{{ url_for("about") }}">
             <div class="row">
               <div class="col-12 col-md-2">
                 <p class="text-center"><i class="fad fa-fw fa-3x fa-info-circle trench-blue"></i></p>
@@ -103,7 +104,7 @@
             </div>
           </li>
 
-          <li class="list-group-item pointer shadow-sm p-4 mb-1" data-url="contact.html">
+          <li class="list-group-item pointer shadow-sm p-4 mb-3" data-url="{{ url_for("contact") }}">
             <div class="row">
               <div class="col-12 col-md-2">
                 <p class="text-center"><i class="fad fa-fw fa-hands-helping trench-blue fa-3x"></i></p>
@@ -115,7 +116,7 @@
               </div>
             </div>
           </li>
-          <li class="list-group-item pointer shadow-sm p-4 mb-1" data-url="faq.html">
+          <li class="list-group-item pointer shadow-sm p-4 mb-3" data-url="{{ url_for("faq") }}">
             <div class="row">
               <div class="col-12 col-md-2">
                 <p class="text-center"><i class="fad fa-fw fa-question-circle trench-blue fa-3x"></i></p>
@@ -127,7 +128,6 @@
             </div>
           </li>
         </ul>
---------#}
 
       </div>
       <!-- col-sm-8 -->
