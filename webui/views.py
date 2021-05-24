@@ -227,7 +227,10 @@ def patron_carrel(username, carrel, p):
     if carrel.owner != current_user.username:
         abort(401)  # Forbidden
     # Does this path exist?
-    carrel_abs_path = os.path.join(carrel.fullpath, secure_filename(p))
+    # do secure_filename on each element since it replaces path separators with
+    # an underscore and we want to keep the full path
+    pp = [secure_filename(x) for x in p.split('/')]
+    carrel_abs_path = os.path.join(carrel.fullpath, *pp)
     mode = os.stat(carrel_abs_path).st_mode
     if stat.S_ISREG(mode):
         # this is a content file, so proxy it out
@@ -250,8 +253,9 @@ def patron_carrel(username, carrel, p):
                 {
                     "filename": entry.name,
                     "size": entry.stat().st_size,
-                    "modified": entry.stat().st_mtime,
+                    "modified": datetime.fromtimestamp(entry.stat().st_mtime).strftime('%Y-%m-%d'),
                     "directory": entry.is_dir(),
+                    "path": entry.path.removeprefix(carrel.fullpath+"/"),
                 }
                 for entry in it
             ]
