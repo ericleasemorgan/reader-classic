@@ -212,6 +212,12 @@ def patron_carrel_list(username):
     carrels = StudyCarrel.ForOwner(username)
     return render_template("carrel_list.html", carrels=carrels)
 
+# we are using python 3.6 in production
+def removeprefix(s, prefix):
+    if s.startswith(prefix):
+        return s[len(prefix):]
+    else:
+        return s
 
 @app.route("/patrons/<username>/<carrel>/", defaults={"p": "/"})
 @app.route("/patrons/<username>/<carrel>/<path:p>")
@@ -255,7 +261,7 @@ def patron_carrel(username, carrel, p):
                     "size": entry.stat().st_size,
                     "modified": datetime.fromtimestamp(entry.stat().st_mtime).strftime('%Y-%m-%d'),
                     "directory": entry.is_dir(),
-                    "path": entry.path.removeprefix(carrel.fullpath+"/"),
+                    "path": removeprefix(entry.path, carrel.fullpath+"/"),
                 }
                 for entry in it
             ]
