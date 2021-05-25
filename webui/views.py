@@ -26,6 +26,22 @@ from models import User, EmailToken, StudyCarrel, send_email
 def index():
     return render_template("home.html")
 
+@app.route("/about")
+def about():
+    return render_template("about.html")
+
+@app.route("/contact")
+def contact():
+    return render_template("contact.html")
+
+@app.route("/getting-started")
+def getting_started():
+    return render_template("getting-started.html")
+
+@app.route("/faq")
+def faq():
+    return redirect(url_for("index"))
+
 
 @app.errorhandler(404)
 def page_not_found(error):
@@ -212,6 +228,12 @@ def patron_carrel_list(username):
     carrels = StudyCarrel.ForOwner(username)
     return render_template("carrel_list.html", carrels=carrels)
 
+# we are using python 3.6 in production
+def removeprefix(s, prefix):
+    if s.startswith(prefix):
+        return s[len(prefix):]
+    else:
+        return s
 
 @app.route("/patrons/<username>/<carrel>/", defaults={"p": "/"})
 @app.route("/patrons/<username>/<carrel>/<path:p>")
@@ -227,7 +249,10 @@ def patron_carrel(username, carrel, p):
     if carrel.owner != current_user.username:
         abort(401)  # Forbidden
     # Does this path exist?
-    carrel_abs_path = os.path.join(carrel.fullpath, secure_filename(p))
+    # do secure_filename on each element since it replaces path separators with
+    # an underscore and we want to keep the full path
+    pp = [secure_filename(x) for x in p.split('/')]
+    carrel_abs_path = os.path.join(carrel.fullpath, *pp)
     mode = os.stat(carrel_abs_path).st_mode
     if stat.S_ISREG(mode):
         # this is a content file, so proxy it out
@@ -250,8 +275,9 @@ def patron_carrel(username, carrel, p):
                 {
                     "filename": entry.name,
                     "size": entry.stat().st_size,
-                    "modified": entry.stat().st_mtime,
+                    "modified": datetime.fromtimestamp(entry.stat().st_mtime).strftime('%Y-%m-%d'),
                     "directory": entry.is_dir(),
+                    "path": removeprefix(entry.path, carrel.fullpath+"/"),
                 }
                 for entry in it
             ]
