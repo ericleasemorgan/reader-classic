@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block title %}
+Contact Us
+{% endblock %}
+
+{% block body %}
+
+  <nav aria-label="breadcrumb" id="breadcrumb">
+    <ol class="breadcrumb px-5 py-4">
+      <li class="breadcrumb-item pl-3">
+        <a href="{{ url_for("index") }}"><i class="fad fa-home fa-fw mr-2"></i>Home</a>
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">Contact Us</li>
+    </ol>
+  </nav>
+
+  <div class="container" id="wrapper">
+
+    <div class="row">
+
+      <div class="col-sm-12">
+
+        <!-- Page header -->
+        <h1 id="page-header">Contact Us</h1>
+
+        <p>The Distant Reader is an open source project open source project,
+        made up of code from <a href="{{ url_for("about") }}">lots of amazing people</a> like yourself.
+        We're constantly looking for ways to improve and welcome contributions from everyone.
+        If you'd like to contribute code to the Distant Reader,
+        <a href="https://github.com/ericleasemorgan/reader" target="_blank">visit our GitHub repository</a>
+        for more information, or email Eric Lease Morgan directly.</p>
+
+        <div class="row mt-5">
+          <div class="col-12 col-sm-4">
+
+            <div class="table-responsive">
+              <table class="table">
+                <tbody>
+                  <tr>
+                    <td class="w-25"><i class="fad fa-user fa-lg mr-3"></i></td>
+                    <td class="w-75"><strong>Eric Lease Morgan, MLIS</strong><br>
+                      Digital Initiatives Librarian<br>
+                      250E Hesburgh Library<br>
+                      University of Notre Dame<br>
+                      Notre Dame, IN 46556</td>
+                  </tr>
+                  <tr>
+                    <td class="w-25"><i class="fad fa-phone-office fa-lg mr-3"></i></td>
+                    <td class="w-75"><a href="tel:5746318604">(574) 631-8604</a></td>
+                  </tr>
+                  <tr>
+                    <td class="w-25"><i class="fad fa-envelope-open-text fa-lg mr-3"></i></td>
+                    <td class="w-75"><a href="mailto:emorgan@nd.edu">emorgan@nd.edu</a></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- .table -->
+
+          </div>
+          <!-- .col-sm-4 -->
+        </div>
+        <!-- .row -->
+      </div>
+    </div>
+  </div>
+{% endblock %}

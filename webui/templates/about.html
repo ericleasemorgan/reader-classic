@@ -1,0 +1,197 @@
+{% extends "base.html" %}
+
+{% block title %}
+About the Distant Reader
+{% endblock %}
+
+{% block body %}
+
+  <nav aria-label="breadcrumb" id="breadcrumb">
+    <ol class="breadcrumb px-5 py-4">
+      <li class="breadcrumb-item pl-3">
+        <a href="{{ url_for("index") }}"><i class="fad fa-home fa-fw mr-2"></i>Home</a>
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">About This Project</li>
+    </ol>
+  </nav>
+
+  <!-- main wrapper div -->
+  <div class="container" id="wrapper">
+
+    <div class="row">
+
+      <div class="col-sm-12">
+
+        <!-- Page header -->
+        <h1 id="page-header">About This Project</h1>
+
+        <p>Distant Reader is an open source software tool developed by Eric Lease Morgan at the University of Notre Dame. The Reader is supported by the work and feedback of many generous sponsors and contributors and includes the open source software libraries listed below.</p>
+
+        <h3 class="maroon mt-5 mb-3">Software packages</h3>
+
+        <p>The Distant Reader makes use of the following software packages, according to each library's license.</p>
+
+        <div class="row" id="software-packages">
+
+          <div class="col-12 col-md-4">
+
+            <ul class="list-group mt-4">
+              <li class="list-group-item"><a href="https://airavata.apache.org/" target="_blank">Airavata</a><br>
+                <small>Submit and monitor large-scale applications</small>
+              </li>
+
+              <li class="list-group-item"><a href="https://metacpan.org/pod/Archive::Zip" target="_blank">Archive::Zip</a><br>
+                <small>A Perl library to create Zip files</small>
+              </li>
+
+              <li class="list-group-item"><a href="https://getbootstrap.com/" target="_blank">Bootstrap 4</a><br>
+                <small>A front-end framework of web components</small>
+              </li>
+
+              <li class="list-group-item"><a href="https://metacpan.org/pod/distribution/CGI/lib/CGI.pod" target="_blank">CGI</a><br>
+                <small>A Perl module for creating CGI scripts</small>
+              </li>
+
+              <li class="list-group-item"><a href="https://github.com/zenorocha/clipboard.js" target="_blank">clipboard.js</a><br>
+                <small>A Javascript library for copying DOM elements</small>
+              </li>
+
+              <li class="list-group-item"><a href="https://csvkit.readthedocs.io/en/latest/" target="_blank">csvkit</a><br>
+                <small>A set of command-line tool reading tabular data</small>
+              </li>
+
+              <li class="list-group-item"><a href="https://metacpan.org/pod/DBI" target="_blank">DBI</a><br>
+                <small>A Perl library to do I/O against databases</small>
+              </li>
+
+              <li class="list-group-item"><a href="https://metacpan.org/pod/File::Basename" target="_blank">File::Basename</a><br>
+                <small>A Perl library to process file names</small>
+              </li>
+
+              <li class="list-group-item"><a href="https://metacpan.org/pod/File::Copy" target="_blank">File::Copy</a><br>
+                <small>A Perl library used to copy files</small>
+              </li>
+
+              <li class="list-group-item"><a href="https://radimrehurek.com/gensim/" target="_blank">Gensim</a><br>
+                <small>A Python library for natural language processing</small>
+              </li>
+
+            </ul>
+
+          </div>
+          <div class="col-12 col-md-4">
+
+            <ul class="list-group mt-4">
+              <li class="list-group-item"><a href="https://metacpan.org/pod/HTML::Entities" target="_blank">HTML::Entities</a><br>
+                <small>A Perl library for encoding data for the Web</small>
+              </li>
+
+              <li class="list-group-item"><a href="https://jquery.com/" target="_blank">jQuery</a><br>
+                <small>A Javascript library for user-interface</small>
+              </li>
+
+              <li class="list-group-item"><a href="https://metacpan.org/pod/JSON" target="_blank">JSON</a><br>
+                <small>A Perl library for reading JSON data</small>
+              </li>
+
+              <li class="list-group-item"><a href="https://matplotlib.org/mpl_toolkits/" target="_blank">mpl_toolkits</a><br>
+                <small>A Python library for generating charts & graphs</small>
+              </li>
+
+              <li class="list-group-item"><a href="https://networkx.org/" target="_blank">networkx</a><br>
+                <small>A Javascript library for creating network diagrams</small>
+              </li>
+
+              <li class="list-group-item"><a href="https://www.nltk.org/" target="_blank">nltk</a><br>
+                <small>A Python library for natural language processing</small>
+              </li>
+
+              <li class="list-group-item"><a href="https://www.openstack.org/" target="_blank">OpenStack</a><br>
+                <small>A Linux toolkit for creating virtual machines</small>
+              </li>
+
+              <li class="list-group-item"><a href="https://pandas.pydata.org/" target="_blank">pandas</a><br>
+                <small>A Python library for processing matrix-based data</small>
+              </li>
+
+              <li class="list-group-item"><a href="https://scikit-learn.org/stable/" target="_blank">sklearn</a><br>
+                <small>A Python library for machine learning</small>
+              </li>
+
+              <li class="list-group-item"><a href="https://slurm.schedmd.com/" target="_blank">Slurm</a><br>
+                <small>A Linux toolkit to support cluster computing</small>
+              </li>
+
+            </ul>
+
+          </div>
+          <div class="col-12 col-md-4">
+
+            <ul class="list-group mt-4">
+              <li class="list-group-item"><a href="https://spacy.io/" target="_blank">SpaCy</a><br>
+                <small>A Python library for natural language processing</small>
+              </li>
+
+              <li class="list-group-item"><a href="https://www.sqlalchemy.org/" target="_blank">SQLAlchemy</a><br>
+                <small>A Python library for interacting with databases</small>
+              </li>
+
+              <li class="list-group-item"><a href="https://www.sqlite.org/index.html" target="_blank">SQLite</a><br>
+                <small>A C-based relational database</small>
+              </li>
+
+              <li class="list-group-item"><a href="https://www.erinhengel.com/software/textatistic/" target="_blank">Textacy</a><br>
+                <small>A Python library for natural language processing</small>
+              </li>
+
+              <li class="list-group-item"><a href="https://tika.apache.org/" target="_blank">Tika</a><br>
+                <small>A Java archive for text pre-processing</small>
+              </li>
+
+              <li class="list-group-item"><a href="https://metacpan.org/pod/WebService::Solr" target="_blank">WebService::Solr</a><br>
+                <small>a Perl library used to interact with a Solr index</small>
+              </li>
+
+              <li class="list-group-item"><a href="https://www.gnu.org/software/wget/" target="_blank">Wget</a><br>
+                <small>A HTTP user-agent</small>
+              </li>
+
+              <li class="list-group-item"><a href="https://github.com/amueller/word_cloud" target="_blank">wordcloud</a><br>
+                <small>A Python library for creating word clouds</small>
+              </li>
+
+              <li class="list-group-item"><a href="https://metacpan.org/pod/XML::XPath" target="_blank">XML::XPath</a><br>
+                <small>A Perl library for querying XML </small>
+              </li>
+
+            </ul>
+
+          </div>
+          <!-- .col-sm-12 -->
+
+        </div>
+        <!-- .row -->
+
+
+        <div class="row">
+          <h3 class="maroon mt-5 mb-3">Citing Distant Reader</h3>
+          <p>Cite the Distant Reader in your research as:</p>
+          <div class="card">
+            <div class="card-body">
+              <p class="pointer copy-button float-right bright-blue" data-clipboard-demo="" data-clipboard-target="#citation-mla"><i class="fad fa-fw fa-clipboard mr-1"></i>Copy</p>
+              <p>Morgan, Eric Lease. (2020, April 10). Distant Reader (Version Alpha). Zenodo. https://doi.org/10.5281/zenodo.3747777.</p>
+            </div>
+          </div>
+          <!-- .card -->
+        </div>
+        <!-- .row -->
+
+      </div>
+      <!-- .col-sm-12 -->
+    </div>
+    <!-- .row -->
+
+  </div>
+  <!-- .container -->
+
+{% endblock %}

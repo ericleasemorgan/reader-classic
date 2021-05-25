@@ -26,6 +26,22 @@ from models import User, EmailToken, StudyCarrel, send_email
 def index():
     return render_template("home.html")
 
+@app.route("/about")
+def about():
+    return render_template("about.html")
+
+@app.route("/contact")
+def contact():
+    return render_template("contact.html")
+
+@app.route("/getting-started")
+def getting_started():
+    return render_template("getting-started.html")
+
+@app.route("/faq")
+def faq():
+    return redirect(url_for("index"))
+
 
 @app.errorhandler(404)
 def page_not_found(error):

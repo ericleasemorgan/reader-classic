@@ -1,0 +1,310 @@
+{% extends "base.html" %}
+
+{% block title %}
+Getting Started
+{% endblock %}
+
+{% block body %}
+  <nav aria-label="breadcrumb" id="breadcrumb">
+  	<ol class="breadcrumb px-5 py-4">
+  		<li class="breadcrumb-item pl-3">
+          <a href="{{ url_for("index") }}"><i class="fad fa-home fa-fw mr-2"></i>Home</a>
+  		</li>
+		<li class="breadcrumb-item active" aria-current="page">Getting Started</li>
+  	</ol>
+  </nav>
+
+  <!-- main wrapper div -->
+  <div class="container" id="wrapper">
+
+    <div class="row">
+
+      <div class="col-sm-12">
+
+        <!-- Page header -->
+        <h1 id="page-header">About This Project</h1>
+        <p>Distant Reader offers several ways to process corpora. Read our instructions below to learn how to view and create carrels with Distant Reader.</p>
+
+        <div class="row" id="getting-started-tabs">
+          <div class="col-12 col-md-8 offset-md-2">
+            <ul class="nav nav-pills nav-justified" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link active" href="#overview" data-toggle="tab">Overview</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#view-carrel" data-toggle="tab">View Carrels</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#create-carrel" data-toggle="tab">Create Carrels</a>
+              </li>
+            </ul>
+          </div>
+          <div class="col-sm-12">
+            <div class="tab-content" id="getting-started-contents">
+
+              <!-- Overview ------------------------------------------->
+              <div class="mt-3 ml-2 tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="...">
+
+                <h3 class="maroon mt-5 mb-2">Overview</h3>
+
+                <!-- Definition of Distant Reading -->
+                <blockquote class="blockquote text-left bg-light px-5 pt-4 pb-4 mt-4">
+                	<i class="fad fa-quote-right fa-flip-horizontal fa-2x float-left mr-3" aria-hidden="true"></i>
+                  <p><strong>Distant reading</strong> is an approach in literary studies that applies computational methods to literary data, usually derived from large digital libraries, for the purposes of literary history and theory. While the term is collective, and is used to refer to a range of different computational methods of analysing literary data, similar approaches also include macro-analysis, cultural analytics, computational formalism, computational literary studies, quantitative literary studies, and algorithmic literary criticism.</p>
+                	<footer class="blockquote-footer p-0">
+                		<cite class="font-style-normal" title="Wikipedia">
+                			<a href="https://en.wikipedia.org/wiki/Distant_reading" target="_blank">&ldquo;Distant Reading,&rdquo; Wikipedia</a>
+                		</cite>
+                	</footer>
+                </blockquote>
+
+                <p class="mt-4">The Distant Reader is designed to read corpora at scale. It takes text as input, does analysis against it, and outputs sets of structured data called &ldquo;study carrels.&ldquo; &nbsp;Through the use of study carrels, researchers can investigate a range of questions, such as:</p>
+
+                <ul class="list-group list-group-flush bg-transparent mb-4 border-0">
+                  <li class="list-group-item bg-transparent border-0"><i class="fad fa-question mr-3"></i> Who or what is mentioned in this corpus?</li>
+                  <li class="list-group-item bg-transparent border-0"><i class="fad fa-question mr-3"></i> What do they do?</li>
+                  <li class="list-group-item bg-transparent border-0"><i class="fad fa-question mr-3"></i> When and where does the action take place?</li>
+                  <li class="list-group-item bg-transparent border-0"><i class="fad fa-question mr-3"></i> How are they described?</li>
+                  <li class="list-group-item bg-transparent border-0"><i class="fad fa-question mr-3"></i> How are the manifested over time?</li>
+                  <li class="list-group-item bg-transparent border-0"><i class="fad fa-question mr-3"></i> What connections can be seen between writers?</li>
+                </ul>
+
+
+              <p>Study carrels are useful tools for getting your mind around large corpora because they provide ways to sort, group, and prioritize their content. The key to getting the most out of the Distant Reader is two-fold:</p>
+
+              <ul class="list-group list-group-flush bg-transparent mb-4">
+                <li class="list-group-item bg-transparent border-0"><i class="fad fa-check mr-3"></i> Articulate a question you would like to address.</li>
+                <li class="list-group-item bg-transparent border-0"><i class="fad fa-check mr-3"></i> Identify a corpus which may be used to answer that question.</li>
+              </ul>
+
+              <p>The questions can be as rudimentary as "What words are used most frequently in Moby Dick?" or as sublime as "How was love defined during the 19th Century?"</p>
+
+              <p>Study carrels can be created from many resource types, including, but not limited to, the following: websites, blogs, social media feeds, or files from your computer. The Reader can analyze just about any type of file including but not limited to: Portable Document Format (.pdf) files, Word (.doc and docx) documents, PowerPoint (.ppt and pptx) files, HTML (.htm and .html) files, plain text (.txt) files, and XML (.xml) files.</p>
+
+
+              </div>
+              <!-- overview closes -->
+
+              <!-- View Carrel ------------------------------------------->
+              <div class="mt-3 ml-2 tab-pane fade" id="view-carrel" role="tabpanel" aria-labelledby="...">
+                <h3 class="maroon mt-5 mb-2">View Carrels</h3>
+                <p>Carrels can be private or public and you may view your own created carrels and the publicly shared carrels of others at any time.</p>
+
+                <div class="card mb-3 mt-4">
+                  <div class="row h-100 align-items-center no-gutters">
+                    <div class="col-md-2 mx-auto">
+                      <div class="text-center d-flex justify-content-center">
+                        <p class="short-round vertical-fix center-block">1</p>
+                      </div>
+                    </div>
+                    <div class="col-md-10">
+                      <div class="card-body">
+                        <h4 class="card-title trench-blue">Do a Thing</h4>
+                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere, nemo repellat natus quasi enim soluta quis. Distinctio voluptatibus atque sapiente, ullam tempora, harum quidem commodi ea quia corrupti aspernatur
+                          fugiat!</p>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- card -->
+
+                <div class="card mb-3 mt-4">
+                  <div class="row h-100 align-items-center no-gutters">
+                    <div class="col-md-2 mx-auto">
+                      <div class="text-center d-flex justify-content-center">
+                        <p class="short-round vertical-fix center-block">2</p>
+                      </div>
+                    </div>
+                    <div class="col-md-10">
+                      <div class="card-body">
+                        <h4 class="card-title trench-blue">Do a Thing</h4>
+                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere, nemo repellat natus quasi enim soluta quis. Distinctio voluptatibus atque sapiente, ullam tempora, harum quidem commodi ea quia corrupti aspernatur
+                          fugiat!</p>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- card -->
+
+                <div class="card mb-3 mt-4">
+                  <div class="row h-100 align-items-center no-gutters">
+                    <div class="col-md-2 mx-auto">
+                      <div class="text-center d-flex justify-content-center">
+                        <p class="short-round vertical-fix center-block">3</p>
+                      </div>
+                    </div>
+                    <div class="col-md-10">
+                      <div class="card-body">
+                        <h4 class="card-title trench-blue">Do a Thing</h4>
+                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere, nemo repellat natus quasi enim soluta quis. Distinctio voluptatibus atque sapiente, ullam tempora, harum quidem commodi ea quia corrupti aspernatur
+                          fugiat!</p>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- card -->
+
+                <div class="card mb-3 mt-4">
+                  <div class="row h-100 align-items-center no-gutters">
+                    <div class="col-md-2 mx-auto">
+                      <div class="text-center d-flex justify-content-center">
+                        <p class="short-round vertical-fix center-block">4</p>
+                      </div>
+                    </div>
+                    <div class="col-md-10">
+                      <div class="card-body">
+                        <h4 class="card-title trench-blue">Do a Thing</h4>
+                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere, nemo repellat natus quasi enim soluta quis. Distinctio voluptatibus atque sapiente, ullam tempora, harum quidem commodi ea quia corrupti aspernatur
+                          fugiat!</p>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- card -->
+
+                <div class="card mb-3 mt-4">
+                  <div class="row h-100 align-items-center no-gutters">
+                    <div class="col-md-2 mx-auto">
+                      <div class="text-center d-flex justify-content-center">
+                        <p class="short-round vertical-fix center-block">5</p>
+                      </div>
+                    </div>
+                    <div class="col-md-10">
+                      <div class="card-body">
+                        <h4 class="card-title trench-blue">Do a Thing</h4>
+                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere, nemo repellat natus quasi enim soluta quis. Distinctio voluptatibus atque sapiente, ullam tempora, harum quidem commodi ea quia corrupti aspernatur
+                          fugiat!</p>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- card -->
+
+              </div>
+              <!-- view carrel closes -->
+
+
+              <div class="mt-3 ml-2 tab-pane fade" id="create-carrel" role="tabpanel" aria-labelledby="...">
+
+                <h3 class="maroon mt-5 mb-2">Create Carrels</h3>
+                <p>You may create carrels from a variety of data sources.</p>
+
+                <div class="card mb-3 mt-4">
+                  <div class="row h-100 align-items-center no-gutters">
+                    <div class="col-md-2 mx-auto">
+                      <div class="text-center d-flex justify-content-center">
+                        <p class="short-round vertical-fix center-block">1</p>
+                      </div>
+                    </div>
+                    <div class="col-md-10">
+                      <div class="card-body">
+                        <h4 class="card-title trench-blue">Do a Thing</h4>
+                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere, nemo repellat natus quasi enim soluta quis. Distinctio voluptatibus atque sapiente, ullam tempora, harum quidem commodi ea quia corrupti aspernatur
+                          fugiat!</p>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- card -->
+
+                <div class="card mb-3 mt-4">
+                  <div class="row h-100 align-items-center no-gutters">
+                    <div class="col-md-2 mx-auto">
+                      <div class="text-center d-flex justify-content-center">
+                        <p class="short-round vertical-fix center-block">2</p>
+                      </div>
+                    </div>
+                    <div class="col-md-10">
+                      <div class="card-body">
+                        <h4 class="card-title trench-blue">Do a Thing</h4>
+                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere, nemo repellat natus quasi enim soluta quis. Distinctio voluptatibus atque sapiente, ullam tempora, harum quidem commodi ea quia corrupti aspernatur
+                          fugiat!</p>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- card -->
+
+                <div class="card mb-3 mt-4">
+                  <div class="row h-100 align-items-center no-gutters">
+                    <div class="col-md-2 mx-auto">
+                      <div class="text-center d-flex justify-content-center">
+                        <p class="short-round vertical-fix center-block">3</p>
+                      </div>
+                    </div>
+                    <div class="col-md-10">
+                      <div class="card-body">
+                        <h4 class="card-title trench-blue">Do a Thing</h4>
+                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere, nemo repellat natus quasi enim soluta quis. Distinctio voluptatibus atque sapiente, ullam tempora, harum quidem commodi ea quia corrupti aspernatur
+                          fugiat!</p>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- card -->
+
+                <div class="card mb-3 mt-4">
+                  <div class="row h-100 align-items-center no-gutters">
+                    <div class="col-md-2 mx-auto">
+                      <div class="text-center d-flex justify-content-center">
+                        <p class="short-round vertical-fix center-block">4</p>
+                      </div>
+                    </div>
+                    <div class="col-md-10">
+                      <div class="card-body">
+                        <h4 class="card-title trench-blue">Do a Thing</h4>
+                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere, nemo repellat natus quasi enim soluta quis. Distinctio voluptatibus atque sapiente, ullam tempora, harum quidem commodi ea quia corrupti aspernatur
+                          fugiat!</p>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- card -->
+
+                <div class="card mb-3 mt-4">
+                  <div class="row h-100 align-items-center no-gutters">
+                    <div class="col-md-2 mx-auto">
+                      <div class="text-center d-flex justify-content-center">
+                        <p class="short-round vertical-fix center-block">5</p>
+                      </div>
+                    </div>
+                    <div class="col-md-10">
+                      <div class="card-body">
+                        <h4 class="card-title trench-blue">Do a Thing</h4>
+                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere, nemo repellat natus quasi enim soluta quis. Distinctio voluptatibus atque sapiente, ullam tempora, harum quidem commodi ea quia corrupti aspernatur
+                          fugiat!</p>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- card -->
+              </div>
+              <!-- Create carrel closes -->
+
+
+            </div>
+
+          </div>
+          <!-- col-sm-12 -->
+        </div>
+        <!-- row -->
+      </div>
+      <!-- col-sm-12 -->
+
+    </div>
+    <!-- .row -->
+
+  </div>
+  <!-- #wrapper .container -->
+
+{% endblock %}
