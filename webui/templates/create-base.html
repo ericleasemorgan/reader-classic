@@ -1,24 +1,41 @@
 {% extends "base.html" %}
 
 {% block body %}
-<div class="col-3 col-m-3 menu">
-  <ul>
-    <li style='margin-bottom: 2em'><a href="{{ url_for('index') }}">Distant Reader home</a></li>
+<div class="container min-vh-100">
+  <div class="row">
 
-    <li><a href="{{ url_for('file2carrel') }}">File to study carrel</a></li>
-    <li><a href="{{ url_for('zip2carrel') }}">Zip to study carrel</a></li>
-    <li><a href="{{ url_for('url2carrel') }}">URL to study carrel</a></li>
-    <li><a href="{{ url_for('urls2carrel') }}">URLs to study carrel</a></li>
-    <li><a href="{{ url_for('trust2carrel') }}">HathiTrust to study carrel</a></li>
-    <li style='margin-bottom: 2em'><a href="{{ url_for('biorxiv2carrel') }}">Biorxiv to study carrel</a></li>
-    <li><a href="{{ url_for('gutenberg') }}">Gutenberg to study carrel</a></li>
-    <li><a href="{{ url_for('cord_search') }}">COVID-19 to study carrel</a></li>
-  </ul>
+    <div class="col">
+      <h3 class="maroon mb-4">Create Carrel</h3>
+    </div>
+
+    <div class="col-12 col-sm-4">
+
+      <ul class="list-group mb-4">
+        <li class="pointer text-decoration-none list-group-item list-group-item-action"><a href="{{ url_for('index') }}">Distant Reader home</a></li>
+      </ul>
+
+      <ul class="list-group mb-4">
+        <li class="pointer text-decoration-none list-group-item list-group-item-action"><a href="{{ url_for('file2carrel') }}">File to study carrel</a></li>
+        <li class="pointer text-decoration-none list-group-item list-group-item-action"><a href="{{ url_for('zip2carrel') }}">Zip to study carrel</a></li>
+        <li class="pointer text-decoration-none list-group-item list-group-item-action"><a href="{{ url_for('url2carrel') }}">URL to study carrel</a></li>
+        <li class="pointer text-decoration-none list-group-item list-group-item-action"><a href="{{ url_for('urls2carrel') }}">URLs to study carrel</a></li>
+        <li class="pointer text-decoration-none list-group-item list-group-item-action"><a href="{{ url_for('trust2carrel') }}">HathiTrust to study carrel</a></li>
+      </ul>
+      <ul class="list-group mb-4">
+        <li class="pointer text-decoration-none list-group-item list-group-item-action"><a href="{{ url_for('biorxiv2carrel') }}">Biorxiv to study carrel</a></li>
+        <li class="pointer text-decoration-none list-group-item list-group-item-action"><a href="{{ url_for('gutenberg') }}">Gutenberg to study carrel</a></li>
+        <li class="pointer text-decoration-none list-group-item list-group-item-action"><a href="{{ url_for('cord_search') }}">COVID-19 to study carrel</a></li>
+      </ul>
+
+    </div>
+
+    <div class="col-12 col-sm-8">
+      {% block searchbody %}
+      {% endblock %}
+    </div>
+
+  </div>
+  <!-- row -->
 </div>
-
-<div class="col-9 col-m-9">
-    {% block searchbody %}
-    {% endblock %}
-</div>
-
+<!-- container -->
 {% endblock %}

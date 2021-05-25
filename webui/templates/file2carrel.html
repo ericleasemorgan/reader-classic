@@ -5,27 +5,17 @@ The Distant Reader - File to study carrel
 {% endblock %}
 
 {% block searchbody %}
-	<p>Use this form to submit a file from your computer and have it processed by the Distant Reader.</p>
-	
-	<form method="post" enctype="multipart/form-data">
-	<table>
-		<tr>
-			<td style='text-align:right'>One-word name describing your carrel:</td>
-			<td><input type='text'
-			           name='shortname'
-			           autofocus="autofocus"
-			           onkeyup="this.value = this.value.replace( /[^a-z|^A-Z|0-9|_|\-]/, '' )" />
-			</td>
-		</tr>
-		<tr>
-			<td style='text-align:right'>Plain text (.txt), PDF (.pdf), or a Word Document (.doc or .docx) file:</td>
-			<td><input type="file" name="file" accept=".txt,.pdf,.doc,.docx" /></td>
-		</tr>
-        <tr>
-			<td style='text-align:right'>Action</td>
-			<td><input type='submit' name='queue' value='Queue the file' /></td>
-		</tr>
-	</table>
-	
-	</form>
+<p>Use this form to submit a file from your computer and have it processed by the Distant Reader.</p>
+<form action="" method="post" enctype="multipart/form-data">
+	<div class="form-group">
+		<label for="shortname">Carrel Name<br><small class="text-muted"></small>A one-word name describing your carrel</label>
+		<input name='shortname' autofocus="autofocus" onkeyup="this.value = this.value.replace( /[^a-z|^A-Z|0-9|_|\-]/, '' )" class="form-control" id="shortname">
+	</div>
+	<div class="form-group">
+		<label for="file">File {.TXT | .PDF | .DOC(X)}</label>
+		<input type="file" accept=".txt,.pdf,.doc,.docx" class="form-control" name="file" id="file">
+	</div>
+	<button type="submit" id="queue" class="btn btn-primary mt-4">Create</button>
+</form>
+
 {% endblock %}

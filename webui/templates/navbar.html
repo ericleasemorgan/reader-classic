@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-navbar text-light">
   <!-- <div class="container"> -->
     <!-- <div class="container"> -->
-    <a class="navbar-brand ml-4" href="{{ url_for("index") }}"><img class="img-fluid" src="{{ url_for("static", filename="distant-reader_logo-white.svg") }}" alt="Distant reader and link to home page"></a>
+    <a class="navbar-brand ml-4" href="{{ url_for('index') }}"><img class="img-fluid" src="{{ url_for('static', filename='distant-reader_logo-white.svg') }}" alt="Distant reader logo and link to home page"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-body" aria-controls="navbar-body" aria-expanded="false" aria-label="Toggle navigation">
       <i class="fad fa-bars fa-fw"></i>
     </button>
@@ -14,7 +14,7 @@
           <div class="dropdown-menu">
             <a class="dropdown-item" href="https://library.distantreader.org/catalog">Browse Public Carrels</a>
             {% if current_user.is_authenticated %}
-              <a class="dropdown-item" href="{{ url_for("patron_carrel_list", username=current_user.username) }}">Browse Your Carrels</a>
+              <a class="dropdown-item" href="{{ url_for('patron_carrel_list', username=current_user.username) }}">Browse Your Carrels</a>
             {% endif %}
           </div>
         </li>
@@ -24,10 +24,10 @@
             Create Carrels
           </a>
           <div class="dropdown-menu" aria-labelledby="navbar-dropdown">
-            <a class="dropdown-item" href="{{ url_for("url2carrel") }}">New Carrel</a>
+            <a class="dropdown-item" href="{{ url_for('url2carrel') }}">New Carrel</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="{{ url_for("gutenberg") }}">From Project Gutenberg</a>
-            <a class="dropdown-item" href="{{ url_for("cord_search") }}">From CORD-19</a>
+            <a class="dropdown-item" href="{{ url_for('gutenberg') }}">From Project Gutenberg</a>
+            <a class="dropdown-item" href="{{ url_for('cord_search') }}">From CORD-19</a>
           </div>
         </li>
 

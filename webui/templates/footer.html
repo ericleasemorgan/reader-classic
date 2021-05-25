@@ -7,23 +7,20 @@
 
       <!-- First section -->
       <div class="col-12 col-md-4 text-left px-5 col-md-2 mb-4">
-        <img class="w-50" src="{{ url_for("static", filename="sponsors/cds-logo-white.png") }}" alt="Navari Family Center for Digital Scholarship logo">
+        <img class="w-50" src="{{ url_for('static', filename='sponsors/cds-logo-white.png') }}" alt="Navari Family Center for Digital Scholarship logo">
       </div>
 
       <!-- Second section -->
       <div class="col-12 col-md-4 pt-0 px-4">
         <ul class="list-group text-left mt-0 border-0">
-          <li class="list-group-item bg-transparent border-0 d-none"><i class="fal fa-fw fa-lg text-light fa-info-circle mr-3"></i><a href="about.html">About this project</a></li>
-          <!-- <li class="list-group-item bg-transparent text-light border-0"><i class="fal fa-fw text-light fa-code-branch mr-3"></i><a href="contribute.html">Contribute to Distant Reader</a></li> -->
-          <li class="list-group-item bg-transparent border-0"><i class="fal fa-fw text-light fa-envelope-open-text mr-3"></i><a href="contact.html">Contact Us</a></li>
-          <li class="list-group-item bg-transparent border-0"><i class="fal fa-fw text-light fa-envelope-open-text mr-3"></i><a href="#">Report a Problem</a></li> <!--goes to Google form -->
+          <li class="list-group-item bg-transparent border-0"><a href="contact.html" class="text-decoration-none text-light">Contact Us</a></li>
         </ul>
       </div>
 
       <!-- Third section -->
       <div class="col-12 col-md-4 text-left text-md-center pl-5 mt-3 mb-3">
 
-        <img class="img-fluid mt-2" src="{{ url_for("static", filename="distant-reader_logo-white.svg") }}" alt="Distant reader and link to home page">
+        <img class="img-fluid" width="150" src="{{ url_for('static', filename='distant-reader_logo-white.svg') }}" alt="Distant reader logo and link to home page">
 
       </div>
 

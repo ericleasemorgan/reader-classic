@@ -3,17 +3,24 @@
 {% block title %}New Account{% endblock %}
 
 {% block body %}
-<h2>Create a New Account</h2>
-
+<h3 class="maroon">Create a New Account</h3>
 <p>The ORCID you signed in with {{ session['orcid'] }}.
-is not associated with an account.
-</p>
+is not associated with an account.</p>
 
 <form method="post">
-    <label>Name: <input type='text' name="name" value="{{ session['name'] }}"/></label>
-    <label>Username: <input type='text' name="username" /></label>
-    <label>Email: <input type='email' name="email" /></label>
-    <button type='submit'>Create Account</button>
-</form>
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input type="text" name='name' class="form-control" id="name" value="{{ session['name'] }}">
+  </div>
+  <div class="form-group">
+    <label for="username">Username</label>
+    <input type="text" name='username' class="form-control" id="username">
+  </div>
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input type="email" name='email' class="form-control" id="email">
+  </div>
 
+  <button type="submit" class="btn btn-primary mt-4">Create Account</button>
+</form>
 {% endblock %}

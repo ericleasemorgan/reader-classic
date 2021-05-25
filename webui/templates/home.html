@@ -12,7 +12,7 @@
       <div class="col-sm-12 mb-5 mt-4">
 
         <!-- General / marketing description of tool -->
-        <p class="text-center mt-3 mb-2" id="tagline">Intended for anybody who reads analytically,
+        <p class="display-6 text-center my-3" id="tagline">Intended for anybody who reads analytically,
         Distant Reader takes text as input, does analysis against it, and outputs sets of structured data
         called &lquot;study carrels&rquote;, which users can use to read both closely and at a distance.
         </p>
@@ -27,7 +27,7 @@
         <ul class="list-group list-group-flush">
 
           <li class="list-group-item pointer shadow-sm p-4 mb-3" data-url="{{ url_for("getting_started") }}">
-            <div class="row">
+           <div class="row">
               <div class="col-12 col-md-2">
                 <p class="text-center"><i class="fad fa-fw fa-3x fa-list-ol trench-blue"></i></p>
               </div>
@@ -54,7 +54,7 @@
               </div>
             </div>
           </li>
-          <li class="list-group-item pointer shadow-sm p-4 mb-3" data-url="{{ url_for("url2carrel") }}">
+          <li class="list-group-item pointer shadow-sm p-4 mb-3" data-url="{{ url_for('url2carrel') }}">
             <div class="row">
               <div class="col-12 col-md-2">
                 <p class="text-center"><i class="fad fa-fw fa-file-medical trench-blue fa-3x"></i></p>
@@ -76,6 +76,7 @@
               </div>
             </div>
           </li>
+          <li class="list-group-item pointer shadow-sm p-4 mb-3" data-url="{{ url_for('cord_search') }}">
           <li class="list-group-item pointer shadow-sm p-4 mb-3" data-url="{{ url_for("cord_search") }}">
             <div class="row">
               <div class="col-12 col-md-2">
@@ -116,6 +117,7 @@
               </div>
             </div>
           </li>
+          {# --- hiding FAQ for now
           <li class="list-group-item pointer shadow-sm p-4 mb-3" data-url="{{ url_for("faq") }}">
             <div class="row">
               <div class="col-12 col-md-2">
@@ -127,6 +129,7 @@
               </div>
             </div>
           </li>
+          #}
         </ul>
 
       </div>

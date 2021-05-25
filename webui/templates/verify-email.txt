@@ -1,7 +1,7 @@
-Hi!
+Dear user:
 
-Please visit this URL to verify your email address with the Distant Reader.
+Please visit this URL to verify your email address with the Distant Reader:
 
 https://distantreader.org{{ url_for("verify_email", token=token) }}
 
-
+Thank you.

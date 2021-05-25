@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %}
-    Study Carrels for {{ current_user.username }}
+Study Carrels for {{ current_user.username }}
 {% endblock %}
 
 {#
@@ -16,46 +16,51 @@
 {% block body %}
 <p>Below, select column headings and/or enter words into the search box to sort &amp; filter catalog items. Use the results to read, browse, or download carrels.</p>
 
-<table id="directory" class="display" style="width:100%">
-        <thead>
-            <tr>
-                <th>name</th>
-                <th>created</th>
-                <th>items</th>
-                <th>words</th>
-                <th>readability</th>
-                <th>bytes</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for entry in carrels|sort(attribute="shortname") %}
-            <tr>
-                <td>{{ entry.shortname }}</td>
-                <td>{{ entry.created }}</td>
-                <td class='right'>{{ entry.size_items | formatwithcommas }}</td>
-                <td class='right'>{{ entry.size_words | formatwithcommas }}</td>
-                <td  class='right'>{{ entry.readability }}</td>
-                <td class='right'>{{ entry.size_bytes | filesizeformat }}</td>
-                <td class='right'>
-                    <a href='{{ url_for("patron_carrel", username=current_user.username, carrel=entry.shortname, p="index.htm") }}'>read</a>,
-                    <a href='{{ url_for("patron_carrel", username=current_user.username, carrel=entry.shortname) }}'>browse</a>,
-                    <a href='{{ url_for("patron_carrel", username=current_user.username, carrel=entry.shortname, p="study-carrel.zip") }}'>download</a>
-                </td>
-            </tr>
-            {% else %}
-            <tr><td>No Carrels</td></tr>
-            {% endfor %}
-        </tbody>
-    </table>
+<div class="table-responsive">
+  <table id="directory" class="table table-striped">
+    <!-- class="display" removed" -->
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Created</th>
+        <th>Items</th>
+        <th>Words</th>
+        <th>Readability</th>
+        <th>Bytes</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for entry in carrels|sort(attribute="shortname") %}
+      <tr>
+        <td>{{ entry.shortname }}</td>
+        <td>{{ entry.created }}</td>
+        <td class='text-right'>{{ entry.size_items | formatwithcommas }}</td>
+        <td class='text-right'>{{ entry.size_words | formatwithcommas }}</td>
+        <td class='text-right'>{{ entry.readability }}</td>
+        <td class='text-right'>{{ entry.size_bytes | filesizeformat }}</td>
+        <td class='text-right'>
+          <a href='{{ url_for("patron_carrel", username=current_user.username, carrel=entry.shortname, p="index.html") }}'>Read</a>,
+          <a href='{{ url_for("patron_carrel", username=current_user.username, carrel=entry.shortname) }}'>Browse</a>,
+          <a href='{{ url_for("patron_carrel", username=current_user.username, carrel=entry.shortname, p="study-carrel.zip") }}'>Download</a>
+        </td>
+      </tr>
+      {% else %}
+      <tr>
+        <td>No Carrels</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
 
-    {% for entry in listing %}
-    <tr>
-        <td><a href="{{ url_for("patron_carrel", username=current_user.username, carrel=carrel.shortname, p=directory+"/"+entry.filename) }}">{{ entry.filename }}</a></td>
-        <td align="right">{{ entry.modified }}</td>
-        <td align="right">{{ entry.size | filesizeformat }}</td>
-        <td>{{ entry.filename | file_description }}</td>
-    </tr>
-    {% endfor %}
+{% for entry in listing %}
+<tr>
+  <td><a href="{{ url_for('patron_carrel', username=current_user.username, carrel=carrel.shortname, p=directory+'/'+entry.filename) }}">{{ entry.filename }}</a></td>
+  <td align="right">{{ entry.modified }}</td>
+  <td align="right">{{ entry.size | filesizeformat }}</td>
+  <td>{{ entry.filename | file_description }}</td>
+</tr>
+{% endfor %}
 </table>
 {% endblock %}

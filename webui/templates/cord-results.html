@@ -19,20 +19,20 @@ The Distant Reader - COVID-19 literature to study carrel
         {%- for item in results %}
         <li class='item'>
             <strong>{{ item['title'] }}</strong>
-            <ul>
-                <li style='list-style-type:circle'>abstract: {{ item['abstract'] }}</li>
-                <li style='list-style-type:circle'>date: {{ item['date'] }}</li>
-                <li style='list-style-type:circle'>journal: {{ item['journal'] }}</li>
+            <ul class="list-group">
+                <li class="list-group-item list-group-flush">abstract: {{ item['abstract'] }}</li>
+                <li class="list-group-item list-group-flush">date: {{ item['date'] }}</li>
+                <li class="list-group-item list-group-flush">journal: {{ item['journal'] }}</li>
                 {# original only took first url #}
                 {% for u in item['urls'] %}
-                    <li style='list-style-type:circle'>URL: <a href='{{ u }}'>{{ u }}</a></li>
+                    <li class="list-group-item list-group-flush">URL: <a href='{{ u }}'>{{ u }}</a></li>
                 {% endfor %}
-                <li style='list-style-type:circle'>DOI: {{ item['doi'] }}</li>
-                <li style='list-style-type:circle'>local id: {{ item['id'] }}</li>
-                <li style='list-style-type:circle'>source: {{ item['sources'] }}</li>
-                <li style='list-style-type:circle'>sha: {{ item['sha'] }}</li>
-                <li style='list-style-type:circle'>PMC JSON: {{ item['pmc_json'] }}</li>
-                <li style='list-style-type:circle'>PDF JSON: {{ item['pdf_json'] }}</li>
+                <li class="list-group-item list-group-flush">DOI: {{ item['doi'] }}</li>
+                <li class="list-group-item list-group-flush">local id: {{ item['id'] }}</li>
+                <li class="list-group-item list-group-flush">source: {{ item['sources'] }}</li>
+                <li class="list-group-item list-group-flush">sha: {{ item['sha'] }}</li>
+                <li class="list-group-item list-group-flush">PMC JSON: {{ item['pmc_json'] }}</li>
+                <li class="list-group-item list-group-flush">PDF JSON: {{ item['pdf_json'] }}</li>
             </ul>
         </li>
         {%- endfor -%}

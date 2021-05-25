@@ -87,18 +87,6 @@ $(document).ready(function() {
 
   });
 
-  // Questions & Comments form show / hide functionality --------------------------------
-  $("#reason-for-contact").on("change", function() {
-
-    if ($(this).val() === "no") {
-      $(".form-optional").fadeOut().$(function(){
-        $(".form-optional").addClass("d-none");
-      });
-    } else {
-      $(".form-optional").fadeIn().removeClass("d-none");
-    }
-  });
-
 
   // Form validation ------------------------------------------------------------
   window.addEventListener('load', function() {
@@ -129,20 +117,6 @@ $(document).ready(function() {
       }, 400);
 
    });
-
-   // Switch tabs
-   $(".switchTabs").on("click", function() {
-  // Get data attribute
-  var switcher = $(this).data("switcher");
-  // show the appropriate tab
-  if (switcher === "sign in") {
-    // Select tab by name
-    $('#sign-tabs li:nth-child(odd) a').tab('show')
-  } else {
-    // Select tab by name
-    $('#sign-tabs li:nth-child(even) a').tab('show')
-  }
-});
 
 });
 // document.ready
