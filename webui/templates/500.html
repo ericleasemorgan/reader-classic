@@ -7,7 +7,8 @@
   <div class="row my-5">
     <div class="col-12 col-sm-4 offset-sm-4">
       <div class="card">
-        <img src="{{ url_for('static', filename='orcid.png') }}" class="card-img-top" alt="ORCID Logo">
+        {# XXX Should this page has a png image here? #}
+        {#<img src="{{ url_for('static', filename='orcid.png') }}" class="card-img-top" alt="ORCID Logo">#}
         <div class="card-body">
           <h2 class="text-center">OOPS<h2>
               <p class="lead text-center my-4">Looks like something went wrong on our end. We'll look into it immediately!</p>
@@ -15,7 +16,7 @@
         </div>
         <ul class="list-group list-group-flush">
           <a href="{{ url_for('index') }}" class="list-group-item list-group-item-action bright-blue border-top">Return to Home Page</a>
-          <a href="{{ url_for('index') }}" class="list-group-item bright-blue list-group-item-action">Contact Us</a>
+          <a href="{{ url_for('contact') }}" class="list-group-item bright-blue list-group-item-action">Contact Us</a>
         </ul>
       </div>
     </div>
