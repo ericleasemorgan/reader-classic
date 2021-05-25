@@ -4,14 +4,6 @@
 Study Carrels for {{ current_user.username }}
 {% endblock %}
 
-{#
-<script type="text/javascript" class="init">
-    $(document).ready(function() { $('#directory').DataTable( {
-        "order": [[ 1, "desc" ]],
-        "pageLength": 100
-    } ); } );
-</script>
-#}
 
 {% block body %}
 <p>Below, select column headings and/or enter words into the search box to sort &amp; filter catalog items. Use the results to read, browse, or download carrels.</p>
@@ -40,7 +32,7 @@ Study Carrels for {{ current_user.username }}
         <td class='text-right'>{{ entry.readability }}</td>
         <td class='text-right'>{{ entry.size_bytes | filesizeformat }}</td>
         <td class='text-right'>
-          <a href='{{ url_for("patron_carrel", username=current_user.username, carrel=entry.shortname, p="index.html") }}'>Read</a>,
+          <a href='{{ url_for("patron_carrel", username=current_user.username, carrel=entry.shortname, p="index.htm") }}'>Read</a>,
           <a href='{{ url_for("patron_carrel", username=current_user.username, carrel=entry.shortname) }}'>Browse</a>,
           <a href='{{ url_for("patron_carrel", username=current_user.username, carrel=entry.shortname, p="study-carrel.zip") }}'>Download</a>
         </td>
@@ -54,13 +46,11 @@ Study Carrels for {{ current_user.username }}
   </table>
 </div>
 
-{% for entry in listing %}
-<tr>
-  <td><a href="{{ url_for('patron_carrel', username=current_user.username, carrel=carrel.shortname, p=directory+'/'+entry.filename) }}">{{ entry.filename }}</a></td>
-  <td align="right">{{ entry.modified }}</td>
-  <td align="right">{{ entry.size | filesizeformat }}</td>
-  <td>{{ entry.filename | file_description }}</td>
-</tr>
-{% endfor %}
-</table>
+<script type="text/javascript" class="init">
+    $(document).ready(function() { $('#directory').DataTable( {
+        "order": [[ 1, "desc" ]],
+        "pageLength": 100
+    } ); } );
+</script>
+
 {% endblock %}
