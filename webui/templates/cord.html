@@ -5,12 +5,13 @@ The Distant Reader - COVID-19 literature to study carrel
 {% endblock %}
 
 {% block searchbody %}
-<p>Use these pages to search the CORD data set and possibly queue the creation of study carrels. Enter a query.</p>
+<p>Use these pages to search the CORD data set and possibly queue the creation of study carrels.</p>
+<p>Enter a query.</p>
 <form method='GET'>
-    <textarea name='query' autofocus="autofocus" cols='50' rows='10' style='font-size: large'>{{ query }}</textarea>
-    <br />
-    <input type='submit' value='Search' />
+  <div class="form-group" <textarea name='query' autofocus="autofocus" cols='50' rows='10'>{{ query }}</textarea>
+  </div>
+  <button type="submit" id="submit" class="btn btn-primary mt-4">Search</button>
 </form>
 
-<p>For example, find <a href='{{ url_for('cord_search', query='( ( * NOT ( pdf_json:nan ) ) OR ( * NOT ( pmc_json:nan ) ) )') }}'>all records containing full text</a>.</p>
+<p>For example, find <a href="{{ url_for('cord_search', query='( ( * NOT ( pdf_json:nan ) ) OR ( * NOT ( pmc_json:nan ) ) )') }}">all records containing full text</a>.</p>
 {% endblock %}

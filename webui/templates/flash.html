@@ -1,9 +1,9 @@
 {# Basic flash display. Here for consistency between all the base templates. #}
 {% with messages = get_flashed_messages() %}
   {% if messages %}
-    <ul class=flashes>
+    <ul class="list-group flashes">
     {% for message in messages %}
-      <li>{{ message }}</li>
+      <li class="list-group-item bg-info text-primary">{{ message }}</li>
     {% endfor %}
     </ul>
   {% endif %}

@@ -5,23 +5,15 @@ The Distant Reader - COVID-19 literature to study carrel
 {% endblock %}
 
 {% block searchbody %}
-<p>Use this form to queue the creation of a study carrel from the results of your COVID-19 literature search.</p>
+<p>Use this form to create a study carrel from the results of your COVID-19 literature search.</p>
 
-<form method="post" enctype="multipart/form-data">
-    <input type='hidden' name="query" value="{{ query }}" />
-    <table>
-        <tr>
-            <td style='text-align:right'>Short name:</td>
-            <td><input type='text'
-                       name='shortname'
-                       autofocus="autofocus"
-                       onkeyup="this.value = this.value.replace( /[^a-z|^A-Z|0-9|_|\-]/, '' )" />
-            </td>
-        </tr>
-        <tr>
-            <td style='text-align:right'>Action</td>
-            <td><input type='submit' name='queue' value='Queue' /></td>
-        </tr>
-    </table>
+<form action="" method="post" enctype="multipart/form-data">
+  <input type='hidden' name="query" value="{{ query }}" />
+
+  <div class="form-group">
+    <label for="shortname">Carrel Name<br><small class="text-muted"></small>A one-word name describing your carrel</label>
+    <input name='shortname' autofocus="autofocus" onkeyup="this.value = this.value.replace( /[^a-z|^A-Z|0-9|_|\-]/, '' )" class="form-control" id="shortname">
+  </div>
+  <button type="submit" id="queue" class="btn btn-primary mr-1 mt-4">Create</button>
 </form>
 {% endblock %}

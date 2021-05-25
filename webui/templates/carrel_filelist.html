@@ -5,34 +5,36 @@ Study Carrel {{ carrel.shortname }}
 {% endblock %}
 
 {% block body %}
-<table>
-    <tr>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead class="thead-dark">
+      <tr>
         <th><a href="?C=N;O=D">Name</a></th>
         <th><a href="?C=M;O=A">Last modified</a></th>
         <th><a href="?C=S;O=A">Size</a></th>
         <th><a href="?C=D;O=A">Description</a></th>
-    </tr>
-    <tr><th colspan="4"><hr></th></tr>
+      </tr>
+    </thead>
     {% if parentdir != '' %}
     <tr>
-        <td><a href="{{ url_for("patron_carrel", username=current_user.username, carrel=carrel.shortname, p=parentdif) }}">Parent Directory</a></td>
-        <td>&nbsp;</td>
-        <td align="right">  - </td>
-        <td>&nbsp;</td>
+      <td><a href="{{ url_for('patron_carrel', username=current_user.username, carrel=carrel.shortname, p=parentdif) }}">Parent Directory</a></td>
+      <td>&nbsp;</td>
+      <td class="text-right"> - </td>
+      <td>&nbsp;</td>
     </tr>
     {% endif %}
     {% for entry in listing %}
     <tr>
-        <td><a href="{{ url_for("patron_carrel", username=current_user.username, carrel=carrel.shortname, p=directory+"/"+entry.filename) }}">{{ entry.filename }}</a></td>
-        <td align="right">{{ entry.modified }}</td>
-        <td align="right">{{ entry.size | filesizeformat }}</td>
-        <td>{{ entry.filename | file_description }}</td>
+      <td><a href="{{ url_for('patron_carrel', username=current_user.username, carrel=carrel.shortname, p=directory+'/'+entry.filename) }}">{{ entry.filename }}</a></td>
+      <td class="text-right">{{ entry.modified }}</td>
+      <td class="text-right">{{ entry.size | filesizeformat }}</td>
+      <td>{{ entry.filename | file_description }}</td>
     </tr>
     {% else %}
     <tr>
-        <td>No Files</td>
+      <td>No Files</td>
     </tr>
     {% endfor %}
-</table>
+  </table>
+</div>
 {% endblock %}
-
