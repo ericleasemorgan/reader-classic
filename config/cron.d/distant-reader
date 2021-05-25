@@ -1,0 +1,12 @@
+#
+# Periodic job to scrape the private carrels into the patron database for the
+# web front-end
+#
+# Since the app user does not have a home directory, running this as me.
+# This is not ideal.
+#
+MAILTO=dbrower
+PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
+SHELL=/bin/bash
+
+*/5 * * * * dbrower /opt/reader/scan_private_carrels.sh /data-disk/www/html/library/patrons/
