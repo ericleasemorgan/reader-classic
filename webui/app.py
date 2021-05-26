@@ -1,5 +1,6 @@
 from flask import Flask, session, render_template, request, g
 from werkzeug.middleware.proxy_fix import ProxyFix
+from markupsafe import Markup
 
 app = Flask(__name__)
 # get external host name so we can make correct redirect urls for oauth
@@ -145,7 +146,9 @@ DESCRIPTIONS = {
 
 @app.template_filter("file_description")
 def file_description(filepath):
+    # some of the descriptions have html elements, so need to mark the returned
+    # string as "safe" to prevent escaping.
     for fragment, desc in DESCRIPTIONS.items():
         if filepath.endswith(fragment):
-            return desc
+            return Markup(desc)
     return ""
