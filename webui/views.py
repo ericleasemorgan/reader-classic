@@ -38,6 +38,10 @@ def contact():
 def getting_started():
     return render_template("getting-started.html")
 
+@app.route("/acknowledgments")
+def acknowledgments():
+    return render_template("acknowledgments.html")
+
 @app.route("/faq")
 def faq():
     return redirect(url_for("index"))
