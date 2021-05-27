@@ -5,10 +5,12 @@ Study Carrel {{ carrel.shortname }}
 {% endblock %}
 
 {% block body %}
+<h1>Study Carrel {{ current_user.username ~ "/" ~ carrel.shortname ~ "/" ~ directory}}</h1>
 <div class="table-responsive">
   <table class="table table-striped">
     <thead class="thead-dark">
       <tr>
+        <th><img src="{{ url_for('static', filename='icons/blank.gif') }}" alt="[ICO]"></th>
         <th><a href="?C=N;O=D">Name</a></th>
         <th><a href="?C=M;O=A">Last modified</a></th>
         <th><a href="?C=S;O=A">Size</a></th>
@@ -17,7 +19,8 @@ Study Carrel {{ carrel.shortname }}
     </thead>
     {% if parentdir != '' %}
     <tr>
-      <td><a href="{{ url_for('patron_carrel', username=current_user.username, carrel=carrel.shortname, p=parentdif) }}">Parent Directory</a></td>
+      <td><a href="{{ url_for('patron_carrel', username=current_user.username, carrel=carrel.shortname, p=darentdir) }}"><img src="{{ url_for('static', filename='icons/back.gif') }}" alt="[PARENTDIR]"></a></td>
+      <td><a href="{{ url_for('patron_carrel', username=current_user.username, carrel=carrel.shortname, p=parentdir) }}">Parent Directory</a></td>
       <td>&nbsp;</td>
       <td class="text-right"> - </td>
       <td>&nbsp;</td>
@@ -25,10 +28,19 @@ Study Carrel {{ carrel.shortname }}
     {% endif %}
     {% for entry in listing %}
     <tr>
-      <td><a href="{{ url_for("patron_carrel", username=current_user.username, carrel=carrel.shortname, p=entry.path) }}">{{ entry.filename }}</a></td>
-      <td class="text-right">{{ entry.modified }}</td>
-      <td class="text-right">{{ entry.size | filesizeformat }}</td>
-      <td>{{ entry.filename | file_description }}</td>
+      <td><a href="{{ url_for("patron_carrel", username=current_user.username, carrel=carrel.shortname, p=entry.path) }}">
+          {% if entry.directory %}
+            <img src="{{ url_for('static', filename='icons/folder.gif') }}" alt="[DIR]">
+          {% else %}
+            <img src="{{ url_for('static', filename='icons/text.gif') }}" alt="[FILE]">
+          {% endif %}
+        </a></td>
+        <td><a href="{{ url_for("patron_carrel", username=current_user.username, carrel=carrel.shortname, p=entry.path) }}">{{ entry.filename }}</a></td>
+        <td class="text-right">{{ entry.modified }}</td>
+        <td class="text-right">{# directories don't display size info #}
+        {% if entry.directory %}-{% else %}{{ entry.size | filesizeformat }}{% endif %}
+        </td>
+        <td>{{ entry.filename | file_description }}</td>
     </tr>
     {% else %}
     <tr>

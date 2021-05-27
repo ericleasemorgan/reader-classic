@@ -269,6 +269,7 @@ def patron_carrel(username, carrel, p):
         # this path to a directory. give a listing.
         if p == "/":
             parentdir = ""
+            p = ""
         else:
             # sometimes the path does not have an initial slash, so the dirname
             # gives '' as the parent. In this case, make the parent be the root
