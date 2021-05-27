@@ -38,145 +38,55 @@ About the Distant Reader
 
       <div class="row" id="software-packages">
 
-        <div class="col-12 col-md-4">
-
-          <ul class="list-group mt-4">
-            <li class="list-group-item"><a href="https://airavata.apache.org/" target="_blank">Airavata</a><br>
-              <small>Submit and monitor large-scale applications</small>
+        <div class="row" id="software-packages">
+          {% macro item(name, link, text) %}
+            <li class="list-group-item"><a href="{{ link }}" target="_blank">{{ name }}</a><br>
+              <small>{{ text }}</small>
             </li>
+          {% endmacro %}
 
-            <li class="list-group-item"><a href="https://metacpan.org/pod/Archive::Zip" target="_blank">Archive::Zip</a><br>
-              <small>A Perl library to create Zip files</small>
-            </li>
-
-            <li class="list-group-item"><a href="https://getbootstrap.com/" target="_blank">Bootstrap 4</a><br>
-              <small>A front-end framework of web components</small>
-            </li>
-
-            <li class="list-group-item"><a href="https://metacpan.org/pod/distribution/CGI/lib/CGI.pod" target="_blank">CGI</a><br>
-              <small>A Perl module for creating CGI scripts</small>
-            </li>
-
-            <li class="list-group-item"><a href="https://github.com/zenorocha/clipboard.js" target="_blank">clipboard.js</a><br>
-              <small>A Javascript library for copying DOM elements</small>
-            </li>
-
-            <li class="list-group-item"><a href="https://csvkit.readthedocs.io/en/latest/" target="_blank">csvkit</a><br>
-              <small>A set of command-line tool reading tabular data</small>
-            </li>
-
-            <li class="list-group-item"><a href="https://metacpan.org/pod/DBI" target="_blank">DBI</a><br>
-              <small>A Perl library to do I/O against databases</small>
-            </li>
-
-            <li class="list-group-item"><a href="https://metacpan.org/pod/File::Basename" target="_blank">File::Basename</a><br>
-              <small>A Perl library to process file names</small>
-            </li>
-
-            <li class="list-group-item"><a href="https://metacpan.org/pod/File::Copy" target="_blank">File::Copy</a><br>
-              <small>A Perl library used to copy files</small>
-            </li>
-
-            <li class="list-group-item"><a href="https://radimrehurek.com/gensim/" target="_blank">Gensim</a><br>
-              <small>A Python library for natural language processing</small>
-            </li>
-
-          </ul>
-
-        </div>
-        <div class="col-12 col-md-4">
-
-          <ul class="list-group mt-4">
-            <li class="list-group-item"><a href="https://metacpan.org/pod/HTML::Entities" target="_blank">HTML::Entities</a><br>
-              <small>A Perl library for encoding data for the Web</small>
-            </li>
-
-            <li class="list-group-item"><a href="https://jquery.com/" target="_blank">jQuery</a><br>
-              <small>A Javascript library for user-interface</small>
-            </li>
-
-            <li class="list-group-item"><a href="https://metacpan.org/pod/JSON" target="_blank">JSON</a><br>
-              <small>A Perl library for reading JSON data</small>
-            </li>
-
-            <li class="list-group-item"><a href="https://matplotlib.org/mpl_toolkits/" target="_blank">mpl_toolkits</a><br>
-              <small>A Python library for generating charts & graphs</small>
-            </li>
-
-            <li class="list-group-item"><a href="https://networkx.org/" target="_blank">networkx</a><br>
-              <small>A Javascript library for creating network diagrams</small>
-            </li>
-
-            <li class="list-group-item"><a href="https://www.nltk.org/" target="_blank">nltk</a><br>
-              <small>A Python library for natural language processing</small>
-            </li>
-
-            <li class="list-group-item"><a href="https://www.openstack.org/" target="_blank">OpenStack</a><br>
-              <small>A Linux toolkit for creating virtual machines</small>
-            </li>
-
-            <li class="list-group-item"><a href="https://pandas.pydata.org/" target="_blank">pandas</a><br>
-              <small>A Python library for processing matrix-based data</small>
-            </li>
-
-            <li class="list-group-item"><a href="https://scikit-learn.org/stable/" target="_blank">sklearn</a><br>
-              <small>A Python library for machine learning</small>
-            </li>
-
-            <li class="list-group-item"><a href="https://slurm.schedmd.com/" target="_blank">Slurm</a><br>
-              <small>A Linux toolkit to support cluster computing</small>
-            </li>
-
-          </ul>
-
-        </div>
-        <div class="col-12 col-md-4">
-
-          <ul class="list-group mt-4">
-            <li class="list-group-item"><a href="https://spacy.io/" target="_blank">SpaCy</a><br>
-              <small>A Python library for natural language processing</small>
-            </li>
-
-            <li class="list-group-item"><a href="https://www.sqlalchemy.org/" target="_blank">SQLAlchemy</a><br>
-              <small>A Python library for interacting with databases</small>
-            </li>
-
-            <li class="list-group-item"><a href="https://www.sqlite.org/index.html" target="_blank">SQLite</a><br>
-              <small>A C-based relational database</small>
-            </li>
-
-            <li class="list-group-item"><a href="https://www.erinhengel.com/software/textatistic/" target="_blank">Textacy</a><br>
-              <small>A Python library for natural language processing</small>
-            </li>
-
-            <li class="list-group-item"><a href="https://tika.apache.org/" target="_blank">Tika</a><br>
-              <small>A Java archive for text pre-processing</small>
-            </li>
-
-            <li class="list-group-item"><a href="https://metacpan.org/pod/WebService::Solr" target="_blank">WebService::Solr</a><br>
-              <small>a Perl library used to interact with a Solr index</small>
-            </li>
-
-            <li class="list-group-item"><a href="https://www.gnu.org/software/wget/" target="_blank">Wget</a><br>
-              <small>A HTTP user-agent</small>
-            </li>
-
-            <li class="list-group-item"><a href="https://github.com/amueller/word_cloud" target="_blank">wordcloud</a><br>
-              <small>A Python library for creating word clouds</small>
-            </li>
-
-            <li class="list-group-item"><a href="https://metacpan.org/pod/XML::XPath" target="_blank">XML::XPath</a><br>
-              <small>A Perl library for querying XML </small>
-            </li>
-
-          </ul>
-
-        </div>
-        <!-- .col-sm-12 -->
-
-      </div>
-      <!-- .row -->
-
+          <div class="col-12 col-md-4">
+            <ul class="list-group mt-4">
+              {{ item("Airavata",       "https://airavata.apache.org/", "Submit and monitor large-scale applications") }}
+              {{ item("Archive::Zip",   "https://metacpan.org/pod/Archive::Zip", "A Perl library to create Zip files") }}
+              {{ item("Bootstrap 4",    "https://getbootstrap.com/", "A front-end framework of web components") }}
+              {{ item("CGI",            "https://metacpan.org/pod/distribution/CGI/lib/CGI.pod", "A Perl module for creating CGI scripts") }}
+              {{ item("clipboard.js",   "https://github.com/zenorocha/clipboard.js", "A Javascript library for copying DOM elements") }}
+              {{ item("csvkit",         "https://csvkit.readthedocs.io/en/latest/", "A set of command-line tool reading tabular data") }}
+              {{ item("DBI",            "https://metacpan.org/pod/DBI", "A Perl library to do I/O against databases") }}
+              {{ item("File::Basename", "https://metacpan.org/pod/File::Basename", "A Perl library to process file names") }}
+              {{ item("File::Copy",     "https://metacpan.org/pod/File::Copy", "A Perl library used to copy files") }}
+              {{ item("Gensim",         "https://radimrehurek.com/gensim/", "A Python library for natural language processing") }}
+            </ul>
+          </div>
+          <div class="col-12 col-md-4">
+            <ul class="list-group mt-4">
+              {{ item("HTML::Entities", "https://metacpan.org/pod/HTML::Entities", "A Perl library for encoding data for the Web" ) }} 
+              {{ item("jQuery",         "https://jquery.com/", "A Javascript library for user-interface") }}
+              {{ item("JSON",           "https://metacpan.org/pod/JSON", "A Perl library for reading JSON data") }}
+              {{ item("mpl_toolkits",   "https://matplotlib.org/mpl_toolkits/", "A Python library for generating charts & graphs") }}
+              {{ item("networkx",       "https://networkx.org/", "A Javascript library for creating network diagrams") }}
+              {{ item("nltk",           "https://www.nltk.org/", "A Python library for natural language processing") }}
+              {{ item("OpenStack",      "https://www.openstack.org/", "A Linux toolkit for creating virtual machines") }}
+              {{ item("pandas",         "https://pandas.pydata.org/", "A Python library for processing matrix-based data") }}
+              {{ item("sklearn",        "https://scikit-learn.org/stable/", "A Python library for machine learning") }}
+              {{ item("Slurm",          "https://slurm.schedmd.com/", "A Linux toolkit to support cluster computing") }}
+            </ul>
+          </div>
+          <div class="col-12 col-md-4">
+            <ul class="list-group mt-4">
+              {{ item("SpaCy",          "https://spacy.io/", "A Python library for natural language processing") }}
+              {{ item("SQLAlcmemy",     "https://www.sqlalchemy.org/", "A Python library for interacting with databases") }}
+              {{ item("SQLite",         "https://www.sqlite.org/index.html", "A C-based relational database") }}
+              {{ item("Textacy",        "https://www.erinhengel.com/software/textatistic/", "A Python library for natural language processing") }}
+              {{ item("Tika",           "https://tika.apache.org/", "A Java archive for text pre-processing") }}
+              {{ item("WebService::Solr", "https://metacpan.org/pod/WebService::Solr", "a Perl library used to interact with a Solr index") }}
+              {{ item("Wget",           "https://www.gnu.org/software/wget/", "A HTTP user-agent") }}
+              {{ item("wordcloud",      "https://github.com/amueller/word_cloud", "A Python library for creating word clouds") }}
+              {{ item("XML::XPath",     "https://metacpan.org/pod/XML::XPath", "A Perl library for querying XML") }}
+            </ul>
+          </div>
+          <!-- .col-sm-12 -->
 
       <div class="row">
         <div class="col-12">
