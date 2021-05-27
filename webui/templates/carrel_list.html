@@ -83,6 +83,9 @@ carrel lists -#}
                 <a href='{{ entry_url }}'>Files</a>
                 {%- if entry.status != "queued" -%},
                   <a href='{{ entry_url ~ "study-carrel.zip" }}'>Download</a>
+                  {%- if not is_public -%},
+                    <a href='{{ url_for("delete_carrel", carrel=entry.shortname) }}'>Delete</a>
+                  {%- endif -%}
                 {% endif %}
               </td>
             </tr>

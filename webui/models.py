@@ -1,5 +1,6 @@
 import datetime
 import smtplib
+import shutil
 from email.message import EmailMessage
 from flask_login import UserMixin
 
@@ -220,6 +221,18 @@ class StudyCarrel(object):
             ),
         )
         db.commit()
+
+    def delete(self):
+        # this will delete the record from the database AND remove all the carrel
+        # files from disk (if there are any). Sometimes carrels get moved to the
+        # public file tree, so there might not be any carrel files to delete.
+        db = get_db()
+        db.execute('''DELETE FROM carrels WHERE owner = ? and shortname = ?''',
+                (self.owner, self.shortname)
+                )
+        db.commit()
+        shutil.rmtree(self.fullpath, ignore_errors=True)
+
 
     @staticmethod
     def FromOwnerShortname(owner, shortname):

@@ -92,8 +92,7 @@ def login_callback():
         if not is_safe_url(next, allowed_hosts=None):
             next = url_for("index")
         return redirect(next)
-    # save the important token info and ask if we should consolidate with
-    # existing account or make a new one
+    # save the important token info and then set up a new account
     session["orcid"] = orcid
     session["name"] = token["name"]
     return redirect(url_for("login_new_orcid"))
@@ -310,6 +309,7 @@ def handle_carrel_filelist(carrel, p):
         print("path is not directory or file", carrel_abs_path)
         abort(404)  # NotFound - Don't recognize the type of this item
 
+
 @app.route("/patrons/<username>/<carrel>/", defaults={"p": "/"})
 @app.route("/patrons/<username>/<carrel>/<path:p>")
 @login_required
@@ -342,6 +342,18 @@ def public_carrel(carrel, p):
     if carrel is None:
         abort(404)  # NotFound
     return handle_carrel_filelist(carrel, p)
+
+
+@app.route("/delete/<carrel>")
+@login_required
+def delete_carrel(carrel):
+    # Does thie carrel exist?
+    c = StudyCarrel.FromOwnerShortname(current_user.username, carrel)
+    if c is not None:
+        c.delete()
+        flash("Carrel Deleted")
+    return redirect(url_for("patron_carrel_list", username=current_user.username))
+
 
 # add_job_to_queue will create a queue file that the compute side uses to
 # start jobs. It also creates a "processing" entry in the carrel database.
