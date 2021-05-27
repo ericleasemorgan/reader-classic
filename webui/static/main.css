@@ -17,6 +17,7 @@
   /* --maroon: #bf3d3a; */
   --cyan: #b6d1d4;
   --nd-blue: #20364c;
+  --chocolate: chocolate;
 }
 
 body {
@@ -65,7 +66,7 @@ h4 {
 }
 
 #page-header {
-  margin-top: 4.5rem;
+  margin-top: 2rem;
   font-size: 2.8rem;
 }
 
@@ -113,6 +114,10 @@ h4 {
   font-size: .8rem;
 }
 
+label {
+    font-weight: 600 !important;
+    color: var(--graphite);
+}
 /* Links --------------------------------------------------------------------- */
 #wrapper a {
   color: var(--bright-blue);
@@ -190,12 +195,20 @@ h4 {
   color: var(--silver);
 }
 
+.text-chocolate {
+  color: var(--chocolate);
+}
+
 .graphite {
   color: var(--graphite);
 }
 
 .maroon {
   color: var(--maroon) !important;
+}
+
+.bolder {
+  font-weight: bolder;
 }
 
 /* Back to top button  --------------------------------------- */
@@ -319,11 +332,12 @@ blockquote {
 #faq-section .card-header {
   padding: .2rem 0rem .2rem .3rem;
   border-bottom: none !important;
+  background: #f1f1f1;
 }
 
 #faq-section .card-body {
   background: transparent !important;
-  padding: 1rem 0 2rem 3.5rem;
+  padding: 1rem 0 2rem 2rem;
   border-bottom: none !important;
 }
 

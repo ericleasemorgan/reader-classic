@@ -44,7 +44,7 @@ def acknowledgments():
 
 @app.route("/faq")
 def faq():
-    return redirect(url_for("index"))
+    return render_template("faq.html")
 
 
 @app.errorhandler(404)

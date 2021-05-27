@@ -3,24 +3,52 @@
 {% block title %}New Account{% endblock %}
 
 {% block body %}
-<h3 class="maroon">Create a New Account</h3>
-<p>The ORCID you signed in with {{ session['orcid'] }}.
-is not associated with an account.</p>
 
-<form method="post">
-  <div class="form-group">
-    <label for="name">Name</label>
-    <input type="text" name='name' class="form-control" id="name" value="{{ session['name'] }}">
-  </div>
-  <div class="form-group">
-    <label for="username">Username</label>
-    <input type="text" name='username' class="form-control" id="username">
-  </div>
-  <div class="form-group">
-    <label for="email">Email</label>
-    <input type="email" name='email' class="form-control" id="email">
-  </div>
+<div class="container">
 
-  <button type="submit" class="btn btn-primary mt-4">Create Account</button>
-</form>
+  <div class="row">
+  <div class="col-12">
+    <nav aria-label="breadcrumb" id="breadcrumb">
+      <ol class="breadcrumb py-4">
+        <li class="breadcrumb-item pl-3">
+          <a href="{{ url_for("index") }}"><i class="fad fa-home fa-fw mr-2"></i>Home</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">Profile</li>
+      </ol>
+    </nav>
+  </div>
+</div>
+
+  <div class="row">
+
+    <div class="col-12 col-sm-6 offset-sm-3">
+
+      <h1 id="page-header maroon mb-4">Create New Account</h1>
+
+      <p>The ORCID ID you signed in with {{ session['orcid'] }} is not associated with an account.</p>
+
+      <form method="post">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" name='name' class="form-control" id="name" value="{{ session['name'] }}">
+        </div>
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" name='username' class="form-control" id="username">
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" name='email' class="form-control" id="email">
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-4">Create Account</button>
+      </form>
+
+
+    </div>
+  </div>
+</div>
+
+{% include "sponsors.html" %}
+
 {% endblock %}
