@@ -1,0 +1,199 @@
+{% extends "base.html" %}
+
+{% block title %}
+faq
+{% endblock %}
+
+{% block body %}
+<!-- main wrapper div -->
+<div class="container" id="wrapper">
+
+  <div class="row">
+    <div class="col-12">
+      <nav aria-label="breadcrumb" id="breadcrumb">
+        <ol class="breadcrumb px-5 py-4">
+          <li class="breadcrumb-item pl-3">
+            <a href="{{ url_for('index') }}"><i class="fad fa-home fa-fw mr-2"></i>Home</a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">FAQ</li>
+        </ol>
+      </nav>
+
+    </div>
+  </div>
+
+  <div class="row" id="faq-section">
+
+    <div class="col-sm-12">
+
+      <!-- General / marketing description of tool -->
+      <h1 id="page-header">Frequently Asked Questions</h1>
+      <p class="mb-n4">If you don't find the answers you need below, <a href="{{ url_for('contact') }}">contact us</a> at any time.</p>
+
+
+
+      <!-- FAQ Accordions -->
+      <div class="accordion" id="faq-accordions">
+
+        <!-- Expander button -->
+        <p class='text-right'><span class="badge badge-primary expander pointer">show all</span></p>
+
+        <div class="card">
+          <div class="card-header" id="header-2">
+            <h2 class="mb-0">
+              <button class="btn btn-transparent float-right"><i class="fad fa-fw fa-plus slate-gray"></i></button>
+              <button class="btn btn-link stretched-link" type="button" data-toggle="collapse" data-target="#panel49337907" aria-expanded="false" aria-controls="header-2">Who may use the Distant Reader and how much does it cost?</button>
+            </h2>
+          </div>
+          <div id="panel49337907" class="collapse" aria-labelledby="headingOne" data-parent="">
+            <div class="card-body">Anybody with a Web browser and an Internet connection may use the Reader for free. To save your carrel, you need only login with a free ORCID ID, a Google ID, or your institutional credentials.
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header" id="header-0">
+            <h2 class="mb-0">
+              <button class="btn btn-transparent float-right"><i class="fad fa-fw fa-plus fa-rotate-45 slate-gray"></i></button>
+              <button class="btn btn-link stretched-link" type="button" data-toggle="collapse" data-target="#panel70311408" aria-expanded="false" aria-controls="header-0">Can Distant Reader process languages other than English?</button>
+            </h2>
+          </div>
+          <div id="panel70311408" class="collapse" aria-labelledby="headingOne" data-parent="">
+            <div class="card-body">Currently, the Distant Reader will only process English-language texts. However, if there is enough demand, additional languages may be possible in future.
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header" id="header-1">
+            <h2 class="mb-0">
+              <button class="btn btn-transparent float-right"><i class="fad fa-fw fa-plus slate-gray"></i></button>
+              <button class="btn btn-link stretched-link" type="button" data-toggle="collapse" data-target="#panel64761709" aria-expanded="false" aria-controls="header-1">How much text can the Reader accept?</button>
+            </h2>
+          </div>
+          <div id="panel64761709" class="collapse" aria-labelledby="headingOne" data-parent="">
+            <div class="card-body">The amount of text the Reader can process varies significantly. For example, it can accept as little as a single file the size of a journal article. The Reader can also process an entire blog, hundreds of URLs,
+              hundreds of books, or thousands of journal articles. The Reader's limitations are less about the amount of data given and more about one's ability to articulate the content that goes into a carrel.
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header" id="header-3">
+            <h2 class="mb-0">
+              <button class="btn btn-transparent float-right"><i class="fad fa-fw fa-plus slate-gray"></i></button>
+              <button class="btn btn-link stretched-link" type="button" data-toggle="collapse" data-target="#panel95643681" aria-expanded="false" aria-controls="header-3">Can I make my study carrel available for others if it contains copyrighted
+                materials?</button>
+            </h2>
+          </div>
+          <div id="panel95643681" class="collapse" aria-labelledby="headingOne" data-parent="">
+            <div class="card-body">You may share your carrels with others, only if it does not contain copyrighted materials. Since study carrels are computer platform- and network-independent, you can download your study carrel, put the result on
+              your own website, and provide access to it from there.
+            </div>
+          </div>
+        </div>
+        <div class="card d-none">
+          <div class="card-header" id="header-4">
+            <h2 class="mb-0">
+              <button class="btn btn-transparent float-right"><i class="fad fa-fw fa-plus slate-gray"></i></button>
+              <button class="btn btn-link stretched-link" type="button" data-toggle="collapse" data-target="#panel88136335" aria-expanded="false" aria-controls="header-4">Lorem ipsum dolor sit
+                amet,
+                consectetur?</button>
+            </h2>
+          </div>
+          <div id="panel88136335" class="collapse" aria-labelledby="headingOne" data-parent="">
+            <div class="card-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos quas rem nemo numquam id quibusdam quisquam vel cupiditate saepe, qui, harum cum laudantium sequi odio sed alias provident. Lorem ipsum dolor sit amet.
+            </div>
+          </div>
+        </div>
+        <div class="card d-none">
+          <div class="card-header" id="header-5">
+            <h2 class="mb-0">
+              <button class="btn btn-transparent float-right"><i class="fad fa-fw fa-plus slate-gray"></i></button>
+              <button class="btn btn-link stretched-link" type="button" data-toggle="collapse" data-target="#panel44384203" aria-expanded="false" aria-controls="header-5">Lorem ipsum dolor sit
+                amet,
+                consectetur?</button>
+            </h2>
+          </div>
+          <div id="panel44384203" class="collapse" aria-labelledby="headingOne" data-parent="">
+            <div class="card-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos quas rem nemo numquam id quibusdam quisquam vel cupiditate saepe, qui, harum cum laudantium sequi odio sed alias provident. Lorem ipsum dolor sit amet.
+            </div>
+          </div>
+        </div>
+        <div class="card d-none">
+          <div class="card-header" id="header-6">
+            <h2 class="mb-0">
+              <button class="btn btn-transparent float-right"><i class="fad fa-fw fa-plus slate-gray"></i></button>
+              <button class="btn btn-link stretched-link" type="button" data-toggle="collapse" data-target="#panel24228621" aria-expanded="false" aria-controls="header-6">Lorem ipsum dolor sit
+                amet,
+                consectetur?</button>
+            </h2>
+          </div>
+          <div id="panel24228621" class="collapse" aria-labelledby="headingOne" data-parent="">
+            <div class="card-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos quas rem nemo numquam id quibusdam quisquam vel cupiditate saepe, qui, harum cum laudantium sequi odio sed alias provident. Lorem ipsum dolor sit amet.
+            </div>
+          </div>
+        </div>
+        <div class="card d-none">
+          <div class="card-header" id="header-7">
+            <h2 class="mb-0">
+              <button class="btn btn-transparent float-right"><i class="fad fa-fw fa-plus slate-gray"></i></button>
+              <button class="btn btn-link stretched-link" type="button" data-toggle="collapse" data-target="#panel91891040" aria-expanded="false" aria-controls="header-7">Lorem ipsum dolor sit
+                amet,
+                consectetur?</button>
+            </h2>
+          </div>
+          <div id="panel91891040" class="collapse" aria-labelledby="headingOne" data-parent="">
+            <div class="card-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos quas rem nemo numquam id quibusdam quisquam vel cupiditate saepe, qui, harum cum laudantium sequi odio sed alias provident. Lorem ipsum dolor sit amet.
+            </div>
+          </div>
+        </div>
+        <div class="card d-none">
+          <div class="card-header" id="header-8">
+            <h2 class="mb-0">
+              <button class="btn btn-transparent float-right"><i class="fad fa-fw fa-plus slate-gray"></i></button>
+              <button class="btn btn-link stretched-link" type="button" data-toggle="collapse" data-target="#panel53878705" aria-expanded="false" aria-controls="header-8">Lorem ipsum dolor sit
+                amet,
+                consectetur?</button>
+            </h2>
+          </div>
+          <div id="panel53878705" class="collapse" aria-labelledby="headingOne" data-parent="">
+            <div class="card-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos quas rem nemo numquam id quibusdam quisquam vel cupiditate saepe, qui, harum cum laudantium sequi odio sed alias provident. Lorem ipsum dolor sit amet.
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header" id="header-9">
+            <h2 class="mb-0">
+              <button class="btn btn-transparent float-right"><i class="fad fa-fw fa-plus slate-gray"></i></button>
+              <button class="btn btn-link stretched-link" type="button" data-toggle="collapse" data-target="#panel39219447" aria-expanded="false" aria-controls="header-9">What other collections can I use to create carrels with Distant
+                Reader?</button>
+            </h2>
+          </div>
+          <div id="panel39219447" class="collapse" aria-labelledby="headingOne" data-parent="">
+            <div class="card-body">
+              <p class="mb-2">You can also use the bioRxiv Archive and Hathi Trust collections.</p>
+
+              <ul>
+                <li><strong>Hathi Trust</strong> &mdash; is collection of millions of digitized texts originating from academic libraries. For items in the collection which are in the public domain, all are available in both PDF and OCR ("optical
+                  character recognition") formats. About 25% of the 'Trust's collection are in the public domain.</li>
+                <li> <strong>bioRxiv</strong> &mdash; as a collection of biology-related journal articles which have yet to be formally published, bioRxiv represents a kind of pre-print server of biology literature.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
+    </div>
+    <!-- col-sm-8 -->
+
+  </div>
+  <!-- .row -->
+
+</div>
+<!-- #wrapper .container -->
+
+{% include "sponsors.html" %}
+
+{% endblock %}

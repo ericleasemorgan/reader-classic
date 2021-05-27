@@ -269,7 +269,7 @@ sub template {
 		<li style='margin-bottom: 2em'><a href="/biorxiv2carrel/">Biorxiv to study carrel</a></li>
 		
 		<li><a href="/gutenberg/">Project Gutenberg to study carrel</a></li>
-		<li><a href="/cord/">COVID-19 to study carrel</a></li>
+		<li><a href="/cord/">CORD-19 to study carrel</a></li>
 		
  </ul>
 </div>
@@ -331,7 +331,7 @@ sub results_template {
 		<li style='margin-bottom: 2em'><a href="/biorxiv2carrel/">Biorxiv to study carrel</a></li>
 		
 		<li><a href="/gutenberg/">Project Gutenberg to study carrel</a></li>
-		<li><a href="/cord/">COVID-19 to study carrel</a></li>
+		<li><a href="/cord/">CORD-19 to study carrel</a></li>
 		
  </ul>
 </div>
