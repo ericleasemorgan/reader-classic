@@ -2,7 +2,7 @@
 
 # Deploy the web components on the production server
 #
-# This script assumes it is being run as root. This might need to be adjusted.
+# This script assumes it is being run as root.
 
 
 # Copy apache configs
@@ -16,6 +16,11 @@
 # /sv/reader
 # /opt/reader/env
 # /opt/reader/config.production
+
+# install the cron jobs
+install --compare --owner=root --group=root --mode=644 \
+  config/cron.d/distant-reader \
+  /etc/cron.d/distant-reader
 
 # copy all the static files and cgi scripts
 #rsync --checksum --recursive www /data-disk/www/html
