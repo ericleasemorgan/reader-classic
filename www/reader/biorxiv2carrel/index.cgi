@@ -99,7 +99,7 @@ sub template {
 		<li style='margin-bottom: 2em'>Biorxiv to study carrel</li>
 		
 		<li><a href="/gutenberg/">Gutenberg to study carrel</a></li>
-		<li><a href="/cord/">COVID-19 to study carrel</a></li>
+		<li><a href="/cord/">CORD-19 to study carrel</a></li>
 		
  </ul>
 </div>
@@ -174,7 +174,7 @@ sub queue {
 		<li style='margin-bottom: 2em'>Biorxiv to study carrel</li>
 		
 		<li><a href="/gutenberg/">Gutenberg to study carrel</a></li>
-		<li><a href="/cord/">COVID-19 to study carrel</a></li>
+		<li><a href="/cord/">CORD-19 to study carrel</a></li>
 		
  </ul>
 </div>

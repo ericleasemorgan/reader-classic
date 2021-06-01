@@ -2,7 +2,7 @@
 {% block title %}Whoops!{% endblock %}
 
 {% block body %}
-<div class="container min-vh-100">
+<div class="container">
 
   <div class="row my-5">
     <div class="col-12 col-sm-4 offset-sm-4">
@@ -10,8 +10,8 @@
         {# XXX Should this page has a png image here? #}
         {#<img src="{{ url_for('static', filename='orcid.png') }}" class="card-img-top" alt="ORCID Logo">#}
         <div class="card-body">
-          <h2 class="text-center">OOPS<h2>
-              <p class="lead text-center my-4">Looks like something went wrong on our end. We'll look into it immediately!</p>
+          <h2 class="text-center">500<h2>
+              <p class="lead text-center my-4">Whoops! Looks like something went wrong on our end. We'll look into it immediately!</p>
               <p class="lead">In the meantime, you might:</p>
         </div>
         <ul class="list-group list-group-flush">
@@ -24,4 +24,7 @@
   <!-- row -->
 </div>
 <!-- container -->
+
+{% include "sponsors.html" %}
+
 {% endblock %}

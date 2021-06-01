@@ -5,27 +5,30 @@ Contact Us
 {% endblock %}
 
 {% block body %}
+<div class="container pb-5" id="wrapper">
 
-  <nav aria-label="breadcrumb" id="breadcrumb">
-    <ol class="breadcrumb px-5 py-4">
-      <li class="breadcrumb-item pl-3">
-        <a href="{{ url_for("index") }}"><i class="fad fa-home fa-fw mr-2"></i>Home</a>
-      </li>
-      <li class="breadcrumb-item active" aria-current="page">Contact Us</li>
-    </ol>
-  </nav>
+  <div class="row">
+    <div class="col-12">
+      <nav aria-label="breadcrumb" id="breadcrumb">
+        <ol class="breadcrumb py-4">
+          <li class="breadcrumb-item pl-3">
+            <a href="{{ url_for("index") }}"><i class="fad fa-home fa-fw mr-2"></i>Home</a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">Contact Us</li>
+        </ol>
+      </nav>
+    </div>
+  </div>
 
-  <div class="container pb-5" id="wrapper">
+  <div class="row">
 
-    <div class="row">
+    <div class="col-sm-12">
 
-      <div class="col-sm-12">
+      <!-- Page header -->
+      <h1 id="page-header">Contact Us</h1>
 
-        <!-- Page header -->
-        <h1 id="page-header">Contact Us</h1>
-
-        <p>The Distant Reader is an open source project open source project,
-        made up of <a href="{{ url_for("about") }}">code from lots of amazing people</a> like yourself.
+      <p>The Distant Reader is an <a href="{{ url_for("about") }}">open source project</a>,
+      made up of code from <a href="{{ url_for("acknowledgments") }}">lots of amazing people</a> like yourself.
         We're constantly looking for ways to improve and welcome contributions from everyone.
         If you'd like to contribute code to the Distant Reader,
         <a href="https://github.com/ericleasemorgan/reader" target="_blank">visit our GitHub repository</a>
@@ -58,11 +61,14 @@ Contact Us
             </div>
             <!-- .table -->
 
-          </div>
-          <!-- .col-sm-4 -->
         </div>
-        <!-- .row -->
+        <!-- .col-sm-4 -->
       </div>
+      <!-- .row -->
     </div>
   </div>
+</div>
+
+{% include "sponsors.html" %}
+
 {% endblock %}

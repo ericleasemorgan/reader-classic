@@ -1,11 +1,25 @@
 {% extends "base.html" %}
 
 {% block body %}
-<div class="container min-vh-100">
+<div class="container pb-5" id="wrapper">
+
+  <div class="row">
+    <div class="col-12">
+      <nav aria-label="breadcrumb" id="breadcrumb">
+        <ol class="breadcrumb py-4">
+          <li class="breadcrumb-item pl-3">
+            <a href="{{ url_for("index") }}"><i class="fad fa-home fa-fw mr-2"></i>Home</a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">Contact Us</li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+
   <div class="row">
 
-    <div class="col">
-      <h3 class="maroon mb-4">Create Carrel</h3>
+    <div class="col-sm-12 mb-4">
+      <h1 id="page-header maroon mb-4">Create Carrel</h1>
     </div>
 
     <div class="col-12 col-sm-4">
@@ -24,7 +38,7 @@
       <ul class="list-group mb-4">
         <li class="pointer text-decoration-none list-group-item list-group-item-action"><a href="{{ url_for('biorxiv2carrel') }}">Biorxiv to study carrel</a></li>
         <li class="pointer text-decoration-none list-group-item list-group-item-action"><a href="{{ url_for('gutenberg') }}">Gutenberg to study carrel</a></li>
-        <li class="pointer text-decoration-none list-group-item list-group-item-action"><a href="{{ url_for('cord_search') }}">COVID-19 to study carrel</a></li>
+        <li class="pointer text-decoration-none list-group-item list-group-item-action"><a href="{{ url_for('cord_search') }}">CORD-19 to study carrel</a></li>
       </ul>
 
     </div>
@@ -38,4 +52,7 @@
   <!-- row -->
 </div>
 <!-- container -->
+
+{% include "sponsors.html" %}
+
 {% endblock %}
