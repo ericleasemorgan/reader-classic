@@ -40,10 +40,28 @@
   <!-- FontAwesome icon include -->
   <script src="https://kit.fontawesome.com/8565f46fd3.js" crossorigin="anonymous"></script>
 
+  <!-- jquery JS minified -->
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+  <!-- jquery ui -->
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+  <!-- popper minified -->
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous" defer></script>
+
+  <!-- bootstrap JS minified -->
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous" defer></script>
+
+  <!-- Main local scripts -->
+  <script src="{{ url_for('static', filename='main.js') }}"></script>
+ 
   <!-- Main local styles -->
   <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
 
   <title>{% block title %}{% endblock %}</title>
+
+  {% block head_additional %}
+  {% endblock %}
 </head>
 
 <body id="top" class="min-vh-100">
@@ -60,20 +78,5 @@
 
   <!-- Back to top button -->
   <a role="button" id="back-to-top" class="btn scroll-link" href="#top"><i class="fad fa-fw fa-2x fa-angle-up" aria-hidden="true"></i></a>
-
-  <!-- jquery JS minified -->
-  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-
-  <!-- jquery ui -->
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
-  <!-- popper minified -->
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-
-  <!-- bootstrap JS minified -->
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-
-  <!-- Main local scripts -->
-  <script src="{{ url_for('static', filename='main.js') }}"></script>
 
 </body>

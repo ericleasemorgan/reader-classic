@@ -4,6 +4,11 @@
 Study Carrels for {{ current_user.username }}
 {% endblock %}
 
+{% block head_additional %}
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
+  <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+{% endblock %}
+
 
 {% block body %}
 <p>Below, select column headings and/or enter words into the search box to sort &amp; filter catalog items. Use the results to read, browse, or download carrels.</p>
@@ -40,17 +45,25 @@ Study Carrels for {{ current_user.username }}
       {% else %}
       <tr>
         <td>No Carrels</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
       </tr>
       {% endfor %}
     </tbody>
   </table>
 </div>
 
-<script type="text/javascript" class="init">
-    $(document).ready(function() { $('#directory').DataTable( {
-        "order": [[ 1, "desc" ]],
-        "pageLength": 100
-    } ); } );
+<script type="text/javascript">
+  $(document).ready(function() {
+      $('#directory').DataTable( {
+          "order": [[ 1, "desc" ]],
+          "pageLength": 100
+        } );
+    } );
 </script>
 
 {% endblock %}
