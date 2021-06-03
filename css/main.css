@@ -80,6 +80,9 @@ small, .text_small {
    font-size: 0.9em;
 }
 
+.unbolded {
+  font-weight: normal !important;
+}
 .navbar-brand {
    font-size: 1.6rem !important;
    color: white;
@@ -88,6 +91,10 @@ small, .text_small {
 #page-header {
    font-size: 4rem;
    padding-top: 6rem;
+}
+
+#gutenberg-results-list li:nth-child(odd) {
+  background: rgba(0,0,0,.15);
 }
 
 @media only screen and (max-width: 1024px) {

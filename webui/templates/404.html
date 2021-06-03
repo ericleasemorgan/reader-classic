@@ -5,23 +5,39 @@
 
 <div class="container">
 
-<div class="row">
-  <div class="col-12 col-sm-6 offset-3">
-    <div class="card mt-5">
-      <img src="{{ url_for('static', filename='404.png') }}" class="card-img-top" alt="">
-      <div class="card-body px-5">
-        <h1 class="text-center display-2">404</h1>
-        <p class="lead">Sorry, we can't seem to find what you're looking for. You've landed on a URL that doesn't seem to exist on <strong>the Distant Reader</strong>.</p>
-        <p class="lead">Here are some options:</p>
-      </div>
-      <ul class="list-group list-group-flush">
-        <a href="{{ url_for('index') }}" class="list-group-item list-group-item-action bright-blue border-top">Return to Home Page</a>
-        <a href="{{ url_for('contact') }}" class="list-group-item bright-blue list-group-item-action">Contact Us</a>
-      </ul>
+
+  <div class="row">
+    <div class="col-12">
+      <nav aria-label="breadcrumb" id="breadcrumb">
+        <ol class="breadcrumb py-4">
+          <li class="breadcrumb-item pl-3">
+            <a href="{{ url_for("index") }}"><i class="fad fa-home fa-fw mr-2"></i>Home</a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">404 &mdash; Page Not Found</li>
+        </ol>
+      </nav>
     </div>
   </div>
-</div>
-<!-- row -->
+
+  <div class="row">
+
+    <div class="col-12 col-sm-6 offset-3">
+      <div class="card mt-5">
+        <img src="{{ url_for('static', filename='404.png') }}" class="card-img-top" alt="">
+        <div class="card-body px-5">
+          <h1 class="text-center display-2">404</h1>
+          <p class="display-5 maroon text-center">Page Not Found</p>
+          <p class="lead">Sorry, we can't seem to find what you're looking for. You've landed on a URL that doesn't seem to exist on <strong>the Distant Reader</strong>.</p>
+          <p class="lead">Here are some options:</p>
+        </div>
+        <ul class="list-group list-group-flush">
+          <a href="{{ url_for('index') }}" class="list-group-item list-group-item-action bright-blue border-top">Return to Home Page</a>
+          <a href="{{ url_for('contact') }}" class="list-group-item bright-blue list-group-item-action">Contact Us</a>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!-- row -->
 </div>
 <!-- container -->
 

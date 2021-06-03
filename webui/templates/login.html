@@ -22,7 +22,11 @@
     <div class="col-12 col-md-6 offset-md-3">
       <div class="card">
         <img src="{{ url_for('static', filename='orcid.png') }}" class="card-img-top" alt="ORCID Logo">
-        <div class="card-body px-4">
+        <div class="card-body px-5">
+
+          <p class="lead text-center mt-3 mb-5">To create and save carrels, you must sign in using ORCID.
+          If you don't have an ORCID account, you may <a href="https://orcid.org/" target="_blank">register for free</a> at the ORCID website.
+          </p>
 
           <form method="post" class="my-4">
             <div class="form-group  text-center">
@@ -30,10 +34,6 @@
             </div>
           </form>
 
-          <h2 class="text-center">Sign in with ORCID<h2>
-          <p class="lead text-center my-4">To create and save carrels, you must sign in using ORCID.
-          If you don't have an ORCID account, you may <a href="https://orcid.org/" target="_blank">register for free</a> at the ORCID website.
-          </p>
         </div>
         <ul class="list-group list-group-flush">
           <a href="{{ url_for('index') }}" class="list-group-item list-group-item-action bright-blue border-top">Return to Home Page</a>

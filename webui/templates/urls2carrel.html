@@ -5,16 +5,18 @@
 {% endblock %}
 
 {% block searchbody %}
+<h4>URLs<i class="mx-2 fad fa-angle-double-right"></i>Carrel</h4>
 <p>Use this form to queue a plain text file with a list of URLs to be processed by the Distant Reader.</p>
+
 <form method="post" enctype="multipart/form-data">
   <div class="form-group">
-    <label for="shortname">Carrel Name<br><small class="text-muted"></small>A one-word name describing your carrel</label>
+    <label for="shortname">Carrel Name<br><small class="text-muted unbolded">A one-word name describing your carrel</small></label>
     <input name='shortname' autofocus="autofocus" onkeyup="this.value = this.value.replace( /[^a-z|^A-Z|0-9|_|\-]/, '' )" class="form-control" id="shortname">
   </div>
   <div class="form-group">
     <label for="file">Text File with List of URLs</label>
     <input type="file" accept=".txt" class="form-control" name="file" id="file">
   </div>
-  <button type="submit" id="queue" name="queue" class="btn btn-primary mt-4">Create</input>
+  <button type="submit" id="queue" name="queue" class="btn btn-primary mt-2">Create</input>
 </form>
 {% endblock %}

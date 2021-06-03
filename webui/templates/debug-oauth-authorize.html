@@ -17,15 +17,15 @@
         </div>
         <div class="form-group">
           <label for="orcid">ORCID</label>
-          <input type="text" class="form-control" name="orcid" id="orcid">
+          <input type="text" class="form-control" value="{{ session['orcid'] }}" name="orcid" id="orcid">
         </div>
         <div class="form-group">
           <label for="redirect">Redirect URL</label>
-          <input type="text" class="form-control" name="redirect" id="redirect" value="{{ request.args['redirect_uri'] }}">
+          <input type="text" class="form-control disabled" name="redirect" id="redirect" value="{{ request.args['redirect_uri'] }}" disabled="disabled">
         </div>
         <div class="form-group">
           <label for="state">State</label>
-          <input type="text" class="form-control" name="state" id="state" value="{{ request.args['state'] }}">
+          <input type="text" class="form-control disabled" name="state" id="state" value="{{ request.args['state'] }}" disabled="disabled">
         </div>
         <button type="submit" id="submit" class="btn btn-primary mt-4">Sign In</button>
       </form>

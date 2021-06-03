@@ -30,9 +30,11 @@ Study Carrel {{ carrel.shortname }}
     <tr>
       <td><a href="{{ url_for("patron_carrel", username=current_user.username, carrel=carrel.shortname, p=entry.path) }}">
           {% if entry.directory %}
-            <img src="{{ url_for('static', filename='icons/folder.gif') }}" alt="[DIR]">
+            <!-- <img src="{{ url_for('static', filename='icons/folder.gif') }}" alt="[DIR]"> -->
+            <i class="fad fa-fw fa-folder"></i>
           {% else %}
-            <img src="{{ url_for('static', filename='icons/text.gif') }}" alt="[FILE]">
+            <!-- <img src="{{ url_for('static', filename='icons/text.gif') }}" alt="[FILE]"> -->
+            <i class="fad fa-fw fa-file-alt"></i>
           {% endif %}
         </a></td>
         <td><a href="{{ url_for("patron_carrel", username=current_user.username, carrel=carrel.shortname, p=entry.path) }}">{{ entry.filename }}</a></td>
