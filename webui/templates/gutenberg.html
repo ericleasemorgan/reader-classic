@@ -5,13 +5,13 @@ The Distant Reader - Project Gutenberg to study carrel
 {% endblock %}
 
 {% block searchbody %}
-    <h4>Gutenberg to Carrel</h4>
-    <p>This is selected fulltext index to the content of Project Gutenberg. Enter a query.</p>
+    <h4>Gutenberg<i class="mx-2 fad fa-angle-double-right"></i>Carrel</h4>
+    <p>This is selected fulltext index to the content of Project Gutenberg.</p>
       <form method="GET">
         <div class="form-group">
           <label for="shortname">Query</label>
           <input name="query" autofocus="autofocus" class="form-control" size="50" value='{{ query }}'>
         </div>
-        <button type="submit" class="btn btn-primary mt-4">Search</button>
+        <button type="submit" class="btn btn-primary mt-2">Search</button>
       </form>
 {% endblock %}
