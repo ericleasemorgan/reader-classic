@@ -6,6 +6,10 @@ Study Carrel {{ carrel.shortname }}
 
 {% block body %}
 <h1>Study Carrel {{ current_user.username ~ "/" ~ carrel.shortname ~ "/" ~ directory}}</h1>
+{% if carrel.status == "queued" %}
+  <p>Thank you for submitting this carrel. It is being processed and will appear here when finished.
+  Reload this page to check on the status.</p>
+{% endif %}
 <div class="table-responsive">
   <table class="table table-striped">
     <thead class="thead-dark">
