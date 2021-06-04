@@ -300,9 +300,16 @@ def patron_carrel(username, carrel, p):
 
 def add_job_to_queue(job_type, shortname, username, extra):
     now = datetime.now().strftime("%Y-%m-%d\t%H:%M")
-    # since shortname is user supplied, different users many use the same name
+    # Beware, since shortname is user supplied, different users many use the same name
     shortname = secure_filename(shortname)
-    with open(os.path.join(app.config["TODO_PATH"], shortname + ".tsv"), mode="w") as f:
+    # there are many queues. figure out which one to use
+    if job_type == "cord":
+        queue_path = app.config["TODO_PATH_CORD"]
+    elif job_type == "trust":
+        queue_path = app.config["TODO_PATH_TRUST"]
+    else:
+        queue_path = app.config["TODO_PATH"]
+    with open(os.path.join(queue_path, shortname + ".tsv"), mode="w") as f:
         f.write("\t".join([job_type, shortname, now, username, extra]))
         f.write("\n")
 
@@ -405,9 +412,10 @@ def trust2carrel():
         return render_template("trust2carrel.html")
     shortname = secure_filename(shortname)
     # get the basename of the loaded file, and move it to the backlog
+    # n.b. the trust compute uses a different backlog location than the others
     f = request.files["file"]
     name = secure_filename(f.filename)
-    f.save(os.path.join(app.config["BACKLOG_PATH"], name))
+    f.save(os.path.join(app.config["BACKLOG_PATH_TRUST"], name))
 
     add_job_to_queue(TYPE, shortname, username, name)
     return render_template(
