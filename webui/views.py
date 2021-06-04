@@ -522,8 +522,7 @@ def create_gutenberg():
         "gutenberg-queue.html", username=username, shortname=shortname
     )
 
-# Next line route was /cord -- should it be cord-create?
-@app.route("/cord-create")
+@app.route("/cord")
 def cord_search():
     FACETFIELD = [
         "facet_journal",
