@@ -5,6 +5,7 @@ The Distant Reader - Project Gutenberg to study carrel
 {% endblock %}
 
 {% block searchbody %}
+<h4>Gutenberg<i class="mx-2 fad fa-angle-double-right"></i>Carrel</h4>
 <p>Use this form to queue the creation of a study carrel with the results of your Project Gutenberg search.</p>
 <form method="post" enctype="multipart/form-data">
 	<div class="form-group">
@@ -14,4 +15,10 @@ The Distant Reader - Project Gutenberg to study carrel
 
 	<button type="submit" id="queue" class="btn btn-primary mt-2">Create</button>
 </form>
+
+<!-- Styles the active button for the page chosen -->
+<script type="text/javascript">
+	$("#type-gutenberg").css("background", "rgba(80, 101, 120, .6)").find("a").addClass("text-white");
+</script>
+
 {% endblock %}

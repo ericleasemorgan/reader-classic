@@ -13,10 +13,15 @@ The Distant Reader - File to study carrel
 		<input name='shortname' autofocus="autofocus" onkeyup="this.value = this.value.replace( /[^a-z|^A-Z|0-9|_|\-]/, '' )" class="form-control" id="shortname">
 	</div>
 	<div class="form-group">
-		<label for="file">File {.TXT | .PDF | .DOC(X)}</label>
-		<input type="file" accept=".txt,.pdf,.doc,.docx" class="form-control" name="file" id="file">
+		<label for="file">Select File<br><small class="text-muted unbolded">Allowed: .txt, .pdf, .doc(x)</small></label>
+		<input type="file" accept=".txt,.pdf,.doc,.docx" class="form-control bg-transparent border-0" name="file" id="file">
 	</div>
 	<button type="submit" id="queue" class="btn btn-primary mt-2">Create</button>
 </form>
+
+<!-- Styles the active button for the page chosen -->
+<script type="text/javascript">
+	$("#type-file").css("background", "rgba(80, 101, 120, .6)").find("a").addClass("text-white");
+</script>
 
 {% endblock %}

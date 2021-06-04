@@ -514,8 +514,8 @@ def create_gutenberg():
         "gutenberg-queue.html", username=username, shortname=shortname
     )
 
-
-@app.route("/cord")
+# Next line route was /cord -- should it be cord-create?
+@app.route("/cord-create")
 def cord_search():
     FACETFIELD = [
         "facet_journal",
@@ -562,7 +562,6 @@ def cord_search():
         results=response.docs,
         facets=facets,
     )
-
 
 @app.route("/create/cord", methods=["GET", "POST"])
 @login_required
