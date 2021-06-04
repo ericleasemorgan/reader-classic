@@ -10,7 +10,10 @@ ORCID_AUTHORIZE_URL = 'http://localhost:5000/oauth/authorize'
 ORCID_ACCESS_TOKEN_URL = 'http://localhost:5000/oauth/token'
 
 TODO_PATH = 'queue/todo'
+TODO_PATH_CORD = 'queue/todo'
+TODO_PATH_TRUST = 'queue/todo'
 BACKLOG_PATH = 'queue/backlog'
+BACKLOG_PATH_TRUST = 'queue/backlog'
 SOLR_URL_GUTENBERG = 'http://localhost:7000/solr/reader-gutenberg'
 SOLR_URL_CORD = 'http://localhost:7000/solr/reader-cord'
 

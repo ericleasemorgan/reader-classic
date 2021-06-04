@@ -9,7 +9,10 @@ ORCID_AUTHORIZE_URL = 'http://localhost:8000/p/oauth/authorize'
 ORCID_ACCESS_TOKEN_URL = 'http://localhost:80/p/oauth/token'  # :80 since we run on port 80 in the container
 
 TODO_PATH = '/data-disk/reader-compute/reader-classic/queue/todo'
+TODO_PATH_CORD = '/data-disk/reader-compute/reader-classic/queue/todo'
+TODO_PATH_TRUST = '/data-disk/reader-compute/reader-classic/queue/todo'
 BACKLOG_PATH = '/data-disk/reader-compute/reader-classic/queue/backlog'
+BACKLOG_PATH_TRUST = '/data-disk/reader-compute/reader-classic/queue/backlog'
 SOLR_URL_GUTENBERG = 'http://localhost:7000/solr/reader-gutenberg'
 SOLR_URL_CORD = 'http://localhost:7000/solr/reader-cord'
 
