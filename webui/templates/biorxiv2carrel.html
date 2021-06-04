@@ -6,16 +6,22 @@ The Distant Reader - Biorxiv citation (XML) file to study carrel
 
 {% block searchbody %}
 <h4>bioRxiv<i class="mx-2 fad fa-angle-double-right"></i>Carrel</h4>
-	<p>Use this form to submit a Biorxiv citation (XML) file to be processed by the Distant Reader.</p>
+	<p>Use this form to submit a Biorxiv citation file (.xml) to be processed by the Distant Reader.</p>
 <form action="" method="post" enctype="multipart/form-data">
 	<div class="form-group">
 		<label for="shortname">Carrel Name<br><small class="text-muted unbolded">A one-word name describing your carrel</small></label>
 		<input name='shortname' autofocus="autofocus" onkeyup="this.value = this.value.replace( /[^a-z|^A-Z|0-9|_|\-]/, '' )" class="form-control" id="shortname">
 	</div>
 	<div class="form-group">
-		<label for="file">Biorxiv XML File</label>
-		<input type="file" accept=".xml" class="form-control" name="file" id="file">
+		<label for="file">Biorxiv File<br><small class="text-muted unbolded">Allowed: .xml</small></label>
+		<input type="file" accept=".xml" class="form-control bg-transparent border-0" name="file" id="file">
 	</div>
-	<button type="submit" id="queue" class="btn btn-primary mr-1">Create</button>
+	<button type="submit" id="queue" class="btn btn-primary mt-2">Create</button>
 </form>
+
+<!-- Styles the active button for the page chosen -->
+<script type="text/javascript">
+	$("#type-biorxiv").css("background", "rgba(80, 101, 120, .6)").find("a").addClass("text-white");
+</script>
+
 {% endblock %}

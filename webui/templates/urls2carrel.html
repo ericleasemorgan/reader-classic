@@ -14,9 +14,15 @@
     <input name='shortname' autofocus="autofocus" onkeyup="this.value = this.value.replace( /[^a-z|^A-Z|0-9|_|\-]/, '' )" class="form-control" id="shortname">
   </div>
   <div class="form-group">
-    <label for="file">Text File with List of URLs</label>
-    <input type="file" accept=".txt" class="form-control" name="file" id="file">
+    <label for="file">Text File with List of URLs<br><small class="text-muted unbolded">The file should list one URL per line.</small></label>
+    <input type="file" accept=".txt" class="form-control bg-transparent border-0" name="file" id="file">
   </div>
   <button type="submit" id="queue" name="queue" class="btn btn-primary mt-2">Create</input>
 </form>
+
+<!-- Styles the active button for the page chosen -->
+<script type="text/javascript">
+  $("#type-urls").css("background", "rgba(80, 101, 120, .6)").find("a").addClass("text-white");
+</script>
+
 {% endblock %}

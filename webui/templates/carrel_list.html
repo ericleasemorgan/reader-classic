@@ -5,65 +5,100 @@ Study Carrels for {{ current_user.username }}
 {% endblock %}
 
 {% block head_additional %}
-  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
-  <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
 {% endblock %}
 
 
 {% block body %}
-<p>Below, select column headings and/or enter words into the search box to sort &amp; filter catalog items. Use the results to read, browse, or download carrels.</p>
+<div class="container">
 
-<div class="table-responsive">
-  <table id="directory" class="table table-striped">
-    <!-- class="display" removed" -->
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Created</th>
-        <th>Items</th>
-        <th>Words</th>
-        <th>Readability</th>
-        <th>Bytes</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for entry in carrels|sort(attribute="shortname") %}
-      <tr>
-        <td>{{ entry.shortname }}</td>
-        <td>{{ entry.created }}</td>
-        <td class='text-right'>{{ entry.size_items | formatwithcommas }}</td>
-        <td class='text-right'>{{ entry.size_words | formatwithcommas }}</td>
-        <td class='text-right'>{{ entry.readability }}</td>
-        <td class='text-right'>{{ entry.size_bytes | filesizeformat }}</td>
-        <td class='text-right'>
-          <a href='{{ url_for("patron_carrel", username=current_user.username, carrel=entry.shortname, p="index.htm") }}'>Read</a>,
-          <a href='{{ url_for("patron_carrel", username=current_user.username, carrel=entry.shortname) }}'>Browse</a>,
-          <a href='{{ url_for("patron_carrel", username=current_user.username, carrel=entry.shortname, p="study-carrel.zip") }}'>Download</a>
-        </td>
-      </tr>
-      {% else %}
-      <tr>
-        <td>No Carrels</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+  <div class="row">
+    <div class="col-12">
+      <nav aria-label="breadcrumb" id="breadcrumb">
+        <ol class="breadcrumb py-4">
+          <li class="breadcrumb-item pl-3">
+            <a href="{{ url_for("index") }}"><i class="fad fa-home fa-fw mr-2"></i>Home</a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">Browse My Carrels</li>
+        </ol>
+      </nav>
+    </div>
+    <!-- col-sm-12 -->
+  </div>
+  <!-- row -->
+
+
+    <div class="col-12">
+
+      <h1 id="page-header">Browse My Carrels</h1>
+      <p>Below, select column headings and/or enter words into the search box to sort and filter catalog items. Use the results to read, browse, or download carrels.</p>
+
+    </div>
+    <!-- col-sm-12 -->
+
+    <div class="col-sm-12">
+
+      <div class="table-responsive">
+        <table id="directory" class="table table-striped">
+          <!-- class="display" removed" -->
+          <thead>
+            <tr>
+              <th class="text-left">Name</th>
+              <th class="text-center">Created</th>
+              <th class="text-center">Items</th>
+              <th class="text-center">Words</th>
+              <th class="text-center">Readability</th>
+              <th class="text-center">Bytes</th>
+              <th class="text-center">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for entry in carrels|sort(attribute="shortname") %}
+            <tr>
+              <td class="text-left">{{ entry.shortname }}</td>
+              <td class="text-center">{{ entry.created }}</td>
+              <td class='text-center'>{{ entry.size_items | formatwithcommas }}</td>
+              <td class='text-center'>{{ entry.size_words | formatwithcommas }}</td>
+              <td class='text-center'>{{ entry.readability }}</td>
+              <td class='text-center'>{{ entry.size_bytes | filesizeformat }}</td>
+              <td class='text-center'>
+                <a href='{{ url_for("patron_carrel", username=current_user.username, carrel=entry.shortname, p="index.htm") }}'>Read</a>,
+                <a href='{{ url_for("patron_carrel", username=current_user.username, carrel=entry.shortname) }}'>Browse</a>,
+                <a href='{{ url_for("patron_carrel", username=current_user.username, carrel=entry.shortname, p="study-carrel.zip") }}'>Download</a>
+              </td>
+            </tr>
+            {% else %}
+            <tr>
+              <td>No Carrels</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+    <!-- col-sm-12 -->
+  </div>
+  <!-- row -->
 </div>
+<!-- container -->
 
 <script type="text/javascript">
   $(document).ready(function() {
-      $('#directory').DataTable( {
-          "order": [[ 1, "desc" ]],
-          "pageLength": 100
-        } );
-    } );
+    $('#directory').DataTable({
+      "order": [
+        [1, "desc"]
+      ],
+      "pageLength": 100
+    });
+  });
 </script>
 
 {% endblock %}

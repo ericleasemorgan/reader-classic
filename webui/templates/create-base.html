@@ -8,7 +8,7 @@
       <nav aria-label="breadcrumb" id="breadcrumb">
         <ol class="breadcrumb py-4">
           <li class="breadcrumb-item pl-3">
-            <a class="stretched-link" href="{{ url_for("index") }}"><i class="fad fa-home fa-fw mr-2"></i>Home</a>
+            <a href="{{ url_for("index") }}"><i class="fad fa-home fa-fw mr-2"></i>Home</a>
           </li>
           <li class="breadcrumb-item active" aria-current="page">Contact Us</li>
         </ol>
@@ -24,17 +24,17 @@
 
     <div class="col-12 col-sm-2">
 
-      <ul class="list-group mb-4 border-0 rounded-0">
-        <li class="pointer text-decoration-none list-group-item list-group-item-action"><a class="stretched-link" href="{{ url_for('file2carrel') }}">File</a></li>
-        <li class="pointer text-decoration-none list-group-item list-group-item-action"><a class="stretched-link" href="{{ url_for('zip2carrel') }}">Zip</a></li>
-        <li class="pointer text-decoration-none list-group-item list-group-item-action"><a class="stretched-link" href="{{ url_for('url2carrel') }}">URL</a></li>
-        <li class="pointer text-decoration-none list-group-item list-group-item-action"><a class="stretched-link" href="{{ url_for('urls2carrel') }}">URLs</a></li>
+      <ul class="list-group mb-4">
+        <li id="type-file" class="border rounded-0 pointer text-decoration-none list-group-item list-group-item-action"><a class="text-decoration-none stretched-link" href="{{ url_for('file2carrel') }}">File</a></li>
+        <li id="type-zip" class="border-bottom rounded-0 pointer text-decoration-none list-group-item list-group-item-action"><a class="text-decoration-none stretched-link" href="{{ url_for('zip2carrel') }}">Zip</a></li>
+        <li id="type-url" class="border-bottom rounded-0 pointer text-decoration-none list-group-item list-group-item-action"><a class="text-decoration-none stretched-link" href="{{ url_for('url2carrel') }}">URL</a></li>
+        <li id="type-urls" class="border-bottom rounded-0 pointer text-decoration-none list-group-item list-group-item-action"><a class="text-decoration-none stretched-link" href="{{ url_for('urls2carrel') }}">URLs</a></li>
       </ul>
       <ul class="list-group mb-4">
-        <li class="pointer text-decoration-none list-group-item list-group-item-action"><a class="stretched-link" href="{{ url_for('trust2carrel') }}">HathiTrust</a></li>
-        <li class="pointer text-decoration-none list-group-item list-group-item-action"><a class="stretched-link" href="{{ url_for('gutenberg') }}">Gutenberg</a></li>
-        <li class="pointer text-decoration-none list-group-item list-group-item-action"><a class="stretched-link" href="{{ url_for('biorxiv2carrel') }}">Biorxiv</a></li>
-        <li class="pointer text-decoration-none list-group-item list-group-item-action"><a class="stretched-link" href="{{ url_for('cord_search') }}">CORD-19</a></li>
+        <li id="type-hathi" class="border-bottom rounded-0 pointer text-decoration-none list-group-item list-group-item-action"><a class="text-decoration-none stretched-link" href="{{ url_for('trust2carrel') }}">HathiTrust</a></li>
+        <li id="type-gutenberg" class="border-bottom rounded-0 pointer text-decoration-none list-group-item list-group-item-action"><a class="text-decoration-none stretched-link" href="{{ url_for('gutenberg') }}">Gutenberg</a></li>
+        <li id="type-biorxiv" class="border-bottom rounded-0 pointer text-decoration-none list-group-item list-group-item-action"><a class="text-decoration-none stretched-link" href="{{ url_for('biorxiv2carrel') }}">Biorxiv</a></li>
+        <li id="type-cord19" class="border-bottom rounded-0 pointer text-decoration-none list-group-item list-group-item-action"><a class="text-decoration-none stretched-link" href="{{ url_for('cord_search') }}">CORD-19</a></li>
       </ul>
 
     </div>
