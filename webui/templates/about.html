@@ -8,19 +8,7 @@ About the Distant Reader
 <!-- main wrapper div -->
 <div class="container pb-5" id="wrapper">
 
-  <div class="row">
-    <div class="col-12">
-      <nav aria-label="breadcrumb" id="breadcrumb">
-        <ol class="breadcrumb py-4">
-          <li class="breadcrumb-item pl-3">
-            <a href="{{ url_for("index") }}"><i class="fad fa-home fa-fw mr-2"></i>Home</a>
-          </li>
-          <li class="breadcrumb-item active" aria-current="page">About This Project</li>
-        </ol>
-      </nav>
-    </div>
-  </div>
-
+  {{ breadcrumb("About This Project") }}
 
   <div class="row">
 
