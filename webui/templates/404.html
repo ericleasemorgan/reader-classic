@@ -5,19 +5,7 @@
 
 <div class="container">
 
-
-  <div class="row">
-    <div class="col-12">
-      <nav aria-label="breadcrumb" id="breadcrumb">
-        <ol class="breadcrumb py-4">
-          <li class="breadcrumb-item pl-3">
-            <a href="{{ url_for("index") }}"><i class="fad fa-home fa-fw mr-2"></i>Home</a>
-          </li>
-          <li class="breadcrumb-item active" aria-current="page">404 &mdash; Page Not Found</li>
-        </ol>
-      </nav>
-    </div>
-  </div>
+  {{ breadcrumb("Page Not Found") }}
 
   <div class="row">
 

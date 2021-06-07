@@ -71,6 +71,24 @@
 
   {% include "flash.html" %}
 
+  {# Use the breadcrumb macro on pages where there is a breadcrumb. Only single
+  level trails are handled , e.g. "Home / something" since that is all we need
+  at the moment #}
+  {%- macro breadcrumb(page_title) %}
+  <div class="row">
+    <div class="col-12">
+      <nav aria-label="breadcrumb" id="breadcrumb">
+        <ol class="breadcrumb py-4">
+          <li class="breadcrumb-item pl-3">
+            <a href="{{ url_for("index") }}"><i class="fad fa-home fa-fw mr-2"></i>Home</a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">{{ page_title }}</li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+  {% endmacro -%}
+
   {% block body %}
   {% endblock %}
 

@@ -13,21 +13,7 @@ Study Carrels for {{ current_user.username }}
 {% block body %}
 <div class="container">
 
-  <div class="row">
-    <div class="col-12">
-      <nav aria-label="breadcrumb" id="breadcrumb">
-        <ol class="breadcrumb py-4">
-          <li class="breadcrumb-item pl-3">
-            <a href="{{ url_for("index") }}"><i class="fad fa-home fa-fw mr-2"></i>Home</a>
-          </li>
-          <li class="breadcrumb-item active" aria-current="page">Browse My Carrels</li>
-        </ol>
-      </nav>
-    </div>
-    <!-- col-sm-12 -->
-  </div>
-  <!-- row -->
-
+  {{ breadcrumb("Browse My Carrels") }}
 
     <div class="col-12">
 
