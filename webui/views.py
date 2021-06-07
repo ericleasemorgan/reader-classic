@@ -252,6 +252,15 @@ def patron_carrel(username, carrel, p):
     # Does this user own the carrel?
     if carrel.owner != current_user.username:
         abort(401)  # Forbidden
+    # Is the carrel being proccessed?
+    if carrel.status == "queued":
+        return render_template(
+            "carrel_filelist.html",
+            carrel=carrel,
+            directory="",
+            parentdir="",
+            listing=[],
+        )
     # Does this path exist?
     # do secure_filename on each element since it replaces path separators with
     # an underscore and we want to keep the full path
@@ -298,6 +307,8 @@ def patron_carrel(username, carrel, p):
         abort(404)  # NotFound - Don't recognize the type of this item
 
 
+# add_job_to_queue will create a queue file that the compute side uses to
+# start jobs. It also creates a "processing" entry in the carrel database.
 def add_job_to_queue(job_type, shortname, username, extra):
     now = datetime.now().strftime("%Y-%m-%d\t%H:%M")
     # Beware, since shortname is user supplied, different users many use the same name
@@ -312,6 +323,9 @@ def add_job_to_queue(job_type, shortname, username, extra):
     with open(os.path.join(queue_path, shortname + ".tsv"), mode="w") as f:
         f.write("\t".join([job_type, shortname, now, username, extra]))
         f.write("\n")
+    c = StudyCarrel(owner = username, shortname = shortname, status = "queued")
+    c.save()
+
 
 
 @app.route("/create/url2carrel", methods=["GET", "POST"])
@@ -326,9 +340,7 @@ def url2carrel():
         return render_template("url2carrel.html")
     shortname = secure_filename(shortname)
     add_job_to_queue(TYPE, shortname, username, target_url)
-    return render_template(
-        "urls2carrel-queue.html", username=username, shortname=shortname
-    )
+    return redirect(url_for("patron_carrel", username=username, carrel=shortname))
 
 
 @app.route("/create/urls2carrel", methods=["GET", "POST"])
@@ -349,9 +361,7 @@ def urls2carrel():
     f.save(os.path.join(app.config["BACKLOG_PATH"], name))
 
     add_job_to_queue(TYPE, shortname, username, name)
-    return render_template(
-        "urls2carrel-queue.html", username=username, shortname=shortname
-    )
+    return redirect(url_for("patron_carrel", username=username, carrel=shortname))
 
 
 @app.route("/create/zip2carrel", methods=["GET", "POST"])
@@ -372,9 +382,7 @@ def zip2carrel():
     f.save(os.path.join(app.config["BACKLOG_PATH"], name))
 
     add_job_to_queue(TYPE, shortname, username, name)
-    return render_template(
-        "zip2carrel-queue.html", username=username, shortname=shortname
-    )
+    return redirect(url_for("patron_carrel", username=username, carrel=shortname))
 
 
 @app.route("/create/file2carrel", methods=["GET", "POST"])
@@ -394,9 +402,7 @@ def file2carrel():
     f.save(os.path.join(app.config["BACKLOG_PATH"], name))
 
     add_job_to_queue(TYPE, shortname, username, name)
-    return render_template(
-        "file2carrel-queue.html", username=username, shortname=shortname
-    )
+    return redirect(url_for("patron_carrel", username=username, carrel=shortname))
 
 
 @app.route("/create/trust2carrel", methods=["GET", "POST"])
@@ -418,9 +424,7 @@ def trust2carrel():
     f.save(os.path.join(app.config["BACKLOG_PATH_TRUST"], name))
 
     add_job_to_queue(TYPE, shortname, username, name)
-    return render_template(
-        "trust2carrel-queue.html", username=username, shortname=shortname
-    )
+    return redirect(url_for("patron_carrel", username=username, carrel=shortname))
 
 
 @app.route("/create/biorxiv2carrel", methods=["GET", "POST"])
@@ -440,9 +444,7 @@ def biorxiv2carrel():
     f.save(os.path.join(app.config["BACKLOG_PATH"], name))
 
     add_job_to_queue(TYPE, shortname, username, name)
-    return render_template(
-        "biorxiv2carrel-queue.html", username=username, shortname=shortname
-    )
+    return redirect(url_for("patron_carrel", username=username, carrel=shortname))
 
 
 # list_to_pairs takes a list like ['aaa', 123, 'bbb', 234, 'ccc', 345, ...]
@@ -518,9 +520,7 @@ def create_gutenberg():
     query = request.form.get("query", "")
     shortname = secure_filename(shortname)
     add_job_to_queue(TYPE, shortname, username, query)
-    return render_template(
-        "gutenberg-queue.html", username=username, shortname=shortname
-    )
+    return redirect(url_for("patron_carrel", username=username, carrel=shortname))
 
 # Next line route was /cord -- should it be cord-create?
 @app.route("/cord-create")
@@ -589,4 +589,4 @@ def create_cord():
     query = request.form.get("query", "")
     shortname = secure_filename(shortname)
     add_job_to_queue(TYPE, shortname, username, query)
-    return render_template("cord-queue.html", username=username, shortname=shortname)
+    return redirect(url_for("patron_carrel", username=username, carrel=shortname))

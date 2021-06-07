@@ -63,9 +63,11 @@ Study Carrels for {{ current_user.username }}
               <td class='text-center'>{{ entry.readability }}</td>
               <td class='text-center'>{{ entry.size_bytes | filesizeformat }}</td>
               <td class='text-center'>
-                <a href='{{ url_for("patron_carrel", username=current_user.username, carrel=entry.shortname, p="index.htm") }}'>Read</a>,
                 <a href='{{ url_for("patron_carrel", username=current_user.username, carrel=entry.shortname) }}'>Browse</a>,
+                {% if entry.status != "queued" %}
+                <a href='{{ url_for("patron_carrel", username=current_user.username, carrel=entry.shortname, p="index.htm") }}'>Read</a>,
                 <a href='{{ url_for("patron_carrel", username=current_user.username, carrel=entry.shortname, p="study-carrel.zip") }}'>Download</a>
+                {% endif %}
               </td>
             </tr>
             {% else %}
@@ -85,8 +87,6 @@ Study Carrels for {{ current_user.username }}
 
     </div>
     <!-- col-sm-12 -->
-  </div>
-  <!-- row -->
 </div>
 <!-- container -->
 
