@@ -522,8 +522,7 @@ def create_gutenberg():
     add_job_to_queue(TYPE, shortname, username, query)
     return redirect(url_for("patron_carrel", username=username, carrel=shortname))
 
-# Next line route was /cord -- should it be cord-create?
-@app.route("/cord-create")
+@app.route("/cord")
 def cord_search():
     FACETFIELD = [
         "facet_journal",
