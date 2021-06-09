@@ -264,3 +264,51 @@ class StudyCarrel(object):
             )
             for record in records
         ]
+
+    @staticmethod
+    def ForPublic():
+        db = get_db()
+        records = db.execute(
+            """SELECT owner, shortname, fullpath, status, created, items, words, readability, bytes
+            FROM carrels
+            WHERE status = "public" """,
+        ).fetchall()
+        return [
+            StudyCarrel(
+                record[0],
+                record[1],
+                record[2],
+                record[3],
+                record[4],
+                record[5],
+                record[6],
+                record[7],
+                record[8],
+            )
+            for record in records
+        ]
+
+    @staticmethod
+    def FromPublicShortname(shortname):
+        db = get_db()
+        record = db.execute(
+            """SELECT owner, shortname, fullpath, status, created, items, words, readability, bytes
+            FROM carrels
+            WHERE status = "public" and shortname = ? """,
+            (shortname,),
+        ).fetchone()
+        if record is None:
+            return None
+        return StudyCarrel(
+            record[0],
+            record[1],
+            record[2],
+            record[3],
+            record[4],
+            record[5],
+            record[6],
+            record[7],
+            record[8],
+        )
+
+

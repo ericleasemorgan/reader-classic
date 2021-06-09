@@ -12,7 +12,7 @@
             Browse Carrels
           </a>
           <div class="dropdown-menu">
-            <a class="dropdown-item" href="https://library.distantreader.org/catalog">Browse Public Carrels</a>
+            <a class="dropdown-item" href="{{ url_for('public_carrel_list') }}">Browse Public Carrels</a>
             {% if current_user.is_authenticated %}
               <a class="dropdown-item" href="{{ url_for('patron_carrel_list', username=current_user.username) }}">Browse Your Carrels</a>
             {% endif %}

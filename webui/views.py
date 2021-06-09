@@ -230,7 +230,14 @@ def patron_carrel_list(username):
     if username != current_user.username:
         return redirect(url_for("patron_carrel_list", username=current_user.username))
     carrels = StudyCarrel.ForOwner(username)
+    # for now, don't display public carrels in the private carrel list
+    carrels = [c for c in carrels if c.status != "public"]
     return render_template("carrel_list.html", carrels=carrels)
+
+@app.route("/catalog")
+def public_carrel_list():
+    carrels = StudyCarrel.ForPublic()
+    return render_template("carrel_list.html", carrels=carrels, is_public=True)
 
 # we are using python 3.6 in production
 def removeprefix(s, prefix):
@@ -239,28 +246,8 @@ def removeprefix(s, prefix):
     else:
         return s
 
-@app.route("/patrons/<username>/<carrel>/", defaults={"p": "/"})
-@app.route("/patrons/<username>/<carrel>/<path:p>")
-@login_required
-def patron_carrel(username, carrel, p):
-    if username != current_user.username:
-        return redirect(url_for("patron_carrel_list", username=current_user.username))
-    # Does thie carrel exist?
-    carrel = StudyCarrel.FromOwnerShortname(username, carrel)
-    if carrel is None:
-        abort(404)  # NotFound
-    # Does this user own the carrel?
-    if carrel.owner != current_user.username:
-        abort(401)  # Forbidden
-    # Is the carrel being proccessed?
-    if carrel.status == "queued":
-        return render_template(
-            "carrel_filelist.html",
-            carrel=carrel,
-            directory="",
-            parentdir="",
-            listing=[],
-        )
+# this is to unify the logic handling file downloads
+def handle_carrel_filelist(carrel, p):
     # Does this path exist?
     # do secure_filename on each element since it replaces path separators with
     # an underscore and we want to keep the full path
@@ -306,6 +293,38 @@ def patron_carrel(username, carrel, p):
         print("path is not directory or file", carrel_abs_path)
         abort(404)  # NotFound - Don't recognize the type of this item
 
+@app.route("/patrons/<username>/<carrel>/", defaults={"p": "/"})
+@app.route("/patrons/<username>/<carrel>/<path:p>")
+@login_required
+def patron_carrel(username, carrel, p):
+    if username != current_user.username:
+        return redirect(url_for("patron_carrel_list", username=current_user.username))
+    # Does thie carrel exist?
+    carrel = StudyCarrel.FromOwnerShortname(username, carrel)
+    if carrel is None:
+        abort(404)  # NotFound
+    # Does this user own the carrel?
+    if carrel.owner != current_user.username:
+        abort(401)  # Forbidden
+    # Is the carrel being proccessed?
+    if carrel.status == "queued":
+        return render_template(
+            "carrel_filelist.html",
+            carrel=carrel,
+            directory="",
+            parentdir="",
+            listing=[],
+        )
+    return handle_carrel_filelist(carrel, p)
+
+@app.route("/carrels/<carrel>/", defaults={"p": "/"})
+@app.route("/carrels/<carrel>/<path:p>")
+def public_carrel(carrel, p):
+    # Does thie carrel exist?
+    carrel = StudyCarrel.FromPublicShortname(carrel)
+    if carrel is None:
+        abort(404)  # NotFound
+    return handle_carrel_filelist(carrel, p)
 
 # add_job_to_queue will create a queue file that the compute side uses to
 # start jobs. It also creates a "processing" entry in the carrel database.

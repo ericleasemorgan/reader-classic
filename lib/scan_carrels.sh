@@ -1,19 +1,36 @@
 #!/bin/bash
 
 #
-# scan_private_carrels.sh <start directory>
+# scan_carrels.sh <start directory> [public|private]
 #
 # A study carrel is a directory that has a file named "provenance.tsv" in it.
 # Any found study carrels are entered into the database (if they aren't there
 # already).
 #
-# n.b. study carrels cannot be nested.
+# The optional "public" or "private" word tells the script whether to record
+# the carrel as being in the public carrel list or not. If not given it
+# defaults to "private".
+#
+# note: study carrels cannot be nested.
 
 DATABASE_FILE="/data-disk/etc/reader-patrons.db"
 
+START_DIRECTORY="$1"
+case $2 in
+    public)
+        CARREL_STATUS="public"
+        ;;
+    *)
+        CARREL_STATUS="private"
+        ;;
+esac
 
-find $1 -type f -name "provenance.tsv" | while read provenance; do
-    CARREL=$(dirname $(realpath $provenance))
+
+# Using find in this way lets us stop searching nested directories once we
+# find a provenance file.
+# See https://www.gnu.org/software/findutils/manual/html_mono/find.html#Finding-the-Shallowest-Instance
+find "$START_DIRECTORY" -exec test -e {}/provenance.tsv \; -print -prune | while read CARREL; do
+    CARREL=$(realpath $CARREL)
     SHORTNAME=$( basename $CARREL )
     ITEMS=$( echo "SELECT COUNT( id ) FROM bib;" | sqlite3 "$CARREL/etc/reader.db" )
     WORDS=$( echo "SELECT SUM( words ) FROM bib;" | sqlite3 "$CARREL/etc/reader.db" )
@@ -42,7 +59,7 @@ INSERT OR REPLACE INTO carrels
 VALUES ("$OWNER",
         "$SHORTNAME",
         "$CARREL",
-        "private",
+        "$CARREL_STATUS",
         "$DATE",
         $ITEMS,
         $WORDS,

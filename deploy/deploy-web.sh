@@ -27,6 +27,7 @@ install --compare --owner=root --group=root --mode=644 \
 
 # copy the python components
 rsync --checksum --recursive webui/ /opt/reader
+cp lib/scan_carrels.sh /opt/reader
 chown -R app:app /opt/reader
 # this needs to run as the app user
 cd /opt/reader && sudo -u app env \
