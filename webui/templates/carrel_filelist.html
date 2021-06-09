@@ -1,5 +1,10 @@
 {% extends "base.html" %}
 
+{#- This template  handles the file listings for both public and private
+carrels. Doing both makes the logic a little strange in places. -#}
+
+{% set is_public = carrel.status == "public" %}
+
 {% block title %}
 Study Carrel {{ carrel.shortname }}
 {% endblock %}
@@ -23,7 +28,11 @@ Study Carrel {{ carrel.shortname }}
     </thead>
     {% if parentdir != '' %}
     <tr>
-      {% set parent_url = url_for('patron_carrel', username=current_user.username, carrel=carrel.shortname, p=darentdir) %}
+      {%- if is_public %}
+        {% set parent_url = url_for('public_carrel', carrel=carrel.shortname, p=parentdir) %}
+      {% else %}
+        {% set parent_url = url_for('patron_carrel', username=current_user.username, carrel=carrel.shortname, p=parentdir) %}
+      {% endif -%}
       <td><a href="{{ parent_url }}"><i class="fas fa-lg fa-fw fa-arrow-circle-left"></i></a></td>
       <td><a href="{{ parent_url }}">Parent Directory</a></td>
       <td>&nbsp;</td>
@@ -33,7 +42,11 @@ Study Carrel {{ carrel.shortname }}
     {% endif %}
     {% for entry in listing %}
     <tr>
-      {% set entry_url = url_for("patron_carrel", username=current_user.username, carrel=carrel.shortname, p=entry.path) %}
+      {%- if is_public %}
+        {% set entry_url = url_for("public_carrel", carrel=carrel.shortname, p=entry.path) %}
+      {% else %}
+        {% set entry_url = url_for("patron_carrel", username=current_user.username, carrel=carrel.shortname, p=entry.path) %}
+      {% endif -%}
       <td><a href="{{ entry_url }}">
           {% if entry.directory %}
             <i class="fas fa-lg fa-fw fa-folder"></i>
