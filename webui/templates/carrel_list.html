@@ -48,6 +48,9 @@ carrel lists -#}
             <tr>
               <th class="text-left">Name</th>
               <th class="text-center">Created</th>
+              {% if is_public %}
+                <th class="text-center">Keywords</th>
+              {% endif %}
               <th class="text-center">Items</th>
               <th class="text-center">Words</th>
               <th class="text-center">Readability</th>
@@ -60,6 +63,9 @@ carrel lists -#}
             <tr>
               <td class="text-left">{{ entry.shortname }}</td>
               <td class="text-center">{{ entry.created }}</td>
+              {% if is_public %}
+                <td class="text-left">{{ entry.keywords }}</td>
+              {% endif %}
               <td class='text-center'>{{ entry.size_items | formatwithcommas }}</td>
               <td class='text-center'>{{ entry.size_words | formatwithcommas }}</td>
               <td class='text-center'>{{ entry.readability }}</td>
@@ -81,6 +87,7 @@ carrel lists -#}
             <tr>
               <td>No Carrels</td>
               <td></td>
+              {% if is_public %}<td></td>{% endif %}
               <td></td>
               <td></td>
               <td></td>

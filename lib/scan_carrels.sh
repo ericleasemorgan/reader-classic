@@ -32,10 +32,14 @@ esac
 find "$START_DIRECTORY" -exec test -e {}/provenance.tsv \; -print -prune | while read CARREL; do
     CARREL=$(realpath $CARREL)
     SHORTNAME=$( basename $CARREL )
-    ITEMS=$( echo "SELECT COUNT( id ) FROM bib;" | sqlite3 "$CARREL/etc/reader.db" )
-    WORDS=$( echo "SELECT SUM( words ) FROM bib;" | sqlite3 "$CARREL/etc/reader.db" )
-    FLESCH=$( echo "SELECT RTRIM( ROUND( AVG( flesch ) ), '.0' ) FROM bib;" | sqlite3 "$CARREL/etc/reader.db" )
-    SIZE=$( du "$CARREL/study-carrel.zip" | cut -f1 )
+    DB="$CARREL/etc/reader.db"
+    ITEMS=$( echo "SELECT COUNT( id ) FROM bib;" | sqlite3 $DB )
+    WORDS=$( echo "SELECT SUM( words ) FROM bib;" | sqlite3 $DB )
+    FLESCH=$( echo "SELECT CAST ( AVG( flesch ) AS INTEGER ) FROM bib;" | sqlite3 $DB )
+    KEYWORDS=$( echo "SELECT keyword FROM wrd GROUP BY keyword ORDER BY COUNT( keyword ) DESC LIMIT 5;" | sqlite3 $DB )
+    # convert into comma separated list and remove double quotes
+    KEYWORDS=$( echo $KEYWORDS | sed 's/ /, /g' | sed 's/"/ /g' )
+    SIZE=$( du -b "$CARREL/study-carrel.zip" | cut -f1 )
     DATE=$( awk '{print $3}' $CARREL/provenance.tsv )
     OWNER=$( awk '{print $5}' $CARREL/provenance.tsv )
 
@@ -55,7 +59,7 @@ find "$START_DIRECTORY" -exec test -e {}/provenance.tsv \; -print -prune | while
 
     sqlite3 $DATABASE_FILE <<EOF
 INSERT OR REPLACE INTO carrels
-(owner, shortname, fullpath, status, created, items, words, readability, bytes)
+(owner, shortname, fullpath, status, created, items, words, readability, bytes, keywords)
 VALUES ("$OWNER",
         "$SHORTNAME",
         "$CARREL",
@@ -64,7 +68,8 @@ VALUES ("$OWNER",
         $ITEMS,
         $WORDS,
         $FLESCH,
-        $SIZE);
+        $SIZE,
+        "$KEYWORDS");
 EOF
 
 done

@@ -10,11 +10,17 @@ Study Carrel {{ carrel.shortname }}
 {% endblock %}
 
 {% block body %}
-<h1>Study Carrel {{ current_user.username ~ "/" ~ carrel.shortname ~ "/" ~ directory}}</h1>
+{% if is_public %}
+  <h1>Study Carrel {{ carrel.shortname ~ "/" ~ directory}}</h1>
+{% else %}
+  <h1>Study Carrel {{ current_user.username ~ "/" ~ carrel.shortname ~ "/" ~ directory}}</h1>
+{% endif %}
+
 {% if carrel.status == "queued" %}
   <p>Thank you for submitting this carrel. It is being processed and will appear here when finished.
   Reload this page to check on the status.</p>
 {% endif %}
+
 <div class="table-responsive">
   <table class="table table-striped">
     <thead class="thead-dark">
