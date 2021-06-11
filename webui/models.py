@@ -187,6 +187,7 @@ class StudyCarrel(object):
         size_words=0,
         readability=0,
         size_bytes=0,
+        keywords="",
     ):
         self.owner = owner
         self.shortname = shortname
@@ -197,13 +198,14 @@ class StudyCarrel(object):
         self.size_words = size_words
         self.readability = readability
         self.size_bytes = size_bytes
+        self.keywords = keywords
 
     def save(self):
         db = get_db()
         if self.created == "":
             self.created = datetime.date.today()
         db.execute(
-            """INSERT OR REPLACE INTO carrels (owner, shortname, fullpath, status, created, items, words, readability, bytes) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+            """INSERT OR REPLACE INTO carrels (owner, shortname, fullpath, status, created, items, words, readability, bytes, keywords) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
             (
                 self.owner,
                 self.shortname,
@@ -214,6 +216,7 @@ class StudyCarrel(object):
                 self.size_words,
                 self.readability,
                 self.size_bytes,
+                self.keywords,
             ),
         )
         db.commit()
@@ -222,7 +225,7 @@ class StudyCarrel(object):
     def FromOwnerShortname(owner, shortname):
         db = get_db()
         record = db.execute(
-            """SELECT owner, shortname, fullpath, status, created, items, words, readability, bytes
+            """SELECT owner, shortname, fullpath, status, created, items, words, readability, bytes, keywords
             FROM carrels
             WHERE owner = ? and shortname = ?""",
             (owner, shortname),
@@ -239,13 +242,14 @@ class StudyCarrel(object):
             record[6],
             record[7],
             record[8],
+            record[9],
         )
 
     @staticmethod
     def ForOwner(owner):
         db = get_db()
         records = db.execute(
-            """SELECT owner, shortname, fullpath, status, created, items, words, readability, bytes
+            """SELECT owner, shortname, fullpath, status, created, items, words, readability, bytes, keywords
             FROM carrels
             WHERE owner = ?""",
             (owner,),
@@ -261,6 +265,7 @@ class StudyCarrel(object):
                 record[6],
                 record[7],
                 record[8],
+                record[9],
             )
             for record in records
         ]
@@ -269,7 +274,7 @@ class StudyCarrel(object):
     def ForPublic():
         db = get_db()
         records = db.execute(
-            """SELECT owner, shortname, fullpath, status, created, items, words, readability, bytes
+            """SELECT owner, shortname, fullpath, status, created, items, words, readability, bytes, keywords
             FROM carrels
             WHERE status = "public" """,
         ).fetchall()
@@ -284,6 +289,7 @@ class StudyCarrel(object):
                 record[6],
                 record[7],
                 record[8],
+                record[9],
             )
             for record in records
         ]
@@ -292,7 +298,7 @@ class StudyCarrel(object):
     def FromPublicShortname(shortname):
         db = get_db()
         record = db.execute(
-            """SELECT owner, shortname, fullpath, status, created, items, words, readability, bytes
+            """SELECT owner, shortname, fullpath, status, created, items, words, readability, bytes, keywords
             FROM carrels
             WHERE status = "public" and shortname = ? """,
             (shortname,),
@@ -309,6 +315,6 @@ class StudyCarrel(object):
             record[6],
             record[7],
             record[8],
+            record[9],
         )
-
 

@@ -9,6 +9,8 @@ MAILTO=dbrower
 PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
 SHELL=/bin/bash
 
-*/5 * * * * dbrower /opt/reader/scan_carrels.sh /data-disk/www/html/library/patrons/
-# only run this every 15 minutes, and offset from the other script by 3 minutes
-3,18,33,48 * * * * dbrower /opt/reader/scan_carrels.sh /data-disk/www/html/library/carrels/ public
+# sqlite doesn't like having two processes update the database at the same time.
+# The public scraping takes ~7 minutes, so schedule the private scraper around that.
+0,5,10,15,25,30,35,40,45,55 * * * * dbrower /opt/reader/scan_carrels.sh /data-disk/www/html/library/patrons/
+# only run this every 30 minutes
+17,47 * * * * dbrower /opt/reader/scan_carrels.sh /data-disk/www/html/library/carrels/ public
