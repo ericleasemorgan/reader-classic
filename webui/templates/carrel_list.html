@@ -76,9 +76,11 @@ carrel lists -#}
                 {% else %}
                   {% set entry_url = url_for("patron_carrel", username=current_user.username, carrel=entry.shortname) %}
                 {% endif %}
-                <a href='{{ entry_url }}'>Browse</a>
+                {%- if entry.status != "queued" -%}
+                  <a href='{{ entry_url ~ "index.htm" }}'>View</a>,
+                {% endif %}
+                <a href='{{ entry_url }}'>Files</a>
                 {%- if entry.status != "queued" -%},
-                  <a href='{{ entry_url ~ "index.htm" }}'>Read</a>,
                   <a href='{{ entry_url ~ "study-carrel.zip" }}'>Download</a>
                 {% endif %}
               </td>
