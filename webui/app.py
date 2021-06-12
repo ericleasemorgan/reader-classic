@@ -20,11 +20,6 @@ def formatwithcommas(n):
     except:
         return n
 
-    for fragment, desc in DESCRIPTIONS.items():
-        if filepath.endswith(fragment):
-            return desc
-    return ""
-
 
 NUMERALS = {
     1: "I",
