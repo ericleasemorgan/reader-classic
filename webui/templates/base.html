@@ -71,10 +71,12 @@
 
   {% include "flash.html" %}
 
-  {# Use the breadcrumb macro on pages where there is a breadcrumb. Only single
-  level trails are handled , e.g. "Home / something" since that is all we need
-  at the moment #}
-  {%- macro breadcrumb(page_title) %}
+  {# Use the breadcrumb macro on pages where there is a breadcrumb. Only two
+  and three level trails are handled , e.g. "Home / something" and
+  "Home / parent / something". For the three level one, provide text and a url
+  fo the parent level.
+  #}
+  {%- macro breadcrumb(page_title, parent_name='', parent_url='') %}
   <div class="row">
     <div class="col-12">
       <nav aria-label="breadcrumb" id="breadcrumb">
@@ -82,6 +84,11 @@
           <li class="breadcrumb-item pl-3">
             <a href="{{ url_for("index") }}"><i class="fad fa-home fa-fw mr-2"></i>Home</a>
           </li>
+          {% if parent_name %}
+            <li class="breadcrumb-item">
+              <a href="{{ parent_url }}">{{ parent_name }}</a>
+            </li>
+          {% endif %}
           <li class="breadcrumb-item active" aria-current="page">{{ page_title }}</li>
         </ol>
       </nav>

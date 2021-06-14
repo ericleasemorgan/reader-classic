@@ -10,20 +10,34 @@ Study Carrel {{ carrel.shortname }}
 {% endblock %}
 
 {% block body %}
+
+<div class="container">
+
 {% if is_public %}
-  <h1>Study Carrel {{ carrel.shortname ~ "/" ~ directory}}</h1>
+  {{ breadcrumb(carrel.shortname, parent_name="Catalog", parent_url=url_for("public_carrel_list")) }} 
 {% else %}
-  <h1>Study Carrel {{ current_user.username ~ "/" ~ carrel.shortname ~ "/" ~ directory}}</h1>
+  {{ breadcrumb(carrel.shortname, parent_name="My Carrels", parent_url=url_for("patron_carrel_list", username=current_user.username)) }}
 {% endif %}
 
-{% if carrel.status == "queued" %}
-  <p>Thank you for submitting this carrel. It is being processed and will appear here when finished.
-  Reload this page to check on the status.</p>
-{% endif %}
+<div class="col-12">
+  <h1 id="page-header">
+    {%- if is_public -%}
+      Study Carrel {{ carrel.shortname ~ "/" ~ directory }}
+    {%- else -%}
+      Study Carrel {{ current_user.username ~ "/" ~ carrel.shortname ~ "/" ~ directory }}
+    {%- endif -%}
+  </h1>
 
+  {% if carrel.status == "queued" %}
+    <p>Thank you for submitting this carrel. It is being processed and will appear here when finished.
+    Reload this page to check on the status.</p>
+  {% endif %}
+</div>
+
+<div class="col-sm-12">
 <div class="table-responsive">
-  <table class="table table-striped">
-    <thead class="thead-dark">
+  <table class="table table-striped table-sm">
+    <thead class="thead-light">
       <tr>
         <th></th>
         <th><a href="?C=N;O=D">Name</a></th>
@@ -32,6 +46,7 @@ Study Carrel {{ carrel.shortname }}
         <th><a href="?C=D;O=A">Description</a></th>
       </tr>
     </thead>
+    <tbody>
     {% if parentdir != '' %}
     <tr>
       {%- if is_public %}
@@ -72,6 +87,10 @@ Study Carrel {{ carrel.shortname }}
       <td>No Files</td>
     </tr>
     {% endfor %}
+    </tbody>
   </table>
 </div>
+</div>
+</div>
 {% endblock %}
+
