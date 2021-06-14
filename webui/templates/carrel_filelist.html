@@ -40,10 +40,10 @@ Study Carrel {{ carrel.shortname }}
     <thead class="thead-light">
       <tr>
         <th></th>
-        <th><a href="?C=N;O=D">Name</a></th>
-        <th><a href="?C=M;O=A">Last modified</a></th>
-        <th><a href="?C=S;O=A">Size</a></th>
-        <th><a href="?C=D;O=A">Description</a></th>
+        <th><a href="?sort={{ "ND" if sortorder == "NA" else "NA" }}">Name</a></th>
+        <th><a href="?sort={{ "MD" if sortorder == "MA" else "MA" }}">Last modified</a></th>
+        <th><a href="?sort={{ "SD" if sortorder == "SA" else "SA" }}">Size</a></th>
+        <th>Description</th>
       </tr>
     </thead>
     <tbody>
