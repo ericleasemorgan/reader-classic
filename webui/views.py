@@ -1,4 +1,5 @@
 from datetime import datetime
+from operator import itemgetter, attrgetter
 import secrets
 import os.path
 import stat
@@ -247,6 +248,7 @@ def removeprefix(s, prefix):
         return s
 
 # this is to unify the logic handling file downloads
+# expects to be called in a request context.
 def handle_carrel_filelist(carrel, p):
     # Does this path exist?
     # do secure_filename on each element since it replaces path separators with
@@ -275,19 +277,30 @@ def handle_carrel_filelist(carrel, p):
             listing = [
                 {
                     "filename": entry.name,
-                    "size": entry.stat().st_size,
+                    "size": entry.stat().st_size if not entry.is_dir() else 0,
                     "modified": datetime.fromtimestamp(entry.stat().st_mtime).strftime('%Y-%m-%d'),
                     "directory": entry.is_dir(),
                     "path": removeprefix(entry.path, carrel.fullpath+"/"),
                 }
                 for entry in it
             ]
+        sortorder = request.args.get("sort", "")
+        if len(sortorder) != 2:
+            sortorder = "NA"
+        if sortorder[0] == "N":
+            sortfunc = itemgetter('filename')
+        elif sortorder[0] == "M":
+            sortfunc = itemgetter('modified')
+        else:
+            sortfunc = itemgetter('size')
+        listing.sort(key=sortfunc, reverse=(sortorder[1] == "D"))
         return render_template(
             "carrel_filelist.html",
             carrel=carrel,
             directory=p,
             parentdir=parentdir,
             listing=listing,
+            sortorder=sortorder,
         )
     else:
         print("path is not directory or file", carrel_abs_path)
