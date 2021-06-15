@@ -4,6 +4,8 @@
 The Distant Reader - File to study carrel
 {% endblock %}
 
+{% block create_type %}file{% endblock %}
+
 {% block searchbody %}
 <h4>File<i class="mx-2 fad fa-angle-double-right"></i>Carrel</h4>
 <p>Use this form to submit a file from your computer and have it processed by the Distant Reader.</p>
@@ -18,10 +20,4 @@ The Distant Reader - File to study carrel
 	</div>
 	<button type="submit" id="queue" class="btn btn-primary mt-2">Create</button>
 </form>
-
-<!-- Styles the active button for the page chosen -->
-<script type="text/javascript">
-	$("#type-file").css("background", "rgba(80, 101, 120, .6)").find("a").addClass("text-white");
-</script>
-
 {% endblock %}

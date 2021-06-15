@@ -40,4 +40,9 @@
 
 {% include "sponsors.html" %}
 
+<!-- Styles the active button for the page chosen -->
+<script type="text/javascript">
+  $("#type-{% block create_type %}{% endblock %}").css("background", "rgba(80, 101, 120, .6)").find("a").addClass("text-white");
+</script>
+
 {% endblock %}

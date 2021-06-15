@@ -4,6 +4,8 @@
     The Distant Reader - A list of URLs to study carrel
 {% endblock %}
 
+{% block create_type %}urls{% endblock %}
+
 {% block searchbody %}
 <h4>URLs<i class="mx-2 fad fa-angle-double-right"></i>Carrel</h4>
 <p>Use this form to queue a plain text file with a list of URLs to be processed by the Distant Reader.</p>
@@ -19,10 +21,4 @@
   </div>
   <button type="submit" id="queue" name="queue" class="btn btn-primary mt-2">Create</input>
 </form>
-
-<!-- Styles the active button for the page chosen -->
-<script type="text/javascript">
-  $("#type-urls").css("background", "rgba(80, 101, 120, .6)").find("a").addClass("text-white");
-</script>
-
 {% endblock %}

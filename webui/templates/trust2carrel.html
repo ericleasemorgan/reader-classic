@@ -4,6 +4,8 @@
 The Distant Reader - HathiTrust metadata file to study carrel
 {% endblock %}
 
+{% block create_type %}hathi{% endblock %}
+
 {% block searchbody %}
 <h4>Hathi Trust<i class="mx-2 fad fa-angle-double-right"></i>Carrel</h4>
 <p>Use this form to queue a HathiTrust metadata file (.tsv) to be processed by the Distant Reader.</p>
@@ -18,10 +20,4 @@ The Distant Reader - HathiTrust metadata file to study carrel
 	</div>
 	<button type="submit" id="queue" name="queue" class="btn btn-primary mt-2">Create</button>
 </form>
-
-<!-- Styles the active button for the page chosen -->
-<script type="text/javascript">
-  $("#type-hathi").css("background", "rgba(80, 101, 120, .6)").find("a").addClass("text-white");
-</script>
-
 {% endblock %}

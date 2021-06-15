@@ -4,6 +4,8 @@
 The Distant Reader - COVID-19 literature to study carrel
 {% endblock %}
 
+{% block create_type %}cord19{% endblock %}
+
 {% block searchbody %}
 <h4>CORD-19<i class="mx-2 fad fa-angle-double-right"></i>Carrel</h4>
 <p>Use this form to create a study carrel from the results of your COVID-19 literature search.</p>
@@ -17,10 +19,4 @@ The Distant Reader - COVID-19 literature to study carrel
   </div>
   <button type="submit" id="queue" class="btn btn-primary mr-1 mt-4">Create</button>
 </form>
-
-<!-- Styles the active button for the page chosen -->
-<script type="text/javascript">
-  $("#type-cord19").css("background", "rgba(80, 101, 120, .6)").find("a").addClass("text-white");
-</script>
-
 {% endblock %}
