@@ -9,11 +9,11 @@
 <p>Use this form to submit a zip file to be processed by the Distant Reader.</p>
 <form action="" method="post" enctype="multipart/form-data">
 <div class="form-group">
-  <label for="shortname">Carrel Name<br><small class="text-muted unbolded">A one-word name describing your carrel</small</label>
+    <label for="shortname">Carrel Name<br><small class="text-muted unbolded">A one-word name describing your carrel</small></label>
   <input name='shortname' autofocus="autofocus" onkeyup="this.value = this.value.replace( /[^a-z|^A-Z|0-9|_|\-]/, '' )" class="form-control" id="shortname">
 </div>
 <div class="form-group">
-  <label for="zip">Select Zip File<br><small class="text-muted unbolded">Allowed: .zip</small></label>
+  <label for="file">Select Zip File<br><small class="text-muted unbolded">Allowed: .zip</small></label>
   <input type="file" accept=".zip" class="form-control bg-transparent border-0" name="file" id="file">
 </div>
 <button type="submit" id="queue" class="btn btn-primary mt-2">Create</button>
