@@ -5,6 +5,7 @@ The Distant Reader - COVID-19 literature to study carrel
 {% endblock %}
 
 {% block searchbody %}
+  <h4>CORD-19<i class="mx-2 fad fa-angle-double-right"></i>Carrel</h4>
 <p>Use these pages to search the CORD data set and possibly queue the creation of study carrels.</p>
 <p>Enter a query.</p>
 <form method='GET'>
@@ -15,4 +16,9 @@ The Distant Reader - COVID-19 literature to study carrel
 </form>
 
 <p>For example, find <a href="{{ url_for('cord_search', query='( ( * NOT ( pdf_json:nan ) ) OR ( * NOT ( pmc_json:nan ) ) )') }}">all records containing full text</a>.</p>
+
+<!-- Styles the active button for the page chosen -->
+<script type="text/javascript">
+  $("#type-cord19").css("background", "rgba(80, 101, 120, .6)").find("a").addClass("text-white");
+</script>
 {% endblock %}

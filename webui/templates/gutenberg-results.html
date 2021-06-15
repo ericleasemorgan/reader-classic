@@ -4,13 +4,12 @@
 The Distant Reader - Project Gutenberg to study carrel
 {% endblock %}
 
-{% block searchbody %}
-
-<div class="container pb-5" id="wrapper">
+{% block results %}
 
 	<div class="row">
 		<div class="col-12">
 
+          <h4>Gutenberg<i class="mx-2 fad fa-angle-double-right"></i>Carrel</h4>
 				<form action="" method="GET">
 					<div class="form-group">
 						<label for="query">Query</label>
@@ -70,11 +69,15 @@ The Distant Reader - Project Gutenberg to study carrel
 	</div>
 	<!-- row -->
 
+<!-- Styles the active button for the page chosen -->
+<script type="text/javascript">
+  $("#type-gutenberg").css("background", "rgba(80, 101, 120, .6)").find("a").addClass("text-white");
+</script>
 
-	{% endblock %}
+{% endblock %}
 
 
-	{% block sidebar %}
+{% block sidebar %}
 	{% macro add_facet(title, query_field, facet_field) %}
 	{% if facets[facet_field] %}
 	<h3>{{ title }}</h3>
@@ -91,6 +94,4 @@ The Distant Reader - Project Gutenberg to study carrel
 	{{ add_facet("Subject facets", "subject", "facet_subject") }}
 	{{ add_facet("Classification facets", "classification", "facet_classification") }}
 
-</div>
-<!-- wrapper -->
 {% endblock %}
