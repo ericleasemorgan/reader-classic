@@ -4,6 +4,8 @@
     The Distant Reader - Zip file to study carrel
 {% endblock %}
 
+{% block create_type %}zip{% endblock %}
+
 {% block searchbody %}
 <h4>Zip File<i class="mx-2 fad fa-angle-double-right"></i>Carrel</h4>
 <p>Use this form to submit a zip file to be processed by the Distant Reader.</p>
@@ -18,10 +20,4 @@
 </div>
 <button type="submit" id="queue" class="btn btn-primary mt-2">Create</button>
 </form>
-
-<!-- Styles the active button for the page chosen -->
-<script type="text/javascript">
-  $("#type-zip").css("background", "rgba(80, 101, 120, .6)").find("a").addClass("text-white");
-</script>
-
 {% endblock %}

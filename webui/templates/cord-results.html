@@ -4,6 +4,8 @@
 The Distant Reader - COVID-19 literature to study carrel
 {% endblock %}
 
+{% block create_type %}cord19{% endblock %}
+
 {% block results %}
   <div class="row">
     <div class="col-12">
@@ -51,11 +53,6 @@ The Distant Reader - COVID-19 literature to study carrel
     </ol>
     </div>
   </div>
-
-<!-- Styles the active button for the page chosen -->
-<script type="text/javascript">
-  $("#type-cord19").css("background", "rgba(80, 101, 120, .6)").find("a").addClass("text-white");
-</script>
 {% endblock %}
 
 

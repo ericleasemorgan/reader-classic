@@ -4,6 +4,8 @@
 The Distant Reader - URL to study carrel
 {% endblock %}
 
+{% block create_type %}url{% endblock %}
+
 {% block searchbody %}
 <h4>URL<i class="mx-2 fad fa-angle-double-right"></i>Carrel</h4>
 
@@ -19,10 +21,5 @@ The Distant Reader - URL to study carrel
 	</div>
 	<button type="submit" id="queue" class="btn btn-primary mt-2">Create</button>
 </form>
-
-<!-- Styles the active button for the page chosen -->
-<script type="text/javascript">
-  $("#type-url").css("background", "rgba(80, 101, 120, .6)").find("a").addClass("text-white");
-</script>
 
 {% endblock %}

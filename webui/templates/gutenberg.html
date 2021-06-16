@@ -4,6 +4,8 @@
 The Distant Reader - Project Gutenberg to study carrel
 {% endblock %}
 
+{% block create_type %}gutenberg{% endblock %}
+
 {% block searchbody %}
     <h4>Gutenberg<i class="mx-2 fad fa-angle-double-right"></i>Carrel</h4>
     <p>This is selected fulltext index to the content of Project Gutenberg.</p>
@@ -14,10 +16,4 @@ The Distant Reader - Project Gutenberg to study carrel
         </div>
         <button type="submit" class="btn btn-primary mt-2">Search</button>
       </form>
-
-      <!-- Styles the active button for the page chosen -->
-      <script type="text/javascript">
-        $("#type-gutenberg").css("background", "rgba(80, 101, 120, .6)").find("a").addClass("text-white");
-      </script>
-
 {% endblock %}
