@@ -7,87 +7,85 @@ The Distant Reader - Project Gutenberg to study carrel
 {% block create_type %}gutenberg{% endblock %}
 
 {% block results %}
+  <div class="row">
+    <div class="col-12">
 
-	<div class="row">
-		<div class="col-12">
+      <h4>Gutenberg<i class="mx-2 fad fa-angle-double-right"></i>Carrel</h4>
+      <form action="" method="GET">
+        <div class="form-group">
+          <label for="query">Query</label>
+          <input type="text" class="form-control" name="query" value='{{ query }}' id="query" autofocus="autofocus">
+        </div>
+        <button type="submit" id="submit" class="btn btn-primary mt-2">Search</button>
+      </form>
 
-          <h4>Gutenberg<i class="mx-2 fad fa-angle-double-right"></i>Carrel</h4>
-				<form action="" method="GET">
-					<div class="form-group">
-						<label for="query">Query</label>
-						<input type="text" class="form-control" name="query" value='{{ query }}' id="query" autofocus="autofocus">
-					</div>
-					<button type="submit" id="submit" class="btn btn-primary mt-2">Search</button>
-				</form>
+    </div>
+    <!-- col-12 -->
+  </div>
+  <!-- row -->
 
-		</div>
-		<!-- col-12 -->
-	</div>
-	<!-- row -->
+  <hr>
 
-	<hr>
+  <div class="row">
+    <div class="col-12">
 
-	<div class="row">
-		<div class="col-12">
+      <p>Your search found {{ total_hits }} item(s) and {{ num_displayed }} item(s) are displayed. If you are satisfied with the results, then you may want to <a href='{{ url_for("create_gutenberg", query=query) }}'>queue the creation of a study
+        carrel</a> with them.</p>
 
-			<p>Your search found {{ total_hits }} item(s) and {{ num_displayed }} item(s) are displayed. If you are satisfied with the results, then you may want to <a href='{{ url_for("create_gutenberg", query=query) }}'>queue the creation of a study
-					carrel</a> with them.</p>
+      <h3 class="mt-3 mb-2">Items</h3>
 
-			<h3 class="mt-3 mb-2">Items</h3>
+      <ol id="gutenberg-results-list">
+        {%- for item in results %}
+        <li class='item'>
+          <a href='{{ item['file'] }}'>{{ item['title'] }}</a>
+          <ul>
+            {%- if item['author'] -%}
+            <li style='list-style-type:circle'>
+              <a href='?query=author:"{{ item['author'] }}"'>{{ item['author'] }}</a>
+            </li>
+            {%- endif -%}
+            {%- if item['subject'] -%}
+            <li style='list-style-type:circle'>
+              {%- for subject in item['subject'] -%}
+              {{ loop.index | roman_numeral }}. <a href='?query=subject:"{{ subject }}"'>{{ subject }}</a>
+            {% endfor -%}
+            </li>
+            {%- endif -%}
+            {%- if item['classification'] -%}
+            <li style='list-style-type:circle'>
+              {%- for classification in item['classification'] -%}
+              <a href='?query=classification:"{{ classification }}"'>{{ classification }}</a>
+            {%- if not loop.last %};{% endif -%}
+            {%- endfor -%}
+            </li>
+            {%- endif -%}
+            <li style='list-style-type:circle'>{{ item['gid'] }}</li>
+          </ul>
+        </li>
+        {%- endfor -%}
+      </ol>
 
-			<ol id="gutenberg-results-list">
-				{%- for item in results %}
-				<li class='item'>
-					<a href='{{ item['file'] }}'>{{ item['title'] }}</a>
-					<ul>
-						{%- if item['author'] -%}
-						<li style='list-style-type:circle'>
-							<a href='?query=author:"{{ item['author'] }}"'>{{ item['author'] }}</a>
-						</li>
-						{%- endif -%}
-						{%- if item['subject'] -%}
-						<li style='list-style-type:circle'>
-							{%- for subject in item['subject'] -%}
-							{{ loop.index | roman_numeral }}. <a href='?query=subject:"{{ subject }}"'>{{ subject }}</a>
-							{% endfor -%}
-						</li>
-						{%- endif -%}
-						{%- if item['classification'] -%}
-						<li style='list-style-type:circle'>
-							{%- for classification in item['classification'] -%}
-							<a href='?query=classification:"{{ classification }}"'>{{ classification }}</a>
-							{%- if not loop.last %};{% endif -%}
-							{%- endfor -%}
-						</li>
-						{%- endif -%}
-						<li style='list-style-type:circle'>{{ item['gid'] }}</li>
-					</ul>
-				</li>
-				{%- endfor -%}
-			</ol>
-
-		</div>
-		<!-- col -->
-	</div>
-	<!-- row -->
+    </div>
+    <!-- col -->
+  </div>
+  <!-- row -->
 {% endblock %}
 
 
 {% block sidebar %}
-	{% macro add_facet(title, query_field, facet_field) %}
-	{% if facets[facet_field] %}
-	<h3>{{ title }}</h3>
-	<p>
-		{% for term, count in facets[facet_field] %}
-		<a href='?query={{ query }} AND {{ query_field }}:"{{ term }}"'>{{ term }}</a> ({{ count }})
-		{%- if not loop.last %};{% endif -%}
-		{%- endfor -%}
-	</p>
-	{% endif %}
-	{% endmacro %}
+  {% macro add_facet(title, query_field, facet_field) %}
+    {% if facets[facet_field] %}
+      <h3>{{ title }}</h3>
+      <p>
+      {% for term, count in facets[facet_field] %}
+        <a href='?query={{ query }} AND {{ query_field }}:"{{ term }}"'>{{ term }}</a> ({{ count }})
+      {%- if not loop.last %};{% endif -%}
+      {%- endfor -%}
+      </p>
+    {% endif %}
+  {% endmacro %}
 
-	{{ add_facet("Author facets", "author", "facet_author") }}
-	{{ add_facet("Subject facets", "subject", "facet_subject") }}
-	{{ add_facet("Classification facets", "classification", "facet_classification") }}
-
+  {{ add_facet("Author facets", "author", "facet_author") }}
+  {{ add_facet("Subject facets", "subject", "facet_subject") }}
+  {{ add_facet("Classification facets", "classification", "facet_classification") }}
 {% endblock %}
