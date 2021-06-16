@@ -9,7 +9,6 @@
 {% block searchbody %}
 <h4>URLs<i class="mx-2 fad fa-angle-double-right"></i>Carrel</h4>
 <p>Use this form to queue a plain text file with a list of URLs to be processed by the Distant Reader.</p>
-
 <form method="post" enctype="multipart/form-data">
   <div class="form-group">
     <label for="shortname">Carrel Name<br><small class="text-muted unbolded">A one-word name describing your carrel</small></label>
@@ -19,6 +18,6 @@
     <label for="file">Text File with List of URLs<br><small class="text-muted unbolded">The file should list one URL per line.</small></label>
     <input type="file" accept=".txt" class="form-control bg-transparent border-0" name="file" id="file">
   </div>
-  <button type="submit" id="queue" name="queue" class="btn btn-primary mt-2">Create</input>
+  <button type="submit" id="queue" class="btn btn-primary mt-2">Create</button>
 </form>
 {% endblock %}
