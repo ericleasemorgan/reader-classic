@@ -14,7 +14,8 @@ The Distant Reader - COVID-19 literature to study carrel
       <form method='GET'>
         <div class="form-group">
           <label for="query">Query</label>
-          <textarea name='query' class="form-control" autofocus="autofocus" cols='50' rows='10' style='font-size: large'>{{ query }}</textarea>
+          	<input name="query" autofocus="autofocus" class="form-control" size="50" value='{{ query }}'>
+			<!-- <textarea name='query' class="form-control" autofocus="autofocus" cols='50' rows='10' style='font-size: large'>{{ query }}</textarea> -->
         </div>
         <button type="submit" id="submit" class="btn btn-primary mt-2">Search</button>
       </form>
