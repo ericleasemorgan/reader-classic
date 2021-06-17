@@ -78,8 +78,8 @@ The Distant Reader - Project Gutenberg to study carrel
       <h3>{{ title }}</h3>
       <p>
       {% for term, count in facets[facet_field] %}
-        <a href='?query={{ query }} AND {{ query_field }}:"{{ term }}"'>{{ term }}</a> ({{ count }})
-      {%- if not loop.last %};{% endif -%}
+        <a href='?query={{ query }} AND {{ query_field }}:"{{ term }}"'>{{ term }}</a>&nbsp;({{ count }})
+      {%- if not loop.last %};{% endif %}
       {%- endfor -%}
       </p>
     {% endif %}
