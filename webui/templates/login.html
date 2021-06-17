@@ -13,9 +13,7 @@
         <img src="{{ url_for('static', filename='orcid.png') }}" class="card-img-top" alt="ORCID Logo">
         <div class="card-body px-5">
 
-          <p class="lead text-center mt-3 mb-5">To create and save carrels, you must sign in using ORCID.
-          If you don't have an ORCID account, you may <a href="https://orcid.org/" target="_blank">register for free</a> at the ORCID website.
-          </p>
+          <p class="lead mt-3 mb-5">To create study carrels you must authenticate, and we use a system called ORCID for this purpose. ORCID is associated with the wider academic community, but anybody can create an account. If you don't have an ORCID ID, you can <a href="https://orcid.org/" target="_blank">create an account from their home page</a>. It is free and easy. We promise.</p>
 
           <form method="post" class="my-4">
             <div class="form-group  text-center">
@@ -24,7 +22,7 @@
           </form>
 
         </div>
-        <ul class="list-group list-group-flush">
+        <ul class="list-group  text-center list-group-flush">
           <a href="{{ url_for('index') }}" class="list-group-item list-group-item-action bright-blue border-top">Return to Home Page</a>
           <a href="{{ url_for('contact') }}" class="list-group-item bright-blue list-group-item-action">Questions? Contact Us</a>
         </ul>
