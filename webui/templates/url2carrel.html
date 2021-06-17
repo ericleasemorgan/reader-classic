@@ -7,19 +7,5 @@ The Distant Reader - URL to study carrel
 {% block create_type %}url{% endblock %}
 
 {% block searchbody %}
-<h4>URL<i class="mx-2 fad fa-angle-double-right"></i>Carrel</h4>
-
-<p>Use this form to queue the creation of a study carrel based on the content of a URL.</p>
-<form action="" method="post" enctype="multipart/form-data">
-  <div class="form-group">
-    <label for="shortname">Carrel Name<br><small class="text-muted unbolded">A one-word name describing your carrel</small></label>
-    <input name='shortname' autofocus="autofocus" onkeyup="this.value = this.value.replace( /[^a-z|^A-Z|0-9|_|\-]/, '' )" class="form-control" id="shortname">
-  </div>
-  <div class="form-group">
-    <label for="url">URL<br><small class="text-muted unbolded">Example: https://orcid.org</small></label>
-    <input type="text" class="form-control" name="url" id="url">
-  </div>
-  <button type="submit" id="queue" class="btn btn-primary mt-2">Create</button>
-</form>
-
+<div><h4>URL <i class="mx-2 fad fa-angle-double-right"> </i> Carrel</h4><p>Use this form to queue the creation of a study carrel based on the content of a URL.</p><p>Given a URL, the Reader will harvest/cache the linked content. The Reader will then extract any URLs it finds in the content and cache that content as well. The Reader will then stop caching and begin processing.</p><p>This is a good proceedure to: 1) get an overview of a website, read a blog, or read the whole of a Wikipedia page and its citations, 2) garner a list of additional URLs for further processing.</p><form action="" method="post" enctype="multipart/form-data"><div class="form-group"><label for="shortname"> Carrel Name<br><small class="text-muted unbolded"> A one-word name describing your carrel </small> </label> <input name='shortname' autofocus="autofocus" onkeyup="this.value = this.value.replace( /[^a-z|^A-Z|0-9|_|\-]/, '' )" class="form-control" id="shortname"></div><div class="form-group"><label for="url"> URL<br><small class="text-muted unbolded"> Example: https://orcid.org </small> </label> <input type="text" class="form-control" name="url" id="url"></div><button type="submit" id="queue" class="btn btn-primary mt-2">Create</button></form></div>
 {% endblock %}
