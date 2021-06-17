@@ -8,14 +8,17 @@ The Distant Reader - COVID-19 literature to study carrel
 
 {% block searchbody %}
   <h4>CORD-19<i class="mx-2 fad fa-angle-double-right"></i>Carrel</h4>
-<p>Use these pages to search the CORD data set and possibly queue the creation of study carrels.</p>
-<p>Enter a query.</p>
+<p>Use this page to search a collection of more than 500,000 journal articles on the topic of COVID-19. Once you have identified a subset of the articles you would like to read more closely, you can create a study carrel from the results.</p>
+<p>This page is populated with the content of a data set called <a href="https://www.semanticscholar.org/cord19">CORD-19</a>, a collection of scholarly scientific journal articles on the topic of COVID-19. The data set is updated on a regular basis, and we stive to keep the index up-to-date.</p>
+ <p>Enter a word, a few words, or a few words surrounded by quote marks to begin.</p>
 <form method='GET'>
   <div class="form-group">
-    <textarea name='query' autofocus="autofocus" cols='50' rows='10'>{{ query }}</textarea>
+	<input name="query" autofocus="autofocus" class="form-control" size="50" value='{{ query }}'>
+    <!-- <textarea name='query' autofocus="autofocus" cols='50' rows='10'>{{ query }}</textarea> -->
   </div>
   <button type="submit" id="submit" class="btn btn-primary mt-4">Search</button>
 </form>
 
-<p>For example, find <a href="{{ url_for('cord_search', query='( ( * NOT ( pdf_json:nan ) ) OR ( * NOT ( pmc_json:nan ) ) )') }}">all records containing full text</a>.</p>
+<!-- <p>For example, find <a href="{{ url_for('cord_search', query='( ( * NOT ( pdf_json:nan ) ) OR ( * NOT ( pmc_json:nan ) ) )') }}">all records containing full text</a>.</p> -->
+
 {% endblock %}
