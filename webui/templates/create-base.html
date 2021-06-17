@@ -8,21 +8,21 @@
   <div class="row">
 
     <div class="col-sm-12 mb-4">
-      <h1 id="page-header maroon mb-4">Create Carrel From ...</h1>
+      <h1 id="page-header maroon mb-4">Create Carrel From A...</h1>
     </div>
 
     <div class="col-12 col-sm-2">
 
       <ul class="list-group mb-4">
         <li id="type-file" class="border rounded-0 pointer text-decoration-none list-group-item list-group-item-action"><a class="text-decoration-none stretched-link" href="{{ url_for('file2carrel') }}">File</a></li>
-        <li id="type-zip" class="border-bottom rounded-0 pointer text-decoration-none list-group-item list-group-item-action"><a class="text-decoration-none stretched-link" href="{{ url_for('zip2carrel') }}">Zip</a></li>
+        <li id="type-zip" class="border-bottom rounded-0 pointer text-decoration-none list-group-item list-group-item-action"><a class="text-decoration-none stretched-link" href="{{ url_for('zip2carrel') }}">Zip file</a></li>
         <li id="type-url" class="border-bottom rounded-0 pointer text-decoration-none list-group-item list-group-item-action"><a class="text-decoration-none stretched-link" href="{{ url_for('url2carrel') }}">URL</a></li>
-        <li id="type-urls" class="border-bottom rounded-0 pointer text-decoration-none list-group-item list-group-item-action"><a class="text-decoration-none stretched-link" href="{{ url_for('urls2carrel') }}">URLs</a></li>
+        <li id="type-urls" class="border-bottom rounded-0 pointer text-decoration-none list-group-item list-group-item-action"><a class="text-decoration-none stretched-link" href="{{ url_for('urls2carrel') }}">List of URLs</a></li>
+        <li id="type-biorxiv" class="border-bottom rounded-0 pointer text-decoration-none list-group-item list-group-item-action"><a class="text-decoration-none stretched-link" href="{{ url_for('biorxiv2carrel') }}">bioRxiv file</a></li>
+        <li id="type-hathi" class="border-bottom rounded-0 pointer text-decoration-none list-group-item list-group-item-action"><a class="text-decoration-none stretched-link" href="{{ url_for('trust2carrel') }}">HathiTrust file</a></li>
       </ul>
       <ul class="list-group mb-4">
-        <li id="type-hathi" class="border-bottom rounded-0 pointer text-decoration-none list-group-item list-group-item-action"><a class="text-decoration-none stretched-link" href="{{ url_for('trust2carrel') }}">HathiTrust</a></li>
         <li id="type-gutenberg" class="border-bottom rounded-0 pointer text-decoration-none list-group-item list-group-item-action"><a class="text-decoration-none stretched-link" href="{{ url_for('gutenberg') }}">Gutenberg</a></li>
-        <li id="type-biorxiv" class="border-bottom rounded-0 pointer text-decoration-none list-group-item list-group-item-action"><a class="text-decoration-none stretched-link" href="{{ url_for('biorxiv2carrel') }}">Biorxiv</a></li>
         <li id="type-cord19" class="border-bottom rounded-0 pointer text-decoration-none list-group-item list-group-item-action"><a class="text-decoration-none stretched-link" href="{{ url_for('cord_search') }}">CORD-19</a></li>
       </ul>
 
