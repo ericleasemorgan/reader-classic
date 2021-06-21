@@ -10,7 +10,7 @@ The Distant Reader - Project Gutenberg to study carrel
     <h4>Gutenberg<i class="mx-2 fad fa-angle-double-right"></i>Carrel</h4>
     <p>Use this page to: 1) search a subset (30,000 items) of the venerable <a href="https://www.gutenberg.org">Project Gutenberg</a>, 2) refine the results, and 3) create a study carrel from the list of found items.</p>
     <p>The content of Project Gutenberg is strong on English literature, American literature, and Western philosophy, but just about any word or phrase will return something. This is a quick an easy way to create carrels whose content represents the complete works of a given author or an introduction a given subject.</p>
-    <p>Enter a word, a few words, or a few words surrounded by quote marks to begin. Stymied? <a href="https://distantreader.org/p/gutenberg?query=*%3A*">Search for everything</a> and use the resulting page to limit your query.</p>
+    <p>Enter a word, a few words, or a few words surrounded by quote marks to begin. Stymied? <a href="{{ url_for("gutenberg", query="*:*") }}">Search for everything</a> and use the resulting page to limit your query.</p>
       <form method="GET">
         <div class="form-group">
           <label for="shortname">Query</label>
