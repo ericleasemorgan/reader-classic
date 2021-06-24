@@ -12,6 +12,7 @@ from flask import (
     flash,
     abort,
     send_file,
+    send_from_directory,
 )
 from werkzeug.utils import secure_filename
 from flask_login import login_user, login_required, current_user, logout_user
@@ -47,6 +48,9 @@ def acknowledgments():
 def faq():
     return render_template("faq.html")
 
+@app.route("/robots.txt")
+def robots():
+    return send_from_directory(app.static_folder, request.path[1:])
 
 @app.errorhandler(404)
 def page_not_found(error):
