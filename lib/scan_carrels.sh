@@ -25,11 +25,35 @@ case $2 in
         ;;
 esac
 
+# Look at every carrel under the root path passed in.
+# build a SQL file which is then run agains the database at the end.
+carrel_count=0
+sql_commands=$( mktemp )
 
 # Using find in this way lets us stop searching nested directories once we
 # find a provenance file.
 # See https://www.gnu.org/software/findutils/manual/html_mono/find.html#Finding-the-Shallowest-Instance
-find "$START_DIRECTORY" -exec test -e {}/provenance.tsv \; -print -prune | while read CARREL; do
+#
+# Piping the find command into the while loop causes the while loop to run in a
+# subshell, which makes the value of carrel_count not available after the loop.
+# Instead put output into a file and redirect the file into the while loop.
+carrel_list=$( mktemp )
+find "$START_DIRECTORY" -exec test -e {}/provenance.tsv \; -print -prune > $carrel_list
+while read CARREL; do
+    # we have to batch these up in groups of 490 because sqlite only lets us
+    # have ~500 items in each "INSERT OR REPLACE" statement.
+    if [ $carrel_count -ge 490 ]; then
+        echo ";" >> $sql_commands
+        sqlite3 $DATABASE_FILE < $sql_commands
+        carrel_count=0
+    fi
+    if [ $carrel_count -eq 0 ]; then
+        cat > $sql_commands <<EOF
+INSERT OR REPLACE INTO carrels
+(owner, shortname, fullpath, status, created, items, words, readability, bytes, keywords)
+VALUES 
+EOF
+    fi
     CARREL=$(realpath $CARREL)
     SHORTNAME=$( basename $CARREL )
     DB="$CARREL/etc/reader.db"
@@ -57,10 +81,12 @@ find "$START_DIRECTORY" -exec test -e {}/provenance.tsv \; -print -prune | while
         SIZE=0
     fi
 
-    sqlite3 $DATABASE_FILE <<EOF
-INSERT OR REPLACE INTO carrels
-(owner, shortname, fullpath, status, created, items, words, readability, bytes, keywords)
-VALUES ("$OWNER",
+    if [ $carrel_count -ge 1 ]; then
+        echo "," >> $sql_commands
+    fi
+    let carrel_count+=1
+    cat >> $sql_commands <<EOF
+    ("$OWNER",
         "$SHORTNAME",
         "$CARREL",
         "$CARREL_STATUS",
@@ -69,7 +95,15 @@ VALUES ("$OWNER",
         $WORDS,
         $FLESCH,
         $SIZE,
-        "$KEYWORDS");
+        "$KEYWORDS")
 EOF
 
-done
+done < "$carrel_list"
+
+
+if [ $carrel_count -gt 0 ]; then
+    echo ";" >> $sql_commands
+    sqlite3 $DATABASE_FILE < $sql_commands
+fi
+rm $sql_commands
+rm $carrel_list
