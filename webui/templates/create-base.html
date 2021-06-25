@@ -13,17 +13,27 @@
 
     <div class="col-12 col-sm-2">
 
+      {# This block is so we can highlight the correct carrel button below.
+      Each page extending this template should redefine this to be the name of
+      the link to highlight. It is in html comments since we need to put this
+      block somewhere so we can refer to it in the carrel_button() macro #}
+      <!-- {% block create_type %}{% endblock %} -->
+
+      {% macro carrel_button(name, display, url) %}
+        <li id="{{ "selected-create" if self.create_type() == name }}" class="border rounded-0 pointer text-decoration-none list-group-item list-group-item-action"><a class="text-decoration-none stretched-link" href="{{ url }}">{{ display }}</a></li>
+      {% endmacro %}
+
       <ul class="list-group mb-4">
-        <li id="type-file" class="border rounded-0 pointer text-decoration-none list-group-item list-group-item-action"><a class="text-decoration-none stretched-link" href="{{ url_for('file2carrel') }}">File</a></li>
-        <li id="type-zip" class="border-bottom rounded-0 pointer text-decoration-none list-group-item list-group-item-action"><a class="text-decoration-none stretched-link" href="{{ url_for('zip2carrel') }}">Zip file</a></li>
-        <li id="type-url" class="border-bottom rounded-0 pointer text-decoration-none list-group-item list-group-item-action"><a class="text-decoration-none stretched-link" href="{{ url_for('url2carrel') }}">URL</a></li>
-        <li id="type-urls" class="border-bottom rounded-0 pointer text-decoration-none list-group-item list-group-item-action"><a class="text-decoration-none stretched-link" href="{{ url_for('urls2carrel') }}">List of URLs</a></li>
-        <li id="type-biorxiv" class="border-bottom rounded-0 pointer text-decoration-none list-group-item list-group-item-action"><a class="text-decoration-none stretched-link" href="{{ url_for('biorxiv2carrel') }}">bioRxiv file</a></li>
-        <li id="type-hathi" class="border-bottom rounded-0 pointer text-decoration-none list-group-item list-group-item-action"><a class="text-decoration-none stretched-link" href="{{ url_for('trust2carrel') }}">HathiTrust file</a></li>
+        {{ carrel_button("file", "File", url_for('file2carrel')) }}
+        {{ carrel_button("zip", "Zip file", url_for('zip2carrel')) }}
+        {{ carrel_button("url", "URL", url_for('url2carrel')) }}
+        {{ carrel_button("urls", "List of URLs", url_for('urls2carrel')) }}
+        {{ carrel_button("biorxiv", "bioRxiv file", url_for('biorxiv2carrel')) }}
+        {{ carrel_button("hathi", "HathiTrust file", url_for('trust2carrel')) }}
       </ul>
       <ul class="list-group mb-4">
-        <li id="type-gutenberg" class="border-bottom rounded-0 pointer text-decoration-none list-group-item list-group-item-action"><a class="text-decoration-none stretched-link" href="{{ url_for('gutenberg') }}">Gutenberg</a></li>
-        <li id="type-cord19" class="border-bottom rounded-0 pointer text-decoration-none list-group-item list-group-item-action"><a class="text-decoration-none stretched-link" href="{{ url_for('cord_search') }}">CORD-19</a></li>
+        {{ carrel_button("gutenberg", "Gutenberg", url_for('gutenberg')) }}
+        {{ carrel_button("cord19", "CORD-19", url_for('cord_search')) }}
       </ul>
 
     </div>
@@ -39,10 +49,5 @@
 <!-- container -->
 
 {% include "sponsors.html" %}
-
-<!-- Styles the active button for the page chosen -->
-<script type="text/javascript">
-  $("#type-{% block create_type %}{% endblock %}").css("background", "rgba(80, 101, 120, .6)").find("a").addClass("text-white");
-</script>
 
 {% endblock %}

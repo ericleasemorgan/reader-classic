@@ -13,7 +13,7 @@ carrel lists -#}
 
 {% block head_additional %}
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
-<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js" defer></script>
 {% endblock %}
 
 
@@ -107,7 +107,8 @@ carrel lists -#}
 </div>
 <!-- container -->
 
-<script type="text/javascript">
+{# make this a module so it executes after the defered jquery loads #}
+<script type="module">
   $(document).ready(function() {
     $('#directory').DataTable({
       "order": [

@@ -316,6 +316,16 @@ blockquote {
   background: transparent;
 }
 
+/* to highlight the current selected create carrel button */
+#selected-create {
+    background: rgba(80, 101, 120, .6);
+}
+
+#selected-create a {
+    color: white;
+}
+
+
 /* FAQ cards section ------------------------------------------------------ */
 #faq-accordions {
   margin-top: 3rem;
