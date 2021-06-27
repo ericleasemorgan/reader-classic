@@ -8,56 +8,102 @@ Getting Started
 
 <!-- main wrapper div -->
 <div class="container pb-5" id="wrapper">
-
-  {{ breadcrumb("Instructions") }}
-
-  <div class="row">
-
-    <div class="col-sm-12">
-
-      <!-- Page header -->
-      <h1 id="page-header">Instructions</h1>
-      <p>The Distant Reader offers several ways to read and analyze large collections of text -- corpora. Read our instructions below to learn how to view previously created corpora ("study carrels") or create own.</p>
-
-      <div class="row" id="getting-started-tabs">
-        <div class="col-12 col-md-8 offset-md-2">
-          <ul class="nav nav-pills nav-justified" role="tablist">
-            <li class="nav-item">
-              <a class="nav-link active" href="#overview" data-toggle="tab">Overview</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#view-carrel" data-toggle="tab">View Carrels</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#create-carrel" data-toggle="tab">Create Carrels</a>
-            </li>
-          </ul>
-        </div>
-        <div class="col-sm-12">
-          <div class="tab-content" id="getting-started-contents">
-
-            <!-- Overview ------------------------------------------->
-            <div class="mt-3 ml-2 tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="...">
-
-              <h3 class="maroon mt-5 mb-2">Overview</h3>
-
-			<!-- Definition of Distant Reading -->
-			<blockquote class="blockquote text-left bg-light px-5 pt-4 pb-4 mt-4 mb-5">
-			<i class="fad fa-quote-right fa-flip-horizontal fa-2x float-left mr-3" aria-hidden="true">
-			</i>
+	{{ breadcrumb("Instructions") }} 
+	<div class="row">
+		<div class="col-sm-12">
+<!-- Page header -->
+			<h1 id="page-header">
+				Instructions
+			</h1>
 			<p>
-			<strong>Distant reading</strong> is an approach in literary studies that applies computational methods to literary data, usually derived from large digital libraries, for the purposes of literary history and theory. While the term is collective, and is used to refer to a range of different computational methods of analysing literary data, similar approaches also include macro-analysis, cultural analytics, computational formalism, computational literary studies, quantitative literary studies, and algorithmic literary criticism.
+				The Distant Reader offers several ways to read and analyze large collections of text -- corpora. Read our instructions below to learn how to view previously created corpora ("study carrels") or create own.
 			</p>
-			<footer class="blockquote-footer p-0">
-			<cite class="font-style-normal" title="Wikipedia">
-			<a href="https://en.wikipedia.org/wiki/Distant_reading" target="_blank">
-			&ldquo;Distant Reading&rdquo; | Wikipedia
-			</a>
-			</cite>
-			</footer>
-			</blockquote>
-
-<p class="my-4"><strong>The Distant Reader</strong> is tool intended to supplement the traditional reading process. Given a set of one or more texts acquired through a variety of means, the Reader: 1) applies different forms of text mining and natural language processing against the texts, 2) saves the results as a set of structured data amenable to computing, 3) summarizes everything in a set of interactive HTML reports, 4) compresses everything into a .zip file, and 5) provides the means for you to view the results online or download the whole thing to your computer. This resulting .zip file is affectionately called a <strong>"study carrel"</strong>.</p>
+			<div class="row" id="getting-started-tabs">
+				<div class="col-12 col-md-8 offset-md-2">
+					<ul class="nav nav-pills nav-justified" role="tablist">
+						<li class="nav-item"> <a class="nav-link active" href="#overview" data-toggle="tab">Overview</a> </li>
+						<li class="nav-item"> <a class="nav-link" href="#view-carrel" data-toggle="tab">View Carrels</a> </li>
+						<li class="nav-item"> <a class="nav-link" href="#create-carrel" data-toggle="tab">Create Carrels</a> </li>
+					</ul>
+				</div>
+				<div class="col-sm-12">
+					<div class="tab-content" id="getting-started-contents">
+<!-- Overview ------------------------------------------->
+						<div class="mt-3 ml-2 tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="...">
+							<h3 class="maroon mt-5 mb-2">
+								Overview
+							</h3>
+<!-- Definition of Distant Reading -->
+							<blockquote class="blockquote text-left bg-light px-5 pt-4 pb-4 mt-4 mb-5">
+								<i class="fad fa-quote-right fa-flip-horizontal fa-2x float-left mr-3" aria-hidden="true"> </i> 
+								<p>
+									<strong>Distant reading</strong> is an approach in literary studies that applies computational methods to literary data, usually derived from large digital libraries, for the purposes of literary history and theory. While the term is collective, and is used to refer to a range of different computational methods of analysing literary data, similar approaches also include macro-analysis, cultural analytics, computational formalism, computational literary studies, quantitative literary studies, and algorithmic literary criticism. 
+								</p>
+								<footer class="blockquote-footer p-0">
+									<cite class="font-style-normal" title="Wikipedia"> <a href="https://en.wikipedia.org/wiki/Distant_reading" target="_blank"> &ldquo;Distant Reading&rdquo; | Wikipedia </a> </cite> 
+								</footer>
+							</blockquote>
+							<p class="my-4">
+								<strong>The Distant Reader</strong> is tool intended to supplement the traditional reading process. Given a set of one or more texts acquired through a variety of means, the Reader: 1) applies different forms of text mining and natural language processing against the texts, 2) saves the results as a set of structured data amenable to computing, 3) summarizes everything in a set of interactive HTML reports, 4) compresses everything into a .zip file, and 5) provides the means for you to view the results online or download the whole thing to your computer. This resulting .zip file is affectionately called a <strong>"study carrel"</strong>.
+							</p>
+							<div class="row mt-5">
+								<div class="col-12 col-md-6">
+									<div class="card mb-4">
+										<div class="card-header bg-light border-bottom-0">
+											<p class="text-center mt-3 mb-0">
+												<i class="fad fa-folder-upload fa-fw fa-4x maroon"></i>
+											</p>
+											<h4 class="mt-1 mb-2 text-center">
+												Input
+											</h4>
+										</div>
+										<div class="card-body bg-light">
+											<p class="lead text-center mt-n3">
+												<strong>The Distant Reader</strong> can create study carrels from a variety of different inputs, including:
+											</p>
+										</div>
+										<ul class="list-group list-group-flush">
+											<li class="list-group-item border-top"><i class="fad fa-check mr-4"></i>A URL</li>
+											<li class="list-group-item"><i class="fad fa-check mr-4"></i>A list of URLs</li>
+											<li class="list-group-item"><i class="fad fa-check mr-4"></i>A file</li>
+											<li class="list-group-item"><i class="fad fa-check mr-4"></i>A .zip file</li>
+											<li class="list-group-item"><i class="fad fa-check mr-4"></i>A HathiTrust collection file</li>
+											<li class="list-group-item"><i class="fad fa-check mr-4"></i>A bioRxiv metadata (.xml) file</li>
+											<li class="list-group-item"><i class="fad fa-check mr-4"></i>A subset of 33,000 items from Project Gutenberg</li>
+											<li class="list-group-item"><i class="fad fa-check mr-4"></i>The set of more than 500,000 scholarly journals articles on the topic of COVID-19</li>
+										</ul>
+									</div>
+								</div>
+								<div class="col-12 col-md-6">
+									<div class="card mb-4">
+										<div class="card-header bg-light border-bottom-0">
+											<p class="text-center mt-3 mb-0">
+												<i class="fad fa-folder-tree fa-fw fa-4x maroon"></i>
+											</p>
+											<h4 class="mt-1 mb-2 text-center">
+												Output
+											</h4>
+										</div>
+										<div class="card-body bg-light">
+											<p class="lead text-center mt-n3">
+												<strong>The Distant Reader</strong> outputs data sets known as study carrels, and they include:
+											</p>
+										</div>
+										<ul class="list-group list-group-flush">
+											<li class="list-group-item border-top"><i class="fad fa-check mr-4"></i>A cache of the originally submitted content</li>
+											<li class="list-group-item"><i class="fad fa-check mr-4"></i>A set of plain text files transformed from the cache</li>
+											<li class="list-group-item"><i class="fad fa-check mr-4"></i>A set of tab-delimited files enumerating the features of the submitted content, and those features include: ngrams, parts-of-speech, named entities, statistically significant keywords, authors, titles, dates, extents, and narrative summaries.</li>
+											<li class="list-group-item"><i class="fad fa-check mr-4"></i>All of the above features reduced into an SQLite database file</li>
+											<li class="list-group-item"><i class="fad fa-check mr-4"></i>A short rudimentary summary of the whole</li>
+											<li class="list-group-item"><i class="fad fa-check mr-4"></i>A set of interactive HTML reports elaborating on the summary</li>
+											<li class="list-group-item"><i class="fad fa-check mr-4"></i>A .zip file containing everything above</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<h3>
+								More about study carrels
+							</h3>
 
 <p class="my-4">Study carrels are computer platform- and network-independent data sets. This means any computer will be able to make use of the files in a study carrel, and study carrels do not require an Internet connection in order to be functional. Study carrels are designed to be useful for decades to come, and you could be located under a mountain, cut off from the Internet, and they ought work just fine.</p>
 
@@ -66,60 +112,9 @@ Getting Started
 <p class="my-4">Anybody may freely browse and download carrels from the publicly available collection -- the library. As of this writing, the collection includes just more than 2,000 items. Alternatively, we hope you will create your own study carrels. To do so you will first need to authenticate. (We use a system called ORCID for this purpose.) You will then either: 1) submit to the Reader some input in the form of a URL, a list of URLs, a file, a zip file containing many files, a HathiTrust collection file, or a bioRxiv metadata file, or 2) search our indexes and submit the results to the Reader. Once you have submitted a request the Reader will do its good work, keep you informed along the way, and when it is done offer you the opportunity to view the results online or download them to your computer.</p>
 
 <p class="my-4">Depending on the type, number, and size of the submitted files, the study carrel creation process can take as short as a few minutes to as long as many hours. Based on our experience, a study carrel comprised of a few dozen journal articles will process in about fifteen minutes, and a carrel made of up of a few dozen novels will take about an hour.</p>
+						</div>
+						
 
-              <div class="row mt-5">
-                <div class="col-12 col-md-6">
-                  <div class="card mb-4">
-                    <div class="card-header bg-light border-bottom-0">
-                      <p class="text-center mt-3 mb-0"><i class="fad fa-folder-upload fa-fw fa-4x maroon"></i></p>
-                      <h4 class="mt-1 mb-2 text-center">Input</h4>
-                    </div>
-                    <div class="card-body bg-light">
-                      <p class="lead text-center mt-n3"><strong>The Distant Reader</strong> can create a study carrel from a number of different input types, including:</p>
-
-                    </div>
-                    <ul class="list-group list-group-flush">
-                      <li class="list-group-item border-top"><i class="fad fa-check mr-4"></i>One or more text (.txt) files</li>
-                      <li class="list-group-item"><i class="fad fa-check mr-4"></i>One or more comma-delimited (.csv) or tab-delimited files</li>
-                      <li class="list-group-item"><i class="fad fa-check mr-4"></i>One or more URLs</li>
-                      <li class="list-group-item"><i class="fad fa-check mr-4"></i>A .zip file, with an optional metadata file</li>
-                      <li class="list-group-item"><i class="fad fa-check mr-4"></i>A metadata file (.xml) from bioRxiv</li>
-                      <li class="list-group-item"><i class="fad fa-check mr-4"></i>A HathiTrust collection</li>
-                      <li class="list-group-item"><i class="fad fa-check mr-4"></i>A locally curated search subset of Project Gutenberg</li>
-                      <li class="list-group-item"><i class="fad fa-check mr-4"></i>A locally curated search subset of scholarly journals articles from the CORD-19 collection</li>
-                    </ul>
-                  </div>
-                </div>
-                <div class="col-12 col-md-6">
-                  <div class="card mb-4">
-                    <div class="card-header bg-light border-bottom-0">
-                      <p class="text-center mt-3 mb-0"><i class="fad fa-folder-tree fa-fw fa-4x maroon"></i></p>
-                      <h4 class="mt-1 mb-2 text-center">Output</h4>
-                    </div>
-                    <div class="card-body bg-light">
-                      <p class="lead text-center mt-n3"><strong>The Distant Reader</strong> outputs a large number of different files, such as:</p>
-
-                    </div>
-                    <ul class="list-group list-group-flush">
-                      <li class="list-group-item border-top"><i class="fad fa-check mr-4"></i>An SQLite database file</li>
-                      <li class="list-group-item"><i class="fad fa-check mr-4"></i>A cache of the original documents</li>
-                      <li class="list-group-item"><i class="fad fa-check mr-4"></i>Narrative reports in both simple text and formatted HTML</li>
-                      <li class="list-group-item"><i class="fad fa-check mr-4"></i>A set of plain text files transformed from the items in the cache</li>
-                      <li class="list-group-item"><i class="fad fa-check mr-4"></i>Charts &amp; graphs (and tab-delimited files) explicating:
-                        <ul class="mt-3">
-                          <li>Bibliographics</li>
-                          <li>Parts-of-speech</li>
-                          <li>Named entities and keywords</li>
-                          <li>URLs</li>
-                        </ul>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-
-              </div>
-
-            </div>
             <!-- overview closes -->
 
             <!-- View Carrel ------------------------------------------->
