@@ -30,9 +30,8 @@ STATUS=$2
 PATRON=$( cat "$CARRELS/$CARREL/$PROVENANCE" | cut -d$'\t' -f5 )
 ADDRESS=$( echo "SELECT email FROM patrons WHERE username IS '$PATRON' AND email_verify_date IS NOT '';" | sqlite3 $PATRONS )
 
-if [[ -z $ADDRESS ]]; then
-    exit
-fi
+# make sure we have an address
+if [[ -z $ADDRESS ]]; then exit; fi
 
 # branch accordingly; started
 if [[ $STATUS == 'started' ]]; then
