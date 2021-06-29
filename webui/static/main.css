@@ -56,6 +56,16 @@ h4 {
 }
 
 #jumbotron {
+  box-sizing: border-box;
+  background-color: var(--nd-blue);
+  padding-bottom: 3rem;
+  padding-top: .5rem;
+  border-radius: 0;
+  padding: 1rem 0 0 0;
+}
+
+/* The old style of jumbotron ---------------------------------------- */
+/* #jumbotron {
   background-image: url("banner-1300.jpg");
   box-sizing: border-box;
   font-style: normal;
@@ -63,7 +73,21 @@ h4 {
   background-repeat: no-repeat;
   background-size: cover;
   min-height: 350px;
+  background-color: var(--nd-blue);
 }
+
+/* Media query to set the banner on larger screens to be centered and not use cover to stretch the image */
+/* @media only screen and (max-width: 768px) {
+  #jumbotron {
+    background-image: url("banner-1300.jpg");
+    box-sizing: border-box;
+    font-style: normal;
+    background-size: auto;
+    background-position: top center !important;
+    background-repeat: no-repeat;
+    min-height: 350px;
+  }
+} */
 
 #page-header {
   margin-top: 2rem;
