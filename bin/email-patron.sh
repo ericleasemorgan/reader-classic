@@ -28,7 +28,11 @@ STATUS=$2
 
 # given the carrel and the provenance, look up the patron's username and address
 PATRON=$( cat "$CARRELS/$CARREL/$PROVENANCE" | cut -d$'\t' -f5 )
-ADDRESS=$( echo "SELECT email FROM patrons WHERE username IS '$PATRON';" | sqlite3 $PATRONS )
+ADDRESS=$( echo "SELECT email FROM patrons WHERE username IS '$PATRON' AND email_verify_date IS NOT '';" | sqlite3 $PATRONS )
+
+if [[ -z $ADDRESS ]]; then
+    exit
+fi
 
 # branch accordingly; started
 if [[ $STATUS == 'started' ]]; then
