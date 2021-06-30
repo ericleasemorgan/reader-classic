@@ -12,6 +12,7 @@ requests = "*"
 is-safe-url = "*"
 yoyo-migrations = "*"
 authlib = "*"
+dataclasses = "*"
 
 [requires]
 python_version = "3.6"
