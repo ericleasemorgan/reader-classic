@@ -57,7 +57,7 @@ h4 {
 
 #jumbotron {
   box-sizing: border-box;
-  background-color: var(--nd-blue);
+  background-color: white;
   padding-bottom: 3rem;
   padding-top: .5rem;
   border-radius: 0;
