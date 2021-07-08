@@ -259,7 +259,10 @@ def handle_carrel_filelist(carrel, p):
     # an underscore and we want to keep the full path
     pp = [secure_filename(x) for x in p.split('/')]
     carrel_abs_path = os.path.join(carrel.fullpath, *pp)
-    mode = os.stat(carrel_abs_path).st_mode
+    try:
+        mode = os.stat(carrel_abs_path).st_mode
+    except FileNotFoundError:
+        mode = 0
     if stat.S_ISREG(mode):
         # this is a content file, so proxy it out
         #
