@@ -3,6 +3,7 @@ from operator import itemgetter, attrgetter
 import secrets
 import os.path
 import stat
+import re
 from flask import (
     render_template,
     session,
@@ -109,6 +110,9 @@ def populate_user_from_form():
         return None
     if User.FromUsername(username) is not None:
         flash("Please choose a username not already used")
+        return None
+    if not re.fullmatch(r'[A-Za-z0-9_-]+', username):
+        flash("Username can only contain letters, numerals, underscore, and hyphen")
         return None
     email = request.form.get("email", "")
     if email == "":
