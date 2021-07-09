@@ -4,7 +4,7 @@
 
 {% block body %}
 
-<div class="container">
+<div class="container pb-5">
 
   {{ breadcrumb("New Account") }}
 
@@ -14,20 +14,21 @@
 
       <h1 id="page-header maroon mb-4">Create New Account</h1>
 
-      <p>The ORCID ID you signed in with is not associated with a Distant Reader account. Please provide the information below to use your ORCID to create a Distant Reader account.</p>
+      <p>The ORCID ID you signed in with is not associated with a Distant Reader account. Please provide the information below to create a Distant Reader account.</p>
 
       <form method="post">
         <div class="form-group">
           <label for="name">Name</label>
           <input type="text" name='name' class="form-control" id="name" value="{{ session['name'] }}">
         </div>
+
         <div class="form-group">
-          <label for="email">Email</label>
+          <label for="email">Email<br><small class="text-muted unbolded">Required. This is used to send notifications.</small></label>
           <input type="email" name='email' class="form-control" id="email">
         </div>
 
-      <div class="form-group">
-          <label for="username">Username</label>
+        <div class="form-group">
+          <label for="username">Username<br><small class="text-muted unbolded">Required. Only letters, numerals, underscores, and hyphens &mdash; no spaces or other punctuation.</small></label>
           <input type="text" name='username' class="form-control" id="username">
         </div>
 
@@ -43,7 +44,5 @@
     </div>
   </div>
 </div>
-
-{% include "sponsors.html" %}
 
 {% endblock %}
