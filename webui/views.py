@@ -264,8 +264,10 @@ def handle_carrel_filelist(carrel, p):
     pp = [secure_filename(x) for x in p.split('/')]
     carrel_abs_path = os.path.join(carrel.fullpath, *pp)
     try:
-        mode = os.stat(carrel_abs_path).st_mode
+        info = os.stat(carrel_abs_path)
+        mode = info.st_mode
     except FileNotFoundError:
+        info = None
         mode = 0
     if stat.S_ISREG(mode):
         # this is a content file, so proxy it out
@@ -273,6 +275,8 @@ def handle_carrel_filelist(carrel, p):
         # some of the files in a carrel are HTML, and are intended to be
         # displayed in the browser. This means we don't indicate they are
         # attachments.
+        if info.st_size == 0:
+            return ('', 204)
         return send_file(carrel_abs_path, as_attachment=False)
     elif stat.S_ISDIR(mode):
         # this path to a directory. give a listing.
