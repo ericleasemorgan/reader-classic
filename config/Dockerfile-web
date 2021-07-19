@@ -5,22 +5,19 @@ FROM centos:7
 
 # set up packages
 COPY config/runit.repo /etc/yum.repos.d/imeyer_runit.repo
-RUN yum install -y httpd perl perl-CGI rsync runit python3 which
+RUN yum install -y httpd rsync runit python3 which
 RUN pip3 install pipenv
 
 # for pipenv & flask
 ENV LANG=en_US.utf8
 
-# user for running gunicorn with
+# user for running gunicorn
 RUN useradd -r -u 800 -U app
 
 RUN mkdir -p /var/log/httpd \
         /data-disk/bin \
         /data-disk/etc \
-        /data-disk/www/html/library \
-        /data-disk/www/html/reader \
-        /data-disk/www/html/cord \
-        /data-disk/www/html/localhost \
+        /data-disk/www/html \
         /data-disk/reader-compute/reader-classic/queue/todo/ \
         /data-disk/reader-compute/reader-classic/queue/backlog/ \
         /opt/reader \
@@ -28,16 +25,10 @@ RUN mkdir -p /var/log/httpd \
         /opt/reader/log \
         /opt/reader/pip_cache \
     && chmod -R a+rwx /var/log/httpd /opt/reader/ /opt/reader/log /opt/reader/pip_cache \
-    && chmod -R a+rwx /data-disk/reader-compute/reader-classic/queue/todo/ /data-disk/reader-compute/reader-classic/queue/backlog/ \
-    && ln -s /usr/bin/perl /data-disk/bin/perl
-
-# dummy user "test", password "test"
-COPY config/dummy-htpasswd /data-disk/etc/reader-htpasswd
+    && chmod -R a+rwx /data-disk/reader-compute/reader-classic/queue/todo/ /data-disk/reader-compute/reader-classic/queue/backlog/
 
 # copy apache and cgi stuff
 COPY config /etc/httpd/conf/
-COPY www/library /data-disk/www/html/library
-COPY www/reader /data-disk/www/html/reader
 COPY . /data-disk/reader-classic
 RUN chmod a+w /data-disk/reader-classic/webui
 RUN chmod a+w /data-disk/reader-classic/webui/test-db.sqlite3
@@ -65,4 +56,5 @@ EXPOSE 80 8080
 # run as root so apache can set itself up.
 USER root
 CMD /sbin/runsvdir /service
+
 # vim:ft=Dockerfile
