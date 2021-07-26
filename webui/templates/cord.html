@@ -9,7 +9,7 @@ The Distant Reader - COVID-19 literature to study carrel
 {% block searchbody %}
   <h4>CORD-19<i class="mx-2 fad fa-angle-double-right"></i>Carrel</h4>
 <p>Use this page to search a collection of more than 750,000 journal articles on the topic of COVID-19. Once you have identified a subset of the articles you would like to read more closely, you can create a study carrel from the results. The index supports an <a href="https://sites.nd.edu/emorgan/2021/07/searching-cord-19-at-the-distant-reader/">expressive query language</a>, described in a blog posting. The index is populated with the content of a data set called <a href="https://www.semanticscholar.org/cord19">CORD-19</a>, a collection of scholarly scientific journal articles. The data set is updated on a regular basis, and we strive to keep the index up-to-date.</p>
-<p>Enter a word, a few words, or a few words surrounded by quote marks to begin. Stymied? <a href="{{ url_for("cord_search", query="*:*") }}">Search for everything</a>, and use the resulting page to limit the query.</p>
+<p>Stymied? Enter a word, a few words, or a few words surrounded by quote marks to begin.</p>
 <form method='GET'>
   <div class="form-group">
 	<input name="query" autofocus="autofocus" class="form-control" size="50" value='{{ query }}'>
