@@ -235,28 +235,6 @@ label {
   font-weight: bolder;
 }
 
-/* Back to top button  --------------------------------------- */
-#back-to-top {
-  display: none;
-  position: fixed;
-  bottom: 50%;
-  right: 0;
-  z-index: 99;
-  border: none;
-  outline: none;
-  background-color: var(--bright-blue);
-  color: var(--white) !important;
-  padding: 8px 4px 10px 4px;
-  border-radius: 2px 0 0 2px;
-  font-size: 1rem;
-  cursor: pointer !important;
-}
-
-#back-to-top:hover {
-  background-color: var(--bright-blue);
-  color: var(--white);
-}
-
 /* Footer  ----------------------------------------------------------*/
 #footer {
   margin-top: 6rem;
