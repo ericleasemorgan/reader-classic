@@ -358,8 +358,16 @@ def public_carrel(carrel, p):
 # start jobs. It also creates a "processing" entry in the carrel database.
 def add_job_to_queue(job_type, shortname, username, extra):
     now = datetime.now().strftime("%Y-%m-%d\t%H:%M")
+
     # Beware, since shortname is user supplied, different users many use the same name
+    s = shortname
     shortname = secure_filename(shortname)
+    if not re.fullmatch(r'[A-Za-z0-9_-]+', shortname):
+        # the name we were given does not work. make up a new name
+        # This makes a random 8 character string from lowercase letters and numerals.
+        shortname = ''.join(random.choices(string.ascii_lowercase + string.digits, k=8))
+        print(f"replaced shortname '{s}' with '{username}/{shortname}'")
+
     # there are many queues. figure out which one to use
     if job_type == "cord":
         queue_path = app.config["TODO_PATH_CORD"]
